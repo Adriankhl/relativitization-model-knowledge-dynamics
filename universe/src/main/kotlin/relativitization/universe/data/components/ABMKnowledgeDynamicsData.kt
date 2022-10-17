@@ -26,7 +26,7 @@ data class MutableABMKnowledgeDynamicsData(
     val collaboratorSet: MutableSet<Int> = mutableSetOf(),
     val knowledgeGeneSet: MutableList<MutableKnowledgeGene> = mutableListOf(),
     var totalReward: Int = 0,
-    var newReward: Int = 0,
+    var latestReward: Int = 0,
 ) : MutablePlayerDataComponent()
 
 @Serializable
