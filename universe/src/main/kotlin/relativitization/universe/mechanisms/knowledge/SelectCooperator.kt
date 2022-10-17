@@ -85,9 +85,15 @@ object SelectCooperator : Mechanism() {
         random: Random,
     ): Set<Int> {
         val allIndirectSet: Set<Int> = mutablePlayerData.playerInternalData
-            .abmKnowledgeDynamicsData().allCooperator().fold(setOf()) { acc, i ->
-                acc + universeData3DAtPlayer.get(i).playerInternalData.abmKnowledgeDynamicsData()
-                    .allCooperator()
+            .abmKnowledgeDynamicsData().allConfirmedCooperator(
+                thisPlayerId = universeData3DAtPlayer.id,
+                universeData3DAtPlayer = universeData3DAtPlayer
+            ).fold(setOf()) { acc, cooperatorId ->
+                acc + universeData3DAtPlayer.get(cooperatorId).playerInternalData.abmKnowledgeDynamicsData()
+                    .allConfirmedCooperator(
+                        thisPlayerId = cooperatorId,
+                        universeData3DAtPlayer = universeData3DAtPlayer
+                    )
             }
 
         return if (allIndirectSet.size >= numPreSelectedFirm) {
