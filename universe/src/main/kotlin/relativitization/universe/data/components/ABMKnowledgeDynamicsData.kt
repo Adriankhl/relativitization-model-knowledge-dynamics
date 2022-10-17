@@ -62,8 +62,8 @@ data class MutableABMKnowledgeDynamicsData(
     val knowledgeGeneSet: MutableList<MutableKnowledgeGene> = mutableListOf(),
     var totalReward: Int = 0,
     var latestReward: Int = 0,
-    val cooperationOutList: MutableList<Cooperation> = mutableListOf(),
-    val cooperationInList: MutableList<Cooperation> = mutableListOf(),
+    val cooperationOutList: MutableList<MutableCooperation> = mutableListOf(),
+    val cooperationInList: MutableList<MutableCooperation> = mutableListOf(),
 ) : MutablePlayerDataComponent() {
     fun allCooperator(): Set<Int> = cooperationOutList.map {
         it.otherPlayerId
