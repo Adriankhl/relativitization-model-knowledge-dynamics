@@ -2,6 +2,8 @@ package relativitization.universe.data.components
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import relativitization.universe.data.MutablePlayerInternalData
+import relativitization.universe.data.PlayerInternalData
 
 /**
  * Represent an agent in a SKIN model
@@ -28,6 +30,12 @@ data class MutableABMKnowledgeDynamicsData(
     var totalReward: Int = 0,
     var latestReward: Int = 0,
 ) : MutablePlayerDataComponent()
+
+fun PlayerInternalData.abmKnowledgeDynamicsData(): ABMKnowledgeDynamicsData =
+    playerDataComponentMap.get()
+
+fun MutablePlayerInternalData.abmKnowledgeDynamicsData(): MutableABMKnowledgeDynamicsData =
+    playerDataComponentMap.get()
 
 @Serializable
 data class KnowledgeGene(
