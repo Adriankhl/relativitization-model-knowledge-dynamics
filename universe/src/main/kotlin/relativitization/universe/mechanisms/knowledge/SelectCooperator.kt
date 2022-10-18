@@ -4,6 +4,7 @@ import relativitization.universe.data.MutablePlayerData
 import relativitization.universe.data.UniverseData3DAtPlayer
 import relativitization.universe.data.UniverseSettings
 import relativitization.universe.data.commands.Command
+import relativitization.universe.data.components.PreSelectionStrategy
 import relativitization.universe.data.components.abmKnowledgeDynamicsData
 import relativitization.universe.data.global.UniverseGlobalData
 import relativitization.universe.mechanisms.Mechanism
@@ -28,22 +29,11 @@ object SelectCooperator : Mechanism() {
             5
         }
 
-        val preSelectionStrategy: String = universeSettings.otherStringMap.getOrElse(
-            "preSelectionStrategy"
-        ) {
-            logger.error("Missing preSelectionStrategy")
-            ""
-        }
-
-        val selectionStrategy: String = universeSettings.otherStringMap.getOrElse(
-            "selectionStrategy"
-        ) {
-            logger.error("Missing selectionStrategy")
-            ""
-        }
+        val preSelectionStrategy: PreSelectionStrategy = mutablePlayerData.playerInternalData
+            .abmKnowledgeDynamicsData().preSelectionStrategy
 
         val preSelectedSet: Set<Int> = when (preSelectionStrategy) {
-            "random" -> {
+            PreSelectionStrategy.RANDOM -> {
                 preSelectionRandom(
                     universeData3DAtPlayer = universeData3DAtPlayer,
                     numPreSelectedFirm = numPreSelectedFirm,
@@ -51,18 +41,13 @@ object SelectCooperator : Mechanism() {
                 )
             }
 
-            "transitive" -> {
+            PreSelectionStrategy.TRANSITIVE -> {
                 preSelectionTransitive(
                     mutablePlayerData = mutablePlayerData,
                     universeData3DAtPlayer = universeData3DAtPlayer,
                     numPreSelectedFirm = numPreSelectedFirm,
                     random = random,
                 )
-            }
-
-            else -> {
-                logger.error("Wrong preSelectionStrategy")
-                setOf()
             }
         }
 
@@ -85,15 +70,9 @@ object SelectCooperator : Mechanism() {
         random: Random,
     ): Set<Int> {
         val allIndirectSet: Set<Int> = mutablePlayerData.playerInternalData
-            .abmKnowledgeDynamicsData().allConfirmedCooperator(
-                thisPlayerId = universeData3DAtPlayer.id,
-                universeData3DAtPlayer = universeData3DAtPlayer
-            ).fold(setOf()) { acc, cooperatorId ->
-                acc + universeData3DAtPlayer.get(cooperatorId).playerInternalData.abmKnowledgeDynamicsData()
-                    .allConfirmedCooperator(
-                        thisPlayerId = cooperatorId,
-                        universeData3DAtPlayer = universeData3DAtPlayer
-                    )
+            .abmKnowledgeDynamicsData().allCooperator().fold(setOf()) { acc, cooperatorId ->
+                acc + universeData3DAtPlayer.get(cooperatorId).playerInternalData
+                    .abmKnowledgeDynamicsData().allCooperator()
             }
 
         return if (allIndirectSet.size >= numPreSelectedFirm) {
