@@ -14,6 +14,8 @@ import relativitization.universe.data.PlayerInternalData
  * @property cooperationOutMap cooperation between the key and this agent, proposed by this agent
  * @property cooperationOutWaitMap to-be-confirmed cooperation between the key and this agent,
  * proposed by this agent
+ * @property cooperationOutEndMap ending cooperation between the key and this agent,
+ * proposed by this agent
  * @property cooperationInMap cooperation between the key and this agent, proposed by other agent
  */
 @Serializable
@@ -24,6 +26,7 @@ data class ABMKnowledgeDynamicsData(
     val latestReward: Int = 0,
     val cooperationOutMap: Map<Int, Cooperation> = mapOf(),
     val cooperationOutWaitMap: Map<Int, Cooperation> = mapOf(),
+    val cooperationOutEndMap: Map<Int, Cooperation> = mapOf(),
     val cooperationInMap: Map<Int, Cooperation> = mapOf(),
     val preSelectionStrategy: PreSelectionStrategy = PreSelectionStrategy.RANDOM,
     val selectionStrategy: SelectionStrategy = SelectionStrategy.RANDOM,
@@ -41,6 +44,7 @@ data class MutableABMKnowledgeDynamicsData(
     var latestReward: Int = 0,
     val cooperationOutMap: MutableMap<Int, MutableCooperation> = mutableMapOf(),
     val cooperationOutWaitMap: MutableMap<Int, MutableCooperation> = mutableMapOf(),
+    val cooperationOutEndMap: MutableMap<Int, MutableCooperation> = mutableMapOf(),
     val cooperationInMap: MutableMap<Int, MutableCooperation> = mutableMapOf(),
     var preSelectionStrategy: PreSelectionStrategy = PreSelectionStrategy.RANDOM,
     var selectionStrategy: SelectionStrategy = SelectionStrategy.RANDOM,

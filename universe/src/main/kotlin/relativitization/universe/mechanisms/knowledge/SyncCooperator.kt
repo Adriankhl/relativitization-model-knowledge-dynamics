@@ -50,16 +50,20 @@ object SyncCooperator : Mechanism() {
         mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
             .cooperationOutMap + confirmedCooperator
 
-        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().cooperationOutMap
-            .values.removeAll {
+        val endCooperator: Map<Int, MutableCooperation> = mutablePlayerData.playerInternalData
+            .abmKnowledgeDynamicsData().cooperationOutMap.filterValues {
                 it.time >= cooperationLength
-            }
-
-        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().cooperationOutMap
-            .keys.removeAll {
+            } + mutablePlayerData.playerInternalData
+            .abmKnowledgeDynamicsData().cooperationOutMap.filterKeys {
                 universeData3DAtPlayer.get(it).playerInternalData.abmKnowledgeDynamicsData()
                     .cooperationInMap.containsKey(mutablePlayerData.playerId)
             }
+
+         mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+            .cooperationOutMap - endCooperator
+
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+            .cooperationOutEndMap + endCooperator
 
         mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().cooperationInMap
             .values.removeAll {
