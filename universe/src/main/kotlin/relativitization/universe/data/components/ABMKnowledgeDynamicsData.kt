@@ -8,28 +8,29 @@ import relativitization.universe.data.PlayerInternalData
 /**
  * Represent an agent in a SKIN model
  *
+ * @property preSelectionStrategy strategy to select potential cooperation candidates
+ * @property selectionStrategy strategy to select cooperator from the potential candidates
  * @property knowledgeGeneSet the set of knowledge genes of this agent
  * @property totalReward the reward stored by the agent
  * @property latestReward the reward received by ths agent in the latest turn
  * @property cooperationOutMap cooperation between the key and this agent, proposed by this agent
  * @property cooperationOutWaitMap to-be-confirmed cooperation between the key and this agent,
  * proposed by this agent
- * @property cooperationOutEndMap ending cooperation between the key and this agent,
- * proposed by this agent
  * @property cooperationInMap cooperation between the key and this agent, proposed by other agent
+ * @property cooperationLearnMap learn from this cooperator
  */
 @Serializable
 @SerialName("ABMKnowledgeDynamicsData")
 data class ABMKnowledgeDynamicsData(
+    val preSelectionStrategy: PreSelectionStrategy = PreSelectionStrategy.RANDOM,
+    val selectionStrategy: SelectionStrategy = SelectionStrategy.RANDOM,
     val knowledgeGeneSet: List<KnowledgeGene> = listOf(),
     val totalReward: Int = 0,
     val latestReward: Int = 0,
     val cooperationOutMap: Map<Int, Cooperation> = mapOf(),
     val cooperationOutWaitMap: Map<Int, Cooperation> = mapOf(),
-    val cooperationOutEndMap: Map<Int, Cooperation> = mapOf(),
     val cooperationInMap: Map<Int, Cooperation> = mapOf(),
-    val preSelectionStrategy: PreSelectionStrategy = PreSelectionStrategy.RANDOM,
-    val selectionStrategy: SelectionStrategy = SelectionStrategy.RANDOM,
+    val cooperationLearnMap: Map<Int, Cooperation> = mapOf(),
 ) : PlayerDataComponent() {
     fun allCooperator(): Set<Int> = cooperationOutMap.keys + cooperationInMap.keys
 
@@ -39,15 +40,15 @@ data class ABMKnowledgeDynamicsData(
 @Serializable
 @SerialName("ABMKnowledgeDynamicsData")
 data class MutableABMKnowledgeDynamicsData(
+    var preSelectionStrategy: PreSelectionStrategy = PreSelectionStrategy.RANDOM,
+    var selectionStrategy: SelectionStrategy = SelectionStrategy.RANDOM,
     val knowledgeGeneSet: MutableList<MutableKnowledgeGene> = mutableListOf(),
     var totalReward: Int = 0,
     var latestReward: Int = 0,
     val cooperationOutMap: MutableMap<Int, MutableCooperation> = mutableMapOf(),
     val cooperationOutWaitMap: MutableMap<Int, MutableCooperation> = mutableMapOf(),
-    val cooperationOutEndMap: MutableMap<Int, MutableCooperation> = mutableMapOf(),
     val cooperationInMap: MutableMap<Int, MutableCooperation> = mutableMapOf(),
-    var preSelectionStrategy: PreSelectionStrategy = PreSelectionStrategy.RANDOM,
-    var selectionStrategy: SelectionStrategy = SelectionStrategy.RANDOM,
+    val cooperationLearnMap: MutableMap<Int, MutableCooperation> = mutableMapOf(),
 ) : MutablePlayerDataComponent() {
     fun allCooperator(): Set<Int> = cooperationOutMap.keys + cooperationInMap.keys
 

@@ -63,7 +63,7 @@ object SyncCooperator : Mechanism() {
             .cooperationOutMap - endCooperator
 
         mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-            .cooperationOutEndMap + endCooperator
+            .cooperationLearnMap + endCooperator
 
         mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().cooperationInMap
             .values.removeAll {
