@@ -29,6 +29,8 @@ data class ABMKnowledgeDynamicsData(
     val selectionStrategy: SelectionStrategy = SelectionStrategy.RANDOM,
 ) : PlayerDataComponent() {
     fun allCooperator(): Set<Int> = cooperationOutMap.keys + cooperationInMap.keys
+
+    fun outCooperator(): Set<Int> = cooperationOutMap.keys + cooperationOutWaitMap.keys
 }
 
 @Serializable
@@ -44,6 +46,8 @@ data class MutableABMKnowledgeDynamicsData(
     var selectionStrategy: SelectionStrategy = SelectionStrategy.RANDOM,
 ) : MutablePlayerDataComponent() {
     fun allCooperator(): Set<Int> = cooperationOutMap.keys + cooperationInMap.keys
+
+    fun outCooperator(): Set<Int> = cooperationOutMap.keys + cooperationOutWaitMap.keys
 }
 
 fun PlayerInternalData.abmKnowledgeDynamicsData(): ABMKnowledgeDynamicsData =
