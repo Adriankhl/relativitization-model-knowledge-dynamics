@@ -79,9 +79,9 @@ data class KnowledgeGene(
 
 @Serializable
 data class MutableKnowledgeGene(
-    val capability: Int,
-    val ability: Int,
-    val expertise: Int,
+    var capability: Int,
+    var ability: Int,
+    var expertise: Int,
 )
 
 @Serializable
