@@ -26,7 +26,6 @@ object SelectCooperator : Mechanism() {
         universeGlobalData: UniverseGlobalData,
         random: Random
     ): List<Command> {
-
         val numPreSelectedFirm: Int = universeSettings.otherIntMap.getOrElse(
             "numPreSelectedFirm"
         ) {
@@ -34,64 +33,79 @@ object SelectCooperator : Mechanism() {
             5
         }
 
-        val preSelectionStrategy: PreSelectionStrategy = mutablePlayerData.playerInternalData
-            .abmKnowledgeDynamicsData().preSelectionStrategy
-
-        val preSelectedSet: Set<Int> = when (preSelectionStrategy) {
-            PreSelectionStrategy.RANDOM -> {
-                preSelectionRandom(
-                    mutablePlayerData = mutablePlayerData,
-                    universeData3DAtPlayer = universeData3DAtPlayer,
-                    numPreSelectedFirm = numPreSelectedFirm,
-                    random = random,
-                )
-            }
-
-            PreSelectionStrategy.TRANSITIVE -> {
-                preSelectionTransitive(
-                    mutablePlayerData = mutablePlayerData,
-                    universeData3DAtPlayer = universeData3DAtPlayer,
-                    numPreSelectedFirm = numPreSelectedFirm,
-                    random = random,
-                )
-            }
+        val incrementalThreshold: Int = universeSettings.otherIntMap.getOrElse(
+            "incrementalThreshold"
+        ) {
+            logger.error("Missing incrementalThreshold")
+            8
         }
 
-        return if (preSelectedSet.isEmpty()) {
+        val latestReward: Int = mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+            .latestReward
+
+        return if (latestReward >= incrementalThreshold) {
             listOf()
         } else {
+            val preSelectionStrategy: PreSelectionStrategy = mutablePlayerData.playerInternalData
+                .abmKnowledgeDynamicsData().preSelectionStrategy
 
-            val selectionStrategy: SelectionStrategy = mutablePlayerData.playerInternalData
-                .abmKnowledgeDynamicsData().selectionStrategy
-
-            val selectedCooperator: Int = when (selectionStrategy) {
-                SelectionStrategy.RANDOM -> selectionRandom(
-                    preSelectedSet = preSelectedSet,
-                    random = random
-                )
-                SelectionStrategy.PREFERENTIAL -> selectionPreferential(
-                    preSelectedSet = preSelectedSet,
-                    universeData3DAtPlayer = universeData3DAtPlayer,
-                    random = random,
-                )
-                SelectionStrategy.HOMOPHILY -> selectionHomophily(
-                    numSelfInCooperator = mutablePlayerData.playerInternalData
-                        .abmKnowledgeDynamicsData().cooperationInMap.size,
-                    preSelectedSet = preSelectedSet,
-                    universeData3DAtPlayer = universeData3DAtPlayer,
-                    random = random,
-
+            val preSelectedSet: Set<Int> = when (preSelectionStrategy) {
+                PreSelectionStrategy.RANDOM -> {
+                    preSelectionRandom(
+                        mutablePlayerData = mutablePlayerData,
+                        universeData3DAtPlayer = universeData3DAtPlayer,
+                        numPreSelectedFirm = numPreSelectedFirm,
+                        random = random,
                     )
+                }
+
+                PreSelectionStrategy.TRANSITIVE -> {
+                    preSelectionTransitive(
+                        mutablePlayerData = mutablePlayerData,
+                        universeData3DAtPlayer = universeData3DAtPlayer,
+                        numPreSelectedFirm = numPreSelectedFirm,
+                        random = random,
+                    )
+                }
             }
 
-            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-                .cooperationOutWaitMap[selectedCooperator] = MutableCooperation(0)
+            if (preSelectedSet.isEmpty()) {
+                listOf()
+            } else {
+                val selectionStrategy: SelectionStrategy = mutablePlayerData.playerInternalData
+                    .abmKnowledgeDynamicsData().selectionStrategy
 
-            listOf(
-                AskCooperationCommand(
-                    toId = selectedCooperator
+                val selectedCooperator: Int = when (selectionStrategy) {
+                    SelectionStrategy.RANDOM -> selectionRandom(
+                        preSelectedSet = preSelectedSet,
+                        random = random
+                    )
+
+                    SelectionStrategy.PREFERENTIAL -> selectionPreferential(
+                        preSelectedSet = preSelectedSet,
+                        universeData3DAtPlayer = universeData3DAtPlayer,
+                        random = random,
+                    )
+
+                    SelectionStrategy.HOMOPHILY -> selectionHomophily(
+                        numSelfInCooperator = mutablePlayerData.playerInternalData
+                            .abmKnowledgeDynamicsData().cooperationInMap.size,
+                        preSelectedSet = preSelectedSet,
+                        universeData3DAtPlayer = universeData3DAtPlayer,
+                        random = random,
+
+                        )
+                }
+
+                mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                    .cooperationOutWaitMap[selectedCooperator] = MutableCooperation(0)
+
+                listOf(
+                    AskCooperationCommand(
+                        toId = selectedCooperator
+                    )
                 )
-            )
+            }
         }
     }
 
@@ -103,16 +117,11 @@ object SelectCooperator : Mechanism() {
     ): Set<Int> {
         val validCooperator: List<Int> = universeData3DAtPlayer.playerDataMap.keys
             .filter {
-                !mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-                    .outCooperator().contains(it)
+                it != mutablePlayerData.playerId && !mutablePlayerData.playerInternalData
+                    .abmKnowledgeDynamicsData().outCooperator().contains(it)
             }
 
-        return if (validCooperator.isEmpty()) {
-            setOf()
-        } else {
-            validCooperator.asSequence().shuffled(random)
-                .take(numPreSelectedFirm).toSet()
-        }
+        return validCooperator.asSequence().shuffled(random).take(numPreSelectedFirm).toSet()
     }
 
     private fun preSelectionTransitive(
@@ -127,19 +136,25 @@ object SelectCooperator : Mechanism() {
                 acc + universeData3DAtPlayer.get(cooperatorId).playerInternalData
                     .abmKnowledgeDynamicsData().allCooperator()
             }.filter {
-                !mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-                    .outCooperator().contains(it)
+                it != mutablePlayerData.playerId && !mutablePlayerData.playerInternalData
+                    .abmKnowledgeDynamicsData().outCooperator().contains(it)
             }.toSet()
 
         return when {
-            allIndirectSet.isEmpty() -> setOf()
             allIndirectSet.size >= numPreSelectedFirm -> {
                 allIndirectSet.shuffled(random).take(numPreSelectedFirm).toSet()
             }
 
             else -> {
-                allIndirectSet + universeData3DAtPlayer.playerDataMap.keys.asSequence()
-                    .shuffled(random).take(numPreSelectedFirm - allIndirectSet.size)
+                val validCooperator: List<Int> = universeData3DAtPlayer.playerDataMap.keys
+                    .filter {
+                        it != mutablePlayerData.playerId && !mutablePlayerData.playerInternalData
+                            .abmKnowledgeDynamicsData().outCooperator()
+                            .contains(it) && !allIndirectSet.contains(it)
+                    }
+
+                allIndirectSet + validCooperator.asSequence().shuffled(random)
+                    .take(numPreSelectedFirm - allIndirectSet.size)
             }
         }
     }
