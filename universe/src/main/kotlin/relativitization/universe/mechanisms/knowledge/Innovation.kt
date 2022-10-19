@@ -41,6 +41,13 @@ object Innovation : Mechanism() {
             20
         }
 
+        val forgetProbability: Double = universeSettings.otherDoubleMap.getOrElse(
+            "forgetProbability"
+        ) {
+            logger.error("Missing forgetProbability")
+            0.05
+        }
+
         // Learning by doing
         mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().innovationHypothesis
             .forEach {
@@ -51,11 +58,33 @@ object Innovation : Mechanism() {
 
         // Forgetting by not doing
         mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().knowledgeGeneList
+            .removeAll {
+                if (it.expertise == 0) {
+                    random.nextDouble() < forgetProbability
+                } else {
+                    false
+                }
+            }
+
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().knowledgeGeneList
             .forEach {
                 if (it.expertise > 0) {
                     it.expertise -= 1
                 }
             }
+
+        val latestReward: Int = mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+            .latestReward
+
+        when {
+            latestReward < radicalThreshold -> {
+
+            }
+            latestReward in radicalThreshold until incrementalThreshold -> {
+
+            }
+            else -> { }
+        }
 
         return listOf()
     }
