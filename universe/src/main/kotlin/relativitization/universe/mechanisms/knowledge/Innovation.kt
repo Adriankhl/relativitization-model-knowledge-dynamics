@@ -4,8 +4,11 @@ import relativitization.universe.data.MutablePlayerData
 import relativitization.universe.data.UniverseData3DAtPlayer
 import relativitization.universe.data.UniverseSettings
 import relativitization.universe.data.commands.Command
+import relativitization.universe.data.components.KnowledgeGene
+import relativitization.universe.data.components.MutableKnowledgeGene
 import relativitization.universe.data.components.abmKnowledgeDynamicsData
 import relativitization.universe.data.global.UniverseGlobalData
+import relativitization.universe.data.serializer.DataSerializer
 import relativitization.universe.mechanisms.Mechanism
 import relativitization.universe.utils.RelativitizationLogManager
 import kotlin.random.Random
@@ -106,14 +109,84 @@ object Innovation : Mechanism() {
 
         when {
             latestReward < radicalThreshold -> {
+                if (random.nextDouble() < radicalInnovationProbability) {
+                    radicalSelfInnovation(
+                        mutablePlayerData = mutablePlayerData,
+                        maxCapability = maxCapability,
+                        maxAbility = maxAbility,
+                        random = random
+                    )
+                }
 
+                if (random.nextDouble() < radicalInnovationProbability) {
+                    radicalCooperationInnovation(
+                        mutablePlayerData = mutablePlayerData,
+                        universeData3DAtPlayer = universeData3DAtPlayer,
+                        random = random
+                    )
+                }
+
+                // Change innovation hypothesis
+                val g1: MutableKnowledgeGene = mutablePlayerData.playerInternalData
+                    .abmKnowledgeDynamicsData().innovationHypothesis.asSequence()
+                    .shuffled(random).first()
+
+                val g2: MutableKnowledgeGene = mutablePlayerData.playerInternalData
+                    .abmKnowledgeDynamicsData().knowledgeGeneList.asSequence()
+                    .shuffled(random).first()
+
+                mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                    .innovationHypothesis.remove(g1)
+
+                mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                    .innovationHypothesis.add(g2)
+
+                mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                    .knowledgeGeneList.remove(g2)
+
+                mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                    .knowledgeGeneList.add(g1)
             }
+
             latestReward in radicalThreshold until incrementalThreshold -> {
 
             }
-            else -> { }
+
+            else -> {}
         }
 
         return listOf()
+    }
+
+    private fun radicalSelfInnovation(
+        mutablePlayerData: MutablePlayerData,
+        maxCapability: Int,
+        maxAbility: Int,
+        random: Random,
+    ) {
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().knowledgeGeneList
+            .add(
+                MutableKnowledgeGene(
+                    capability = random.nextInt(0, maxCapability + 1),
+                    ability = random.nextInt(0, maxAbility + 1),
+                    expertise = 0
+                )
+            )
+    }
+
+    private fun radicalCooperationInnovation(
+        mutablePlayerData: MutablePlayerData,
+        universeData3DAtPlayer: UniverseData3DAtPlayer,
+        random: Random,
+    ) {
+        val geneList: List<KnowledgeGene> = mutablePlayerData.playerInternalData
+            .abmKnowledgeDynamicsData().cooperationLearnMap.keys.map {
+                universeData3DAtPlayer.get(it)
+                    .playerInternalData.abmKnowledgeDynamicsData().innovationHypothesis
+                    .asSequence().shuffled(random).first()
+            }
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().knowledgeGeneList.addAll(
+            DataSerializer.copy(geneList)
+        )
     }
 }
