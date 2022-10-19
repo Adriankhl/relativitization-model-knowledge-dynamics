@@ -149,11 +149,27 @@ object Innovation : Mechanism() {
             }
 
             latestReward in radicalThreshold until incrementalThreshold -> {
+                if (random.nextDouble() < incrementalInnovationProbability) {
+                    incrementalSelfInnovation(
+                        mutablePlayerData = mutablePlayerData,
+                        maxAbility = maxAbility,
+                        random = random
+                    )
+                }
 
+                if (random.nextDouble() < incrementalInnovationProbability) {
+                    incrementalCooperationInnovation(
+                        mutablePlayerData = mutablePlayerData,
+                        universeData3DAtPlayer = universeData3DAtPlayer,
+                        random = random
+                    )
+                }
             }
 
             else -> {}
         }
+
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().cooperationLearnMap.clear()
 
         return listOf()
     }
@@ -188,5 +204,42 @@ object Innovation : Mechanism() {
         mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().knowledgeGeneList.addAll(
             DataSerializer.copy(geneList)
         )
+    }
+
+    private fun incrementalSelfInnovation(
+        mutablePlayerData: MutablePlayerData,
+        maxAbility: Int,
+        random: Random,
+    ) {
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().knowledgeGeneList
+            .asSequence().shuffled(random).first().ability = random.nextInt(0, maxAbility + 1)
+    }
+
+    private fun incrementalCooperationInnovation(
+        mutablePlayerData: MutablePlayerData,
+        universeData3DAtPlayer: UniverseData3DAtPlayer,
+        random: Random,
+    ) {
+        val geneList: List<KnowledgeGene> = mutablePlayerData.playerInternalData
+            .abmKnowledgeDynamicsData().cooperationLearnMap.keys.flatMap {
+                universeData3DAtPlayer.get(it).playerInternalData.abmKnowledgeDynamicsData()
+                    .innovationHypothesis
+            }
+
+        val geneMap: Map<Int, List<KnowledgeGene>> = geneList.groupBy { it.capabilities }
+            .filterKeys { geneCapability ->
+                mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                    .innovationHypothesis.any {
+                        it.capability == geneCapability
+                    }
+            }
+
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+            .innovationHypothesis.filter {
+                geneMap.containsKey(it.capability)
+            }.forEach {
+                it.ability = geneMap.getValue(it.capability).asSequence().shuffled(random).first()
+                    .ability
+            }
     }
 }
