@@ -21,7 +21,6 @@ object Production : Mechanism() {
         universeGlobalData: UniverseGlobalData,
         random: Random
     ): List<Command> {
-
         val numProduct: Int = universeSettings.otherIntMap.getOrElse(
             "numProduct"
         ) {
@@ -50,6 +49,13 @@ object Production : Mechanism() {
             50
         }
 
+        val maxReward: Int = universeSettings.otherIntMap.getOrElse(
+            "maxReward"
+        ) {
+            logger.error("Missing maxReward")
+            10
+        }
+
         val innovationHypothesis: List<MutableKnowledgeGene> = mutablePlayerData.playerInternalData
             .abmKnowledgeDynamicsData().innovationHypothesis
 
@@ -71,7 +77,39 @@ object Production : Mechanism() {
                 abilityFactor * expertiseFactor
 
         mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().productId = productId
-        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().productQuality = productQuality
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().productQuality =
+            productQuality
+
+        // Compute reward
+        val idQualityMap: Map<Int, Double> = mapOf(
+            mutablePlayerData.playerId to mutablePlayerData.playerInternalData
+                .abmKnowledgeDynamicsData().productQuality
+        ) + universeData3DAtPlayer.playerDataMap.filterValues {
+            val isOtherPlayer: Boolean = it.playerId != mutablePlayerData.playerId
+            val isProductIdSame: Boolean = it.playerInternalData.abmKnowledgeDynamicsData()
+                .productId == mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                .productId
+            isOtherPlayer && isProductIdSame
+        }.values.map {
+            it.playerId to it.playerInternalData.abmKnowledgeDynamicsData().productQuality
+        }
+
+        val sortedId: List<Int> = idQualityMap.keys.shuffled(random).sortedByDescending {
+            idQualityMap.getValue(it)
+        }
+
+        // Rank start from 0
+        val playerRank: Int = sortedId.indexOf(mutablePlayerData.playerId)
+
+        if (playerRank >= maxReward) {
+            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                .latestReward = 0
+        } else {
+            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                .latestReward = maxReward - playerRank
+            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                .totalReward += maxReward - playerRank
+        }
 
         return listOf()
     }
