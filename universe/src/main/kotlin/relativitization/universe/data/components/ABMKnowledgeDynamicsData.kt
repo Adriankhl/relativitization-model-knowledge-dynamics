@@ -11,6 +11,7 @@ import relativitization.universe.data.PlayerInternalData
  * @property preSelectionStrategy strategy to select potential cooperation candidates
  * @property selectionStrategy strategy to select cooperator from the potential candidates
  * @property knowledgeGeneSet the set of knowledge genes of this agent
+ * @property innovationHypothesis the collection of knowledge genes used in production
  * @property totalReward the reward stored by the agent
  * @property latestReward the reward received by ths agent in the latest turn
  * @property cooperationOutMap cooperation between the key and this agent, proposed by this agent
@@ -25,6 +26,7 @@ data class ABMKnowledgeDynamicsData(
     val preSelectionStrategy: PreSelectionStrategy = PreSelectionStrategy.RANDOM,
     val selectionStrategy: SelectionStrategy = SelectionStrategy.RANDOM,
     val knowledgeGeneSet: List<KnowledgeGene> = listOf(),
+    val innovationHypothesis: List<KnowledgeGene> = listOf(),
     val totalReward: Int = 0,
     val latestReward: Int = 0,
     val cooperationOutMap: Map<Int, Cooperation> = mapOf(),
@@ -43,6 +45,7 @@ data class MutableABMKnowledgeDynamicsData(
     var preSelectionStrategy: PreSelectionStrategy = PreSelectionStrategy.RANDOM,
     var selectionStrategy: SelectionStrategy = SelectionStrategy.RANDOM,
     val knowledgeGeneSet: MutableList<MutableKnowledgeGene> = mutableListOf(),
+    val innovationHypothesis: MutableList<KnowledgeGene> = mutableListOf(),
     var totalReward: Int = 0,
     var latestReward: Int = 0,
     val cooperationOutMap: MutableMap<Int, MutableCooperation> = mutableMapOf(),
