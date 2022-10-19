@@ -49,6 +49,14 @@ object Innovation : Mechanism() {
                 }
             }
 
+        // Forgetting by not doing
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().knowledgeGeneList
+            .forEach {
+                if (it.expertise > 0) {
+                    it.expertise -= 1
+                }
+            }
+
         return listOf()
     }
 }

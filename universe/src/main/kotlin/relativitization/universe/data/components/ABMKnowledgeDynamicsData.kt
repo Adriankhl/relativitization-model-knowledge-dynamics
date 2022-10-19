@@ -48,7 +48,7 @@ data class ABMKnowledgeDynamicsData(
 data class MutableABMKnowledgeDynamicsData(
     var preSelectionStrategy: PreSelectionStrategy = PreSelectionStrategy.RANDOM,
     var selectionStrategy: SelectionStrategy = SelectionStrategy.RANDOM,
-    val knowledgeGeneSet: MutableList<MutableKnowledgeGene> = mutableListOf(),
+    val knowledgeGeneList: MutableList<MutableKnowledgeGene> = mutableListOf(),
     val innovationHypothesis: MutableList<MutableKnowledgeGene> = mutableListOf(),
     var productId: Int = -1,
     var productQuality: Double = 0.0,
