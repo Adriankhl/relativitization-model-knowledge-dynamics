@@ -34,6 +34,20 @@ object Innovation : Mechanism() {
             8
         }
 
+        val maxCapability: Int = universeSettings.otherIntMap.getOrElse(
+            "maxCapability"
+        ) {
+            logger.error("Missing maxCapability")
+            100
+        }
+
+        val maxAbility: Int = universeSettings.otherIntMap.getOrElse(
+            "maxAbility"
+        ) {
+            logger.error("Missing maxAbility")
+            10
+        }
+
         val maxExpertise: Int = universeSettings.otherIntMap.getOrElse(
             "maxExpertise"
         ) {
@@ -46,6 +60,20 @@ object Innovation : Mechanism() {
         ) {
             logger.error("Missing forgetProbability")
             0.05
+        }
+
+        val radicalInnovationProbability: Double = universeSettings.otherDoubleMap.getOrElse(
+            "radicalInnovationProbability"
+        ) {
+            logger.error("Missing radicalInnovationProbability")
+            0.4
+        }
+
+        val incrementalInnovationProbability: Double = universeSettings.otherDoubleMap.getOrElse(
+            "incrementalInnovationProbability"
+        ) {
+            logger.error("Missing incrementalInnovationProbability")
+            0.4
         }
 
         // Learning by doing

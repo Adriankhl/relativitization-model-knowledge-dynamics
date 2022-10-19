@@ -35,6 +35,13 @@ object Production : Mechanism() {
             100
         }
 
+        val maxAbility: Int = universeSettings.otherIntMap.getOrElse(
+            "maxAbility"
+        ) {
+            logger.error("Missing maxAbility")
+            10
+        }
+
         val maxExpertise: Int = universeSettings.otherIntMap.getOrElse(
             "maxExpertise"
         ) {
@@ -66,8 +73,8 @@ object Production : Mechanism() {
         } / (maxCapability * innovationHypothesis.size)
 
 
-        val abilityFactor: Double = (innovationHypothesis.sumOf { it.ability } % 11)
-            .toDouble() / 10.0
+        val abilityFactor: Double = (innovationHypothesis.sumOf { it.ability } % (maxAbility + 1))
+            .toDouble() / maxAbility
 
         val expertiseFactor: Double = innovationHypothesis.sumOf {
             it.expertise.toDouble()
