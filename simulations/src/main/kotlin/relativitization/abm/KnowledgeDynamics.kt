@@ -7,7 +7,9 @@ import org.jetbrains.kotlinx.dataframe.api.describe
 import org.jetbrains.kotlinx.dataframe.io.writeCSV
 import relativitization.universe.Universe
 import relativitization.universe.data.MutableUniverseSettings
+import relativitization.universe.data.PlayerData
 import relativitization.universe.data.commands.AllCommandAvailability
+import relativitization.universe.data.components.abmKnowledgeDynamicsData
 import relativitization.universe.generate.GenerateSettings
 import relativitization.universe.generate.GenerateUniverseMethodCollection
 import relativitization.universe.generate.abm.ABMKnowledgeDynamicsGenerate
@@ -112,17 +114,25 @@ internal fun knowledgeDynamicsSingleRun(
     val universe = Universe(GenerateUniverseMethodCollection.generate(generateSetting))
 
     for (turn in 1..numStep) {
+        val currentPlayerDataList: List<PlayerData> = universe.getCurrentPlayerDataList()
+
+        val productQualityMean: Double = currentPlayerDataList.sumOf {
+            it.playerInternalData.abmKnowledgeDynamicsData().productQuality
+        } / currentPlayerDataList.size
+
         dfList.add(
             dataFrameOf(
                 "randomSeed" to listOf(randomSeed),
                 "turn" to listOf(turn),
                 "speedOfLight" to listOf(speedOfLight),
+                "productQualityMean" to listOf(productQualityMean),
             )
         )
 
         if (printStep) {
             println(
-                "Turn: $turn. "
+                "Turn: $turn. " +
+                        "Product quality mean: $productQualityMean"
             )
         }
 
