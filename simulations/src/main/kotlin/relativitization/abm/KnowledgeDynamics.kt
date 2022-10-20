@@ -22,6 +22,21 @@ fun main() {
         randomSeed = 100L,
         numPlayer = 100,
         speedOfLight = 200.0,
+        maxInitialCapability = 30,
+        innovationHypothesisSize = 3,
+        cooperationLength = 5,
+        numPreSelectedFirm = 5,
+        radicalThreshold = 6,
+        incrementalThreshold = 8,
+        maxCapability = 100,
+        maxAbility = 10,
+        maxExpertise = 20,
+        numProduct = 20,
+        maxProductQuality = 50,
+        maxReward = 10,
+        forgetProbability = 0.05,
+        radicalInnovationProbability = 0.4,
+        incrementalInnovationProbability = 0.1,
     )
 
     println(df.describe())
@@ -36,6 +51,21 @@ internal fun knowledgeDynamicsSingleRun(
     numStep: Int,
     numPlayer: Int,
     speedOfLight: Double,
+    maxInitialCapability: Int,
+    innovationHypothesisSize: Int,
+    cooperationLength: Int,
+    numPreSelectedFirm: Int,
+    radicalThreshold: Int,
+    incrementalThreshold: Int,
+    maxCapability: Int,
+    maxAbility: Int,
+    maxExpertise: Int,
+    numProduct: Int,
+    maxProductQuality: Int,
+    maxReward: Int,
+    forgetProbability: Double,
+    radicalInnovationProbability: Double,
+    incrementalInnovationProbability: Double,
 ): DataFrame<*> {
     val dfList: MutableList<DataFrame<*>> = mutableListOf()
 
@@ -44,13 +74,13 @@ internal fun knowledgeDynamicsSingleRun(
         numPlayer = numPlayer,
         numHumanPlayer = 0,
         otherIntMap = mutableMapOf(
-            "maxInitialCapability" to 30,
-            "innovationHypothesisSize" to 3,
+            "maxInitialCapability" to maxInitialCapability,
+            "innovationHypothesisSize" to innovationHypothesisSize,
         ),
         otherDoubleMap = mutableMapOf(),
         otherStringMap = mutableMapOf(),
         universeSettings = MutableUniverseSettings(
-            universeName = "Flocking",
+            universeName = "Knowledge Dynamics",
             commandCollectionName = AllCommandAvailability.name(),
             mechanismCollectionName = ABMKnowledgeDynamicsMechanismLists.name(),
             globalMechanismCollectionName = EmptyGlobalMechanismList.name(),
@@ -60,21 +90,21 @@ internal fun knowledgeDynamicsSingleRun(
             zDim = 10,
             randomSeed = randomSeed,
             otherIntMap = mutableMapOf(
-                "cooperationLength" to 5,
-                "numPreSelectedFirm" to 5,
-                "radicalThreshold" to 6,
-                "incrementalThreshold" to 8,
-                "maxCapability" to 100,
-                "maxAbility" to 10,
-                "maxExpertise" to 20,
-                "numProduct" to 20,
-                "maxProductQuality" to 50,
-                "maxReward" to 10,
+                "cooperationLength" to cooperationLength,
+                "numPreSelectedFirm" to numPreSelectedFirm,
+                "radicalThreshold" to radicalThreshold,
+                "incrementalThreshold" to incrementalThreshold,
+                "maxCapability" to maxCapability,
+                "maxAbility" to maxAbility,
+                "maxExpertise" to maxExpertise,
+                "numProduct" to numProduct,
+                "maxProductQuality" to maxProductQuality,
+                "maxReward" to maxReward,
             ),
             otherDoubleMap = mutableMapOf(
-                "forgetProbability" to 0.05,
-                "radicalInnovationProbability" to 0.4,
-                "incrementalInnovationProbability" to 0.1,
+                "forgetProbability" to forgetProbability,
+                "radicalInnovationProbability" to radicalInnovationProbability,
+                "incrementalInnovationProbability" to incrementalInnovationProbability,
             ),
         )
     )
@@ -91,7 +121,8 @@ internal fun knowledgeDynamicsSingleRun(
         )
 
         if (printStep) {
-            println("Turn: $turn. "
+            println(
+                "Turn: $turn. "
             )
         }
 
