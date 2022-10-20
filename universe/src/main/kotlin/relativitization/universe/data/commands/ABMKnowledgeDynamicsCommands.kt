@@ -15,11 +15,9 @@ data class AskCooperationCommand(
         fromInt4D: Int4D,
         universeSettings: UniverseSettings
     ) {
-        playerData.playerInternalData.abmKnowledgeDynamicsData().cooperationInList.add(
+        playerData.playerInternalData.abmKnowledgeDynamicsData().cooperationInMap[fromId] =
             MutableCooperation(
-                otherPlayerId = fromId,
                 time = 0,
             )
-        )
     }
 }

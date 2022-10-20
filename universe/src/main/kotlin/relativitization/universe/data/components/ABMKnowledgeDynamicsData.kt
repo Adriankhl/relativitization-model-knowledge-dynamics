@@ -10,7 +10,7 @@ import relativitization.universe.data.PlayerInternalData
  *
  * @property preSelectionStrategy strategy to select potential cooperation candidates
  * @property selectionStrategy strategy to select cooperator from the potential candidates
- * @property knowledgeGeneSet the set of knowledge genes of this agent
+ * @property knowledgeGeneList the set of knowledge genes of this agent
  * @property innovationHypothesis the collection of knowledge genes used in production
  * @property productId the id of the produced good
  * @property productQuality the quality of the produced good
@@ -27,7 +27,7 @@ import relativitization.universe.data.PlayerInternalData
 data class ABMKnowledgeDynamicsData(
     val preSelectionStrategy: PreSelectionStrategy = PreSelectionStrategy.RANDOM,
     val selectionStrategy: SelectionStrategy = SelectionStrategy.RANDOM,
-    val knowledgeGeneSet: List<KnowledgeGene> = listOf(),
+    val knowledgeGeneList: List<KnowledgeGene> = listOf(),
     val innovationHypothesis: List<KnowledgeGene> = listOf(),
     val productId: Int = -1,
     val productQuality: Double = 0.0,
@@ -72,7 +72,7 @@ fun MutablePlayerInternalData.abmKnowledgeDynamicsData(): MutableABMKnowledgeDyn
 
 @Serializable
 data class KnowledgeGene(
-    val capabilities: Int,
+    val capability: Int,
     val ability: Int,
     val expertise: Int,
 )

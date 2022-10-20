@@ -17,19 +17,21 @@ import java.io.File
 
 fun main() {
     val df = knowledgeDynamicsSingleRun(
+        printStep = true,
         numStep = 1000,
         randomSeed = 100L,
-        numPlayer = 50,
-        speedOfLight = 1.0,
+        numPlayer = 100,
+        speedOfLight = 200.0,
     )
 
     println(df.describe())
 
     File("data").mkdirs()
-    df.writeCSV("./data/flocking.csv")
+    df.writeCSV("./data/knowledge-dynamics.csv")
 }
 
 internal fun knowledgeDynamicsSingleRun(
+    printStep: Boolean,
     randomSeed: Long,
     numStep: Int,
     numPlayer: Int,
@@ -42,7 +44,8 @@ internal fun knowledgeDynamicsSingleRun(
         numPlayer = numPlayer,
         numHumanPlayer = 0,
         otherIntMap = mutableMapOf(
-            "maxInitialCapability" to 30
+            "maxInitialCapability" to 30,
+            "innovationHypothesisSize" to 3,
         ),
         otherDoubleMap = mutableMapOf(),
         otherStringMap = mutableMapOf(),
@@ -56,7 +59,23 @@ internal fun knowledgeDynamicsSingleRun(
             yDim = 10,
             zDim = 10,
             randomSeed = randomSeed,
-            otherDoubleMap = mutableMapOf(),
+            otherIntMap = mutableMapOf(
+                "cooperationLength" to 5,
+                "numPreSelectedFirm" to 5,
+                "radicalThreshold" to 6,
+                "incrementalThreshold" to 8,
+                "maxCapability" to 100,
+                "maxAbility" to 10,
+                "maxExpertise" to 20,
+                "numProduct" to 20,
+                "maxProductQuality" to 50,
+                "maxReward" to 10,
+            ),
+            otherDoubleMap = mutableMapOf(
+                "forgetProbability" to 0.05,
+                "radicalInnovationProbability" to 0.4,
+                "incrementalInnovationProbability" to 0.1,
+            ),
         )
     )
 
@@ -70,6 +89,11 @@ internal fun knowledgeDynamicsSingleRun(
                 "speedOfLight" to listOf(speedOfLight),
             )
         )
+
+        if (printStep) {
+            println("Turn: $turn. "
+            )
+        }
 
         universe.pureAIStep()
     }

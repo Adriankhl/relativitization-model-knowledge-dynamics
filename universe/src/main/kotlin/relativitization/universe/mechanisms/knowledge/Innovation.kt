@@ -132,7 +132,7 @@ object Innovation : Mechanism() {
                     .shuffled(random).first()
 
                 val g2: MutableKnowledgeGene = mutablePlayerData.playerInternalData
-                    .abmKnowledgeDynamicsData().knowledgeGeneList.asSequence()
+                    .abmKnowledgeDynamicsData().innovationHypothesis.asSequence()
                     .shuffled(random).first()
 
                 mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
@@ -211,7 +211,7 @@ object Innovation : Mechanism() {
         maxAbility: Int,
         random: Random,
     ) {
-        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().knowledgeGeneList
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().innovationHypothesis
             .asSequence().shuffled(random).first().ability = random.nextInt(0, maxAbility + 1)
     }
 
@@ -226,7 +226,7 @@ object Innovation : Mechanism() {
                     .innovationHypothesis
             }
 
-        val geneMap: Map<Int, List<KnowledgeGene>> = geneList.groupBy { it.capabilities }
+        val geneMap: Map<Int, List<KnowledgeGene>> = geneList.groupBy { it.capability }
             .filterKeys { geneCapability ->
                 mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
                     .innovationHypothesis.any {
