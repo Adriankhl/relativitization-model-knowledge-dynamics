@@ -45,25 +45,25 @@ object SyncCooperator : Mechanism() {
             }
 
         mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-            .cooperationOutWaitMap - confirmedCooperator
+            .cooperationOutWaitMap -= confirmedCooperator.keys
 
         mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-            .cooperationOutMap + confirmedCooperator
+            .cooperationOutMap += confirmedCooperator
 
         val endCooperator: Map<Int, MutableCooperation> = mutablePlayerData.playerInternalData
             .abmKnowledgeDynamicsData().cooperationOutMap.filterValues {
                 it.time >= cooperationLength
-            } + mutablePlayerData.playerInternalData
-            .abmKnowledgeDynamicsData().cooperationOutMap.filterKeys {
-                universeData3DAtPlayer.get(it).playerInternalData.abmKnowledgeDynamicsData()
+            } + mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().cooperationOutMap
+            .filterKeys {
+                !universeData3DAtPlayer.get(it).playerInternalData.abmKnowledgeDynamicsData()
                     .cooperationInMap.containsKey(mutablePlayerData.playerId)
             }
 
-         mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-            .cooperationOutMap - endCooperator
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+            .cooperationOutMap -= endCooperator.keys
 
         mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-            .cooperationLearnMap + endCooperator
+            .cooperationLearnMap += endCooperator
 
         mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().cooperationInMap
             .values.removeAll {

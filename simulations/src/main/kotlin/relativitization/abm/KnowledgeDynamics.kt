@@ -9,6 +9,7 @@ import relativitization.universe.Universe
 import relativitization.universe.data.MutableUniverseSettings
 import relativitization.universe.data.PlayerData
 import relativitization.universe.data.commands.AllCommandAvailability
+import relativitization.universe.data.components.ABMKnowledgeDynamicsData
 import relativitization.universe.data.components.abmKnowledgeDynamicsData
 import relativitization.universe.generate.GenerateSettings
 import relativitization.universe.generate.GenerateUniverseMethodCollection
@@ -125,50 +126,58 @@ internal fun knowledgeDynamicsSingleRun(
     for (turn in 1..numStep) {
         val currentPlayerDataList: List<PlayerData> = universe.getCurrentPlayerDataList()
 
-        val productQualityMean: Double = currentPlayerDataList.sumOf {
-            it.playerInternalData.abmKnowledgeDynamicsData().productQuality
-        } / currentPlayerDataList.size
+        currentPlayerDataList.forEach { currentPlayerData ->
+            val currentKnowledgeDynamicsData: ABMKnowledgeDynamicsData = currentPlayerData
+                .playerInternalData.abmKnowledgeDynamicsData()
 
-        val product1Player: List<PlayerData> = currentPlayerDataList.filter {
-            it.playerInternalData.abmKnowledgeDynamicsData().productId == 1
+            val dfNew = dataFrameOf(
+                    "randomSeed" to listOf(randomSeed),
+                    "turn" to listOf(turn),
+                    "speedOfLight" to listOf(speedOfLight),
+                    "playerId" to listOf(currentPlayerData.playerId),
+                    "productId" to listOf(currentKnowledgeDynamicsData.productId),
+                    "productQuality" to listOf(currentKnowledgeDynamicsData.productQuality),
+                    "cooperationIn" to listOf(currentKnowledgeDynamicsData.cooperationInMap.keys),
+                    "cooperationOut" to listOf(currentKnowledgeDynamicsData.cooperationOutMap.keys),
+                )
+
+            dfList.add(dfNew)
         }
-
-        val product1QualityMean: Double = if (product1Player.isNotEmpty()) {
-            product1Player.sumOf {
-                it.playerInternalData.abmKnowledgeDynamicsData().productQuality
-            } / product1Player.size
-        } else {
-            0.0
-        }
-
-        val expertiseMean: Double = currentPlayerDataList.sumOf { playerData ->
-            playerData.playerInternalData.abmKnowledgeDynamicsData().innovationHypothesis
-                .sumOf { it.expertise }.toDouble() / playerData.playerInternalData
-                .abmKnowledgeDynamicsData().innovationHypothesis.size
-        } / currentPlayerDataList.size
-
-        val latestRewardList: List<Int> = currentPlayerDataList.map {
-            it.playerInternalData.abmKnowledgeDynamicsData().latestReward
-        }
-
-        val rewardThreshold = 6
-
-        val numPoorPlayer: Int = latestRewardList.count {
-            it <= rewardThreshold
-        }
-
-        dfList.add(
-            dataFrameOf(
-                "randomSeed" to listOf(randomSeed),
-                "turn" to listOf(turn),
-                "speedOfLight" to listOf(speedOfLight),
-                "productQualityMean" to listOf(productQualityMean),
-                "product1QualityMean" to listOf(product1QualityMean),
-                "expertiseMean" to listOf(expertiseMean)
-            )
-        )
 
         if (printStep) {
+
+            val productQualityMean: Double = currentPlayerDataList.sumOf {
+                it.playerInternalData.abmKnowledgeDynamicsData().productQuality
+            } / currentPlayerDataList.size
+
+            val product1Player: List<PlayerData> = currentPlayerDataList.filter {
+                it.playerInternalData.abmKnowledgeDynamicsData().productId == 1
+            }
+
+            val product1QualityMean: Double = if (product1Player.isNotEmpty()) {
+                product1Player.sumOf {
+                    it.playerInternalData.abmKnowledgeDynamicsData().productQuality
+                } / product1Player.size
+            } else {
+                0.0
+            }
+
+            val expertiseMean: Double = currentPlayerDataList.sumOf { playerData ->
+                playerData.playerInternalData.abmKnowledgeDynamicsData().innovationHypothesis
+                    .sumOf { it.expertise }.toDouble() / playerData.playerInternalData
+                    .abmKnowledgeDynamicsData().innovationHypothesis.size
+            } / currentPlayerDataList.size
+
+            val latestRewardList: List<Int> = currentPlayerDataList.map {
+                it.playerInternalData.abmKnowledgeDynamicsData().latestReward
+            }
+
+            val rewardThreshold = 6
+
+            val numPoorPlayer: Int = latestRewardList.count {
+                it <= rewardThreshold
+            }
+
             println(
                 "Turn: $turn. " +
                         "Product quality mean: $productQualityMean. " +
