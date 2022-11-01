@@ -120,19 +120,33 @@ internal fun knowledgeDynamicsSingleRun(
             it.playerInternalData.abmKnowledgeDynamicsData().productQuality
         } / currentPlayerDataList.size
 
+        val product1Player: List<PlayerData> = currentPlayerDataList.filter {
+            it.playerInternalData.abmKnowledgeDynamicsData().productId == 1
+        }
+
+        val product1QualityMean: Double = if (product1Player.isNotEmpty()) {
+            product1Player.sumOf {
+                it.playerInternalData.abmKnowledgeDynamicsData().productQuality
+            } / currentPlayerDataList.size
+        } else {
+            0.0
+        }
+
         dfList.add(
             dataFrameOf(
                 "randomSeed" to listOf(randomSeed),
                 "turn" to listOf(turn),
                 "speedOfLight" to listOf(speedOfLight),
                 "productQualityMean" to listOf(productQualityMean),
+                "product1QualityMean" to listOf(product1QualityMean),
             )
         )
 
         if (printStep) {
             println(
                 "Turn: $turn. " +
-                        "Product quality mean: $productQualityMean"
+                        "Product quality mean: $productQualityMean" +
+                        "Product 1 quality mean: $product1QualityMean"
             )
         }
 
