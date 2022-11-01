@@ -127,7 +127,7 @@ internal fun knowledgeDynamicsSingleRun(
         val product1QualityMean: Double = if (product1Player.isNotEmpty()) {
             product1Player.sumOf {
                 it.playerInternalData.abmKnowledgeDynamicsData().productQuality
-            } / currentPlayerDataList.size
+            } / product1Player.size
         } else {
             0.0
         }
@@ -145,8 +145,8 @@ internal fun knowledgeDynamicsSingleRun(
         if (printStep) {
             println(
                 "Turn: $turn. " +
-                        "Product quality mean: $productQualityMean" +
-                        "Product 1 quality mean: $product1QualityMean"
+                        "Product quality mean: $productQualityMean. " +
+                        "Product 1 quality mean: $product1QualityMean. "
             )
         }
 

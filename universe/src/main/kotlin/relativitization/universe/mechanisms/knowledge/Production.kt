@@ -108,15 +108,16 @@ object Production : Mechanism() {
         // Rank start from 0
         val playerRank: Int = sortedId.indexOf(mutablePlayerData.playerId)
 
-        if (playerRank >= maxReward) {
-            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-                .latestReward = 0
+        val reward: Int = if (playerRank >= maxReward) {
+            0
         } else {
-            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-                .latestReward = maxReward - playerRank
-            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-                .totalReward += maxReward - playerRank
+            maxReward - playerRank
         }
+
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+            .latestReward = reward
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+            .totalReward += reward
 
         return listOf()
     }
