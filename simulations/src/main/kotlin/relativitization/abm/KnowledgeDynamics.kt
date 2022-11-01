@@ -147,6 +147,16 @@ internal fun knowledgeDynamicsSingleRun(
                 .abmKnowledgeDynamicsData().innovationHypothesis.size
         } / currentPlayerDataList.size
 
+        val latestRewardList: List<Int> = currentPlayerDataList.map {
+            it.playerInternalData.abmKnowledgeDynamicsData().latestReward
+        }
+
+        val rewardThreshold = 6
+
+        val numPoorPlayer: Int = latestRewardList.count {
+            it <= rewardThreshold
+        }
+
         dfList.add(
             dataFrameOf(
                 "randomSeed" to listOf(randomSeed),
@@ -162,8 +172,8 @@ internal fun knowledgeDynamicsSingleRun(
             println(
                 "Turn: $turn. " +
                         "Product quality mean: $productQualityMean. " +
-                        "Product 1 quality mean: $product1QualityMean. " +
-                        "Expertise mean: $expertiseMean. "
+                        "Expertise mean: $expertiseMean. " +
+                        "Num poor: $numPoorPlayer"
             )
         }
 

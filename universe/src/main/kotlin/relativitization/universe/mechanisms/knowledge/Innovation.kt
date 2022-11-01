@@ -108,7 +108,7 @@ object Innovation : Mechanism() {
             .latestReward
 
         when {
-            latestReward < radicalThreshold -> {
+            latestReward <= radicalThreshold -> {
                 if (random.nextDouble() < radicalInnovationProbability) {
                     radicalSelfInnovation(
                         mutablePlayerData = mutablePlayerData,
@@ -150,7 +150,7 @@ object Innovation : Mechanism() {
                 }
             }
 
-            latestReward in radicalThreshold until incrementalThreshold -> {
+            latestReward in (radicalThreshold + 1) .. incrementalThreshold -> {
                 if (random.nextDouble() < incrementalInnovationProbability) {
                     incrementalSelfInnovation(
                         mutablePlayerData = mutablePlayerData,
