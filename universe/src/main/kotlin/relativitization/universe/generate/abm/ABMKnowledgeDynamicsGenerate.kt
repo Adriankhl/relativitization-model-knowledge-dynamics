@@ -7,6 +7,8 @@ import relativitization.universe.data.UniverseSettings
 import relativitization.universe.data.UniverseState
 import relativitization.universe.data.components.MutableABMKnowledgeDynamicsData
 import relativitization.universe.data.components.MutableKnowledgeGene
+import relativitization.universe.data.components.PreSelectionStrategy
+import relativitization.universe.data.components.SelectionStrategy
 import relativitization.universe.data.components.abmKnowledgeDynamicsData
 import relativitization.universe.data.global.UniverseGlobalData
 import relativitization.universe.data.serializer.DataSerializer
@@ -50,12 +52,48 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
             3
         }
 
+                val preSelectionTransitiveNum: Int = settings.otherIntMap.getOrElse(
+            "preSelectionTransitiveNum"
+        ) {
+            logger.error("Missing preSelectionTransitiveNum")
+            0
+        }
+
+        val selectionPreferentialNum: Int = settings.otherIntMap.getOrElse(
+            "selectionPreferentialNum"
+        ) {
+            logger.error("Missing selectionPreferentialNum")
+            0
+        }
+
+        val selectionHomophilyNum: Int = settings.otherIntMap.getOrElse(
+            "selectionHomophilyNum"
+        ) {
+            logger.error("Missing selectionHomophilyNum")
+            0
+        }
+
         val maxAbility: Int = universeSettings.otherIntMap.getOrElse(
             "maxAbility"
         ) {
             logger.error("Missing maxAbility")
             10
         }
+
+        val preSelectionStrategyList: List<PreSelectionStrategy> = (1..settings.numPlayer).map {
+            when {
+                it <= preSelectionTransitiveNum -> PreSelectionStrategy.TRANSITIVE
+                else -> PreSelectionStrategy.RANDOM
+            }
+        }.shuffled(random)
+
+        val selectionStrategyList: List<SelectionStrategy> = (1..settings.numPlayer).map {
+            when {
+                it <= selectionPreferentialNum -> SelectionStrategy.PREFERENTIAL
+                it in (selectionPreferentialNum + 1)..selectionPreferentialNum + selectionHomophilyNum -> SelectionStrategy.HOMOPHILY
+                else -> SelectionStrategy.RANDOM
+            }
+        }.shuffled(random)
 
         for (i in 1..settings.numPlayer) {
             val playerId: Int = universeState.getNewPlayerId()
@@ -83,6 +121,11 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
             mutablePlayerData.int4D.y = floor(mutablePlayerData.double4D.y).toInt()
             mutablePlayerData.int4D.z = floor(mutablePlayerData.double4D.z).toInt()
 
+            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().preSelectionStrategy =
+                preSelectionStrategyList[i - 1]
+
+            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().selectionStrategy =
+                selectionStrategyList[i - 1]
 
             repeat(innovationHypothesisSize) {
                 mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
