@@ -141,6 +141,12 @@ internal fun knowledgeDynamicsSingleRun(
             0.0
         }
 
+        val expertiseMean: Double = currentPlayerDataList.sumOf { playerData ->
+            playerData.playerInternalData.abmKnowledgeDynamicsData().innovationHypothesis
+                .sumOf { it.expertise }.toDouble() / playerData.playerInternalData
+                .abmKnowledgeDynamicsData().innovationHypothesis.size
+        } / currentPlayerDataList.size
+
         dfList.add(
             dataFrameOf(
                 "randomSeed" to listOf(randomSeed),
@@ -148,6 +154,7 @@ internal fun knowledgeDynamicsSingleRun(
                 "speedOfLight" to listOf(speedOfLight),
                 "productQualityMean" to listOf(productQualityMean),
                 "product1QualityMean" to listOf(product1QualityMean),
+                "expertiseMean" to listOf(expertiseMean)
             )
         )
 
@@ -155,7 +162,8 @@ internal fun knowledgeDynamicsSingleRun(
             println(
                 "Turn: $turn. " +
                         "Product quality mean: $productQualityMean. " +
-                        "Product 1 quality mean: $product1QualityMean. "
+                        "Product 1 quality mean: $product1QualityMean. " +
+                        "Expertise mean: $expertiseMean. "
             )
         }
 
