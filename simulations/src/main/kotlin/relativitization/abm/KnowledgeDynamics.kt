@@ -1,5 +1,6 @@
 package relativitization.abm
 
+import org.apache.commons.csv.CSVFormat
 import org.jetbrains.kotlinx.dataframe.DataFrame
 import org.jetbrains.kotlinx.dataframe.api.concat
 import org.jetbrains.kotlinx.dataframe.api.dataFrameOf
@@ -48,7 +49,7 @@ fun main() {
     println(df.describe())
 
     File("data").mkdirs()
-    df.writeCSV("./data/knowledge-dynamics.csv")
+    df.writeCSV("./data/knowledge-dynamics.csv", CSVFormat.DEFAULT.withDelimiter('|'))
 }
 
 internal fun knowledgeDynamicsSingleRun(
