@@ -43,7 +43,7 @@ object SelectCooperator : Mechanism() {
         val latestReward: Int = mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
             .latestReward
 
-        return if (latestReward >= incrementalThreshold) {
+        return if (latestReward > incrementalThreshold) {
             listOf()
         } else {
             val preSelectionStrategy: PreSelectionStrategy = mutablePlayerData.playerInternalData
