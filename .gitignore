@@ -400,7 +400,7 @@ universe/build.gradle.kts
 simulations/src/main/kotlin/relativitization/game/SmallerTypicalGame.kt
 simulations/src/main/kotlin/relativitization/game/TypicalGame.kt
 simulations/build.gradle.kts
-build.gradle.kts
 gradle.properties
 gradlew
 gradlew.bat
+build.gradle.kts

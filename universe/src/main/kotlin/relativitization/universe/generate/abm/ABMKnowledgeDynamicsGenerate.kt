@@ -1,6 +1,5 @@
 package relativitization.universe.generate.abm
 
-import relativitization.universe.ai.EmptyAI
 import relativitization.universe.data.MutablePlayerData
 import relativitization.universe.data.MutableUniverseData4D
 import relativitization.universe.data.UniverseData
@@ -14,6 +13,7 @@ import relativitization.universe.data.serializer.DataSerializer
 import relativitization.universe.generate.GenerateSettings
 import relativitization.universe.maths.grid.Grids.create4DGrid
 import relativitization.universe.utils.RelativitizationLogManager
+import kotlin.math.floor
 import kotlin.random.Random
 
 object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
@@ -65,6 +65,24 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
             mutablePlayerData.playerInternalData.playerDataComponentMap.put(
                 MutableABMKnowledgeDynamicsData()
             )
+
+            // Random location, avoid too close to the boundary by adding a 0.1 width margin
+            mutablePlayerData.double4D.x = random.nextDouble(
+                0.1,
+                universeSettings.xDim.toDouble() - 0.1
+            )
+            mutablePlayerData.double4D.y = random.nextDouble(
+                0.1,
+                universeSettings.yDim.toDouble() - 0.1
+            )
+            mutablePlayerData.double4D.z = random.nextDouble(
+                0.1,
+                universeSettings.zDim.toDouble() - 0.1
+            )
+            mutablePlayerData.int4D.x = floor(mutablePlayerData.double4D.x).toInt()
+            mutablePlayerData.int4D.y = floor(mutablePlayerData.double4D.y).toInt()
+            mutablePlayerData.int4D.z = floor(mutablePlayerData.double4D.z).toInt()
+
 
             repeat(innovationHypothesisSize) {
                 mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
