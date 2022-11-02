@@ -2,9 +2,8 @@ package relativitization.abm
 
 import org.apache.commons.csv.CSVFormat
 import org.jetbrains.kotlinx.dataframe.DataFrame
-import org.jetbrains.kotlinx.dataframe.api.concat
-import org.jetbrains.kotlinx.dataframe.api.dataFrameOf
 import org.jetbrains.kotlinx.dataframe.api.describe
+import org.jetbrains.kotlinx.dataframe.api.toDataFrame
 import org.jetbrains.kotlinx.dataframe.io.writeCSV
 import relativitization.universe.Universe
 import relativitization.universe.data.MutableUniverseSettings
@@ -77,7 +76,8 @@ internal fun knowledgeDynamicsSingleRun(
     radicalInnovationProbability: Double,
     incrementalInnovationProbability: Double,
 ): DataFrame<*> {
-    val dfList: MutableList<DataFrame<*>> = mutableListOf()
+    // This map will be converted to dataframe
+    val dfMap: MutableMap<String, MutableList<Any>> = mutableMapOf()
 
     val generateSetting = GenerateSettings(
         generateMethod = ABMKnowledgeDynamicsGenerate.name(),
@@ -131,22 +131,28 @@ internal fun knowledgeDynamicsSingleRun(
             val currentKnowledgeDynamicsData: ABMKnowledgeDynamicsData = currentPlayerData
                 .playerInternalData.abmKnowledgeDynamicsData()
 
-            val dfNew = dataFrameOf(
-                    "randomSeed" to listOf(randomSeed),
-                    "turn" to listOf(turn),
-                    "speedOfLight" to listOf(speedOfLight),
-                    "playerId" to listOf(currentPlayerData.playerId),
-                    "productId" to listOf(currentKnowledgeDynamicsData.productId),
-                    "productQuality" to listOf(currentKnowledgeDynamicsData.productQuality),
-                    "cooperationIn" to listOf(currentKnowledgeDynamicsData.cooperationInMap.keys),
-                    "cooperationOut" to listOf(currentKnowledgeDynamicsData.cooperationOutMap.keys),
-                )
+            val outputDataMap = mapOf(
+                "randomSeed" to randomSeed,
+                "turn" to turn,
+                "speedOfLight" to speedOfLight,
+                "playerId" to currentPlayerData.playerId,
+                "preSelectionStrategy" to currentKnowledgeDynamicsData.preSelectionStrategy,
+                "selectionStrategy" to currentKnowledgeDynamicsData.selectionStrategy,
+                "productId" to currentKnowledgeDynamicsData.productId,
+                "productQuality" to currentKnowledgeDynamicsData.productQuality,
+                "latestReward" to currentKnowledgeDynamicsData.latestReward,
+                "cooperationIn" to currentKnowledgeDynamicsData.cooperationInMap.keys,
+                "cooperationOut" to currentKnowledgeDynamicsData.cooperationOutMap.keys,
+            )
 
-            dfList.add(dfNew)
+            outputDataMap.forEach {
+                dfMap.getOrPut(it.key) {
+                    mutableListOf()
+                }.add(it.value)
+            }
         }
 
         if (printStep) {
-
             val productQualityMean: Double = currentPlayerDataList.sumOf {
                 it.playerInternalData.abmKnowledgeDynamicsData().productQuality
             } / currentPlayerDataList.size
@@ -181,7 +187,7 @@ internal fun knowledgeDynamicsSingleRun(
 
             println(
                 "Turn: $turn. " +
-                        "Product quality mean: $productQualityMean. " +
+                        "Product quality mean (1): $productQualityMean ($product1QualityMean). " +
                         "Expertise mean: $expertiseMean. " +
                         "Num poor: $numPoorPlayer"
             )
@@ -190,5 +196,5 @@ internal fun knowledgeDynamicsSingleRun(
         universe.pureAIStep()
     }
 
-    return dfList.concat()
+    return dfMap.toDataFrame()
 }
