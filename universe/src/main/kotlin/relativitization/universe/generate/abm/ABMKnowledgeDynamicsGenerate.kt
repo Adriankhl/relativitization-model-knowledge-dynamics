@@ -52,11 +52,15 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
             3
         }
 
-                val preSelectionTransitiveNum: Int = settings.otherIntMap.getOrElse(
+        val preSelectionTransitiveNum: Int = settings.otherIntMap.getOrElse(
             "preSelectionTransitiveNum"
         ) {
             logger.error("Missing preSelectionTransitiveNum")
             0
+        }
+
+        if (preSelectionTransitiveNum > settings.numPlayer) {
+            logger.error("Wrong preSelection num")
         }
 
         val selectionPreferentialNum: Int = settings.otherIntMap.getOrElse(
@@ -71,6 +75,10 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
         ) {
             logger.error("Missing selectionHomophilyNum")
             0
+        }
+
+        if (selectionPreferentialNum + selectionHomophilyNum > settings.numPlayer) {
+            logger.error("Wrong selection num")
         }
 
         val maxAbility: Int = universeSettings.otherIntMap.getOrElse(
