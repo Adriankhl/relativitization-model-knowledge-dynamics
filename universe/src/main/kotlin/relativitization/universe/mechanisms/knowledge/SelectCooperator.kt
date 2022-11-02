@@ -88,8 +88,8 @@ object SelectCooperator : Mechanism() {
                     )
 
                     SelectionStrategy.HOMOPHILY -> selectionHomophily(
-                        numSelfInCooperator = mutablePlayerData.playerInternalData
-                            .abmKnowledgeDynamicsData().cooperationInMap.size,
+                        numSelfCooperator = mutablePlayerData.playerInternalData
+                            .abmKnowledgeDynamicsData().allCooperator().size,
                         preSelectedSet = preSelectedSet,
                         universeData3DAtPlayer = universeData3DAtPlayer,
                         random = random,
@@ -182,7 +182,7 @@ object SelectCooperator : Mechanism() {
     }
 
     private fun selectionHomophily(
-        numSelfInCooperator: Int,
+        numSelfCooperator: Int,
         preSelectedSet: Set<Int>,
         universeData3DAtPlayer: UniverseData3DAtPlayer,
         random: Random,
@@ -192,9 +192,9 @@ object SelectCooperator : Mechanism() {
             itemList = preSelectedSet.toList(),
             random = random,
         ) {
-            val numOtherInCooperator: Int = universeData3DAtPlayer.get(it).playerInternalData
-                .abmKnowledgeDynamicsData().cooperationInMap.size
-            1.0 / (1.0 + abs(numSelfInCooperator - numOtherInCooperator))
+            val numOtherCooperator: Int = universeData3DAtPlayer.get(it).playerInternalData
+                .abmKnowledgeDynamicsData().allCooperator().size
+            1.0 / (1.0 + abs(numSelfCooperator - numOtherCooperator))
         }.first()
     }
 }
