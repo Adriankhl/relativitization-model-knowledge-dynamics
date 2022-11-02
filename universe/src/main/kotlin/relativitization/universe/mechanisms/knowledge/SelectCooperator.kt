@@ -93,8 +93,7 @@ object SelectCooperator : Mechanism() {
                         preSelectedSet = preSelectedSet,
                         universeData3DAtPlayer = universeData3DAtPlayer,
                         random = random,
-
-                        )
+                    )
                 }
 
                 mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
