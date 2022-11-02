@@ -63,8 +63,6 @@ fun main() {
 
     val df = dfList.concat()
 
-    println(df.describe())
-
     File("data").mkdirs()
     df.writeCSV("./data/KDScan1.csv", CSVFormat.DEFAULT.withDelimiter('|'))
 }
