@@ -18,3 +18,13 @@ object ABMKnowledgeDynamicsMechanismLists : MechanismLists() {
         Innovation,
     )
 }
+
+object ABMKnowledgeDynamicsTestMechanismLists : MechanismLists() {
+    override val regularMechanismList: List<Mechanism> = listOf(
+        SyncCooperator,
+    )
+
+    override val dilatedMechanismList: List<Mechanism> = listOf(
+        SelectCooperator,
+    )
+}

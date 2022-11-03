@@ -12,6 +12,7 @@ import relativitization.universe.data.commands.AllCommandAvailability
 import relativitization.universe.data.components.ABMKnowledgeDynamicsData
 import relativitization.universe.data.components.abmKnowledgeDynamicsData
 import relativitization.universe.generate.GenerateSettings
+import relativitization.universe.generate.GenerateUniverseMethod
 import relativitization.universe.generate.GenerateUniverseMethodCollection
 import relativitization.universe.generate.abm.ABMKnowledgeDynamicsGenerate
 import relativitization.universe.global.EmptyGlobalMechanismList
@@ -52,6 +53,7 @@ fun main() {
 }
 
 internal fun knowledgeDynamicsSingleRun(
+    mechanismCollectionName: String = ABMKnowledgeDynamicsMechanismLists.name(),
     printStep: Boolean,
     randomSeed: Long,
     numStep: Int,
@@ -95,7 +97,7 @@ internal fun knowledgeDynamicsSingleRun(
         universeSettings = MutableUniverseSettings(
             universeName = "Knowledge Dynamics",
             commandCollectionName = AllCommandAvailability.name(),
-            mechanismCollectionName = ABMKnowledgeDynamicsMechanismLists.name(),
+            mechanismCollectionName = mechanismCollectionName,
             globalMechanismCollectionName = EmptyGlobalMechanismList.name(),
             speedOfLight = speedOfLight,
             xDim = 10,

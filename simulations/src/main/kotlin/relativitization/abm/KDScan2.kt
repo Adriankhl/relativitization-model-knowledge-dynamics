@@ -6,6 +6,7 @@ import org.jetbrains.kotlinx.dataframe.api.concat
 import org.jetbrains.kotlinx.dataframe.io.writeCSV
 import relativitization.universe.data.components.PreSelectionStrategy
 import relativitization.universe.data.components.SelectionStrategy
+import relativitization.universe.mechanisms.ABMKnowledgeDynamicsTestMechanismLists
 import java.io.File
 
 fun main() {
@@ -21,6 +22,7 @@ fun main() {
             println("PreSelection: $preSelectionStrategy. Selection: $selectionStrategy")
             dfList.add(
                 knowledgeDynamicsSingleRun(
+                    mechanismCollectionName = ABMKnowledgeDynamicsTestMechanismLists.name(),
                     printStep = false,
                     numStep = 1000,
                     randomSeed = 100L,
