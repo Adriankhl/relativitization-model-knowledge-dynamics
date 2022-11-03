@@ -10,7 +10,7 @@ import relativitization.universe.data.components.PreSelectionStrategy
 import relativitization.universe.data.components.SelectionStrategy
 import relativitization.universe.data.components.abmKnowledgeDynamicsData
 import relativitization.universe.data.global.UniverseGlobalData
-import relativitization.universe.maths.sampling.WeightedReservoir
+import relativitization.universe.maths.sampling.WeightedSample
 import relativitization.universe.mechanisms.Mechanism
 import relativitization.universe.utils.RelativitizationLogManager
 import kotlin.math.abs
@@ -170,7 +170,7 @@ object SelectCooperator : Mechanism() {
         universeData3DAtPlayer: UniverseData3DAtPlayer,
         random: Random,
     ): Int {
-        return WeightedReservoir.aRes(
+        return WeightedSample.sample(
             numItem = 1,
             itemList = preSelectedSet.toList(),
             random = random,
@@ -186,7 +186,7 @@ object SelectCooperator : Mechanism() {
         universeData3DAtPlayer: UniverseData3DAtPlayer,
         random: Random,
     ): Int {
-        return WeightedReservoir.aRes(
+        return WeightedSample.sample(
             numItem = 1,
             itemList = preSelectedSet.toList(),
             random = random,

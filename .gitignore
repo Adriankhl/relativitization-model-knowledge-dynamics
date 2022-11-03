@@ -267,6 +267,7 @@ universe/src/main/kotlin/relativitization/universe/maths/physics/Relativistic.kt
 universe/src/main/kotlin/relativitization/universe/maths/physics/Coordinates.kt
 universe/src/main/kotlin/relativitization/universe/maths/physics/Velocity.kt
 universe/src/main/kotlin/relativitization/universe/maths/sampling/WeightedReservoir.kt
+universe/src/main/kotlin/relativitization/universe/maths/sampling/WeightedSample.kt
 universe/src/main/kotlin/relativitization/universe/maths/collection/ListFind.kt
 universe/src/main/kotlin/relativitization/universe/maths/collection/Fraction.kt
 universe/src/main/kotlin/relativitization/universe/maths/collection/DoubleRange.kt
