@@ -40,7 +40,7 @@ fun main() {
                         SelectionStrategy.HOMOPHILY -> 100
                         else -> 0
                     },
-                    cooperationLength = 5,
+                    cooperationLength = 20,
                     numPreSelectedFirm = 5,
                     radicalThreshold = 6,
                     incrementalThreshold = 8,
@@ -63,5 +63,5 @@ fun main() {
     val df = dfList.concat()
 
     File("data").mkdirs()
-    df.writeCSV("./data/KDScan1.csv", CSVFormat.DEFAULT.withDelimiter('|'))
+    df.writeCSV("./data/KDScan2.csv", CSVFormat.DEFAULT.withDelimiter('|'))
 }
