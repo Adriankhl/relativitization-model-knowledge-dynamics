@@ -140,7 +140,7 @@ object SelectCooperator : Mechanism() {
     ): Set<Int> {
         val allIndirectSet: Set<Int> = mutablePlayerData.playerInternalData
             .abmKnowledgeDynamicsData().allCooperator()
-            .fold<Int, Set<Int>>(setOf()) { acc, cooperatorId ->
+            .fold(setOf<Int>()) { acc, cooperatorId ->
                 acc + universeData3DAtPlayer.get(cooperatorId).playerInternalData
                     .abmKnowledgeDynamicsData().allCooperator()
             }.filter {
