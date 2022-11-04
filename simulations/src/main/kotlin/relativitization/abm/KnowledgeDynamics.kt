@@ -142,6 +142,7 @@ internal fun knowledgeDynamicsSingleRun(
                 "randomSeed" to randomSeed,
                 "turn" to turn,
                 "speedOfLight" to speedOfLight,
+                "preferentialPower" to preferentialPower,
                 "playerId" to currentPlayerData.playerId,
                 "preSelectionStrategy" to currentKnowledgeDynamicsData.preSelectionStrategy,
                 "selectionStrategy" to currentKnowledgeDynamicsData.selectionStrategy,
