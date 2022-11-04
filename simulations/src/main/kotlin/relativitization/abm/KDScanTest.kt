@@ -31,6 +31,7 @@ fun main() {
                     sameLocation = 1,
                     maxInitialCapability = 30,
                     innovationHypothesisSize = 3,
+                    preferentialPower = 1,
                     preSelectionTransitiveNum = when (preSelectionStrategy) {
                         PreSelectionStrategy.TRANSITIVE -> 100
                         else -> 0
@@ -43,7 +44,7 @@ fun main() {
                         SelectionStrategy.HOMOPHILY -> 100
                         else -> 0
                     },
-                    cooperationLength = 20,
+                    cooperationLength = 5,
                     numPreSelectedFirm = 99,
                     radicalThreshold = 6,
                     incrementalThreshold = 8,
@@ -66,5 +67,5 @@ fun main() {
     val df = dfList.concat()
 
     File("data").mkdirs()
-    df.writeCSV("./data/KDScan2.csv", CSVFormat.DEFAULT.withDelimiter('|'))
+    df.writeCSV("./data/KDScanTest.csv", CSVFormat.DEFAULT.withDelimiter('|'))
 }

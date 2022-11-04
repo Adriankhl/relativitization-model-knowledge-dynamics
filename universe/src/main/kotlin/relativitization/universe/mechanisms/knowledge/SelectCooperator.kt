@@ -14,6 +14,7 @@ import relativitization.universe.maths.sampling.WeightedSample
 import relativitization.universe.mechanisms.Mechanism
 import relativitization.universe.utils.RelativitizationLogManager
 import kotlin.math.abs
+import kotlin.math.pow
 import kotlin.random.Random
 
 object SelectCooperator : Mechanism() {
@@ -38,6 +39,13 @@ object SelectCooperator : Mechanism() {
         ) {
             logger.error("Missing incrementalThreshold")
             8
+        }
+
+        val preferentialPower: Int = universeSettings.otherIntMap.getOrElse(
+            "preferentialPower"
+        ) {
+            logger.error("Missing incrementalThreshold")
+            1
         }
 
         val latestReward: Int = mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
@@ -84,6 +92,7 @@ object SelectCooperator : Mechanism() {
                     SelectionStrategy.PREFERENTIAL -> selectionPreferential(
                         preSelectedSet = preSelectedSet,
                         universeData3DAtPlayer = universeData3DAtPlayer,
+                        preferentialPower = preferentialPower,
                         random = random,
                     )
 
@@ -168,6 +177,7 @@ object SelectCooperator : Mechanism() {
     private fun selectionPreferential(
         preSelectedSet: Set<Int>,
         universeData3DAtPlayer: UniverseData3DAtPlayer,
+        preferentialPower: Int,
         random: Random,
     ): Int {
         return WeightedSample.sample(
@@ -176,7 +186,7 @@ object SelectCooperator : Mechanism() {
             random = random,
         ) {
             universeData3DAtPlayer.get(it).playerInternalData.abmKnowledgeDynamicsData()
-                .numCooperation() + 1E-9
+                .numCooperation().toDouble().pow(preferentialPower) + 1E-9
         }.first()
     }
 
