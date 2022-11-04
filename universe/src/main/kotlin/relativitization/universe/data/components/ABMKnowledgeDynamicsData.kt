@@ -40,6 +40,11 @@ data class ABMKnowledgeDynamicsData(
 ) : PlayerDataComponent() {
     fun allCooperator(): Set<Int> = cooperationOutMap.keys + cooperationInMap.keys
 
+    /**
+     * Not equal to allCooperator().size, count out and in separately
+     */
+    fun numCooperation(): Int = cooperationOutMap.size + cooperationInMap.size
+
     fun outCooperator(): Set<Int> = cooperationOutMap.keys + cooperationOutWaitMap.keys
 }
 
@@ -60,6 +65,11 @@ data class MutableABMKnowledgeDynamicsData(
     val cooperationLearnMap: MutableMap<Int, MutableCooperation> = mutableMapOf(),
 ) : MutablePlayerDataComponent() {
     fun allCooperator(): Set<Int> = cooperationOutMap.keys + cooperationInMap.keys
+
+    /**
+     * Not equal to allCooperator().size, count out and in separately
+     */
+    fun numCooperation(): Int = cooperationOutMap.size + cooperationInMap.size
 
     fun outCooperator(): Set<Int> = cooperationOutMap.keys + cooperationOutWaitMap.keys
 }
