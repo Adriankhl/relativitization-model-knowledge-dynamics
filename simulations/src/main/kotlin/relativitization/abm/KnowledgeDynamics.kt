@@ -12,7 +12,6 @@ import relativitization.universe.data.commands.AllCommandAvailability
 import relativitization.universe.data.components.ABMKnowledgeDynamicsData
 import relativitization.universe.data.components.abmKnowledgeDynamicsData
 import relativitization.universe.generate.GenerateSettings
-import relativitization.universe.generate.GenerateUniverseMethod
 import relativitization.universe.generate.GenerateUniverseMethodCollection
 import relativitization.universe.generate.abm.ABMKnowledgeDynamicsGenerate
 import relativitization.universe.global.EmptyGlobalMechanismList
@@ -31,10 +30,10 @@ fun main() {
         innovationHypothesisSize = 3,
         preferentialPower = 1,
         preSelectionTransitiveNum = 0,
-        selectionPreferentialNum = 0,
+        selectionPreferentialNum = 100,
         selectionHomophilyNum = 0,
-        cooperationLength = 5,
-        numPreSelectedFirm = 5,
+        cooperationLength = 1,
+        numPreSelectedFirm = 99,
         radicalThreshold = 6,
         incrementalThreshold = 8,
         maxCapability = 100,
@@ -193,11 +192,16 @@ internal fun knowledgeDynamicsSingleRun(
                 it <= rewardThreshold
             }
 
+            val numNoCooperator: Int = currentPlayerDataList.filter {
+                it.playerInternalData.abmKnowledgeDynamicsData().cooperationInMap.isEmpty()
+            }.size
+
             println(
                 "Turn: $turn. " +
                         "Product quality mean (1): $productQualityMean ($product1QualityMean). " +
                         "Expertise mean: $expertiseMean. " +
-                        "Num poor: $numPoorPlayer"
+                        "Num poor: $numPoorPlayer. " +
+                        "Num no cooperator: $numNoCooperator. "
             )
         }
 

@@ -44,7 +44,7 @@ fun main() {
                         SelectionStrategy.HOMOPHILY -> 100
                         else -> 0
                     },
-                    cooperationLength = 5,
+                    cooperationLength = 1,
                     numPreSelectedFirm = 99,
                     radicalThreshold = 6,
                     incrementalThreshold = 8,
