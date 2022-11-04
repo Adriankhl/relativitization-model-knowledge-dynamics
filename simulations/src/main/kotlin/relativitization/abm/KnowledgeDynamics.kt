@@ -26,6 +26,7 @@ fun main() {
         randomSeed = 100L,
         numPlayer = 100,
         speedOfLight = 200.0,
+        sameLocation = 1,
         maxInitialCapability = 30,
         innovationHypothesisSize = 3,
         preSelectionTransitiveNum = 0,
@@ -59,6 +60,7 @@ internal fun knowledgeDynamicsSingleRun(
     numStep: Int,
     numPlayer: Int,
     speedOfLight: Double,
+    sameLocation: Int,
     maxInitialCapability: Int,
     innovationHypothesisSize: Int,
     preSelectionTransitiveNum: Int,
@@ -86,6 +88,7 @@ internal fun knowledgeDynamicsSingleRun(
         numPlayer = numPlayer,
         numHumanPlayer = 0,
         otherIntMap = mutableMapOf(
+            "sameLocation" to sameLocation,
             "maxInitialCapability" to maxInitialCapability,
             "innovationHypothesisSize" to innovationHypothesisSize,
             "preSelectionTransitiveNum" to preSelectionTransitiveNum,

@@ -26,6 +26,7 @@ fun main() {
                     randomSeed = 100L,
                     numPlayer = 100,
                     speedOfLight = 200.0,
+                    sameLocation = 0,
                     maxInitialCapability = 30,
                     innovationHypothesisSize = 3,
                     preSelectionTransitiveNum = when (preSelectionStrategy) {

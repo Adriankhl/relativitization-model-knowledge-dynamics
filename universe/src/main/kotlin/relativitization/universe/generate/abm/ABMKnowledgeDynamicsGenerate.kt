@@ -14,6 +14,7 @@ import relativitization.universe.data.global.UniverseGlobalData
 import relativitization.universe.data.serializer.DataSerializer
 import relativitization.universe.generate.GenerateSettings
 import relativitization.universe.maths.grid.Grids.create4DGrid
+import relativitization.universe.maths.physics.MutableInt4D
 import relativitization.universe.utils.RelativitizationLogManager
 import kotlin.math.floor
 import kotlin.random.Random
@@ -37,6 +38,13 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
             currentTime = universeSettings.tDim - 1,
             maxPlayerId = 0,
         )
+
+        val sameLocation: Int = settings.otherIntMap.getOrElse(
+            "sameLocation"
+        ) {
+            logger.error("Missing sameLocation")
+            0
+        }
 
         val maxInitialCapability: Int = settings.otherIntMap.getOrElse(
             "maxInitialCapability"
@@ -112,22 +120,32 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
                 MutableABMKnowledgeDynamicsData()
             )
 
-            // Random location, avoid too close to the boundary by adding a 0.1 width margin
-            mutablePlayerData.double4D.x = random.nextDouble(
-                0.1,
-                universeSettings.xDim.toDouble() - 0.1
-            )
-            mutablePlayerData.double4D.y = random.nextDouble(
-                0.1,
-                universeSettings.yDim.toDouble() - 0.1
-            )
-            mutablePlayerData.double4D.z = random.nextDouble(
-                0.1,
-                universeSettings.zDim.toDouble() - 0.1
-            )
-            mutablePlayerData.int4D.x = floor(mutablePlayerData.double4D.x).toInt()
-            mutablePlayerData.int4D.y = floor(mutablePlayerData.double4D.y).toInt()
-            mutablePlayerData.int4D.z = floor(mutablePlayerData.double4D.z).toInt()
+            if (sameLocation == 0) {
+                // Random location, avoid too close to the boundary by adding a 0.1 width margin
+                mutablePlayerData.double4D.x = random.nextDouble(
+                    0.1,
+                    universeSettings.xDim.toDouble() - 0.1
+                )
+                mutablePlayerData.double4D.y = random.nextDouble(
+                    0.1,
+                    universeSettings.yDim.toDouble() - 0.1
+                )
+                mutablePlayerData.double4D.z = random.nextDouble(
+                    0.1,
+                    universeSettings.zDim.toDouble() - 0.1
+                )
+                mutablePlayerData.int4D.x = floor(mutablePlayerData.double4D.x).toInt()
+                mutablePlayerData.int4D.y = floor(mutablePlayerData.double4D.y).toInt()
+                mutablePlayerData.int4D.z = floor(mutablePlayerData.double4D.z).toInt()
+            } else {
+                mutablePlayerData.int4D.x = 0
+                mutablePlayerData.int4D.y = 0
+                mutablePlayerData.int4D.z = 0
+
+                mutablePlayerData.double4D.x = 0.2
+                mutablePlayerData.double4D.y = 0.2
+                mutablePlayerData.double4D.z = 0.2
+            }
 
             mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().preSelectionStrategy =
                 preSelectionStrategyList[i - 1]

@@ -28,6 +28,7 @@ fun main() {
                     randomSeed = 100L,
                     numPlayer = 100,
                     speedOfLight = 200.0,
+                    sameLocation = 1,
                     maxInitialCapability = 30,
                     innovationHypothesisSize = 3,
                     preSelectionTransitiveNum = when (preSelectionStrategy) {
@@ -43,7 +44,7 @@ fun main() {
                         else -> 0
                     },
                     cooperationLength = 20,
-                    numPreSelectedFirm = 5,
+                    numPreSelectedFirm = 99,
                     radicalThreshold = 6,
                     incrementalThreshold = 8,
                     maxCapability = 100,
