@@ -28,7 +28,7 @@ fun main() {
         sameLocation = 1,
         maxInitialCapability = 30,
         innovationHypothesisSize = 3,
-        preferentialPower = 1,
+        preferentialPower = 1.0,
         preSelectionTransitiveNum = 0,
         selectionPreferentialNum = 100,
         selectionHomophilyNum = 0,
@@ -63,7 +63,7 @@ internal fun knowledgeDynamicsSingleRun(
     sameLocation: Int,
     maxInitialCapability: Int,
     innovationHypothesisSize: Int,
-    preferentialPower: Int,
+    preferentialPower: Double,
     preSelectionTransitiveNum: Int,
     selectionPreferentialNum: Int,
     selectionHomophilyNum: Int,
@@ -109,7 +109,6 @@ internal fun knowledgeDynamicsSingleRun(
             zDim = 10,
             randomSeed = randomSeed,
             otherIntMap = mutableMapOf(
-                "preferentialPower" to preferentialPower,
                 "cooperationLength" to cooperationLength,
                 "numPreSelectedFirm" to numPreSelectedFirm,
                 "radicalThreshold" to radicalThreshold,
@@ -122,6 +121,7 @@ internal fun knowledgeDynamicsSingleRun(
                 "maxReward" to maxReward,
             ),
             otherDoubleMap = mutableMapOf(
+                "preferentialPower" to preferentialPower,
                 "forgetProbability" to forgetProbability,
                 "radicalInnovationProbability" to radicalInnovationProbability,
                 "incrementalInnovationProbability" to incrementalInnovationProbability,

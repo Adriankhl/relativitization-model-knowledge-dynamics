@@ -41,11 +41,11 @@ object SelectCooperator : Mechanism() {
             8
         }
 
-        val preferentialPower: Int = universeSettings.otherIntMap.getOrElse(
+        val preferentialPower: Double = universeSettings.otherDoubleMap.getOrElse(
             "preferentialPower"
         ) {
             logger.error("Missing incrementalThreshold")
-            1
+            1.0
         }
 
         val latestReward: Int = mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
@@ -177,7 +177,7 @@ object SelectCooperator : Mechanism() {
     private fun selectionPreferential(
         preSelectedSet: Set<Int>,
         universeData3DAtPlayer: UniverseData3DAtPlayer,
-        preferentialPower: Int,
+        preferentialPower: Double,
         random: Random,
     ): Int {
         return WeightedSample.sample(
