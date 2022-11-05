@@ -44,7 +44,14 @@ object SelectCooperator : Mechanism() {
         val preferentialPower: Double = universeSettings.otherDoubleMap.getOrElse(
             "preferentialPower"
         ) {
-            logger.error("Missing incrementalThreshold")
+            logger.error("Missing preferentialPower")
+            1.0
+        }
+
+        val homophilyPower: Double = universeSettings.otherDoubleMap.getOrElse(
+            "homophilyPower"
+        ) {
+            logger.error("Missing homophilyPower")
             1.0
         }
 
@@ -101,6 +108,7 @@ object SelectCooperator : Mechanism() {
                             .abmKnowledgeDynamicsData().numCooperation(),
                         preSelectedSet = preSelectedSet,
                         universeData3DAtPlayer = universeData3DAtPlayer,
+                        homophilyPower = homophilyPower,
                         random = random,
                     )
                 }
@@ -194,6 +202,7 @@ object SelectCooperator : Mechanism() {
         numSelfCooperator: Int,
         preSelectedSet: Set<Int>,
         universeData3DAtPlayer: UniverseData3DAtPlayer,
+        homophilyPower: Double,
         random: Random,
     ): Int {
         return WeightedSample.sample(
@@ -203,7 +212,7 @@ object SelectCooperator : Mechanism() {
         ) {
             val numOtherCooperator: Int = universeData3DAtPlayer.get(it).playerInternalData
                 .abmKnowledgeDynamicsData().numCooperation()
-            1.0 / (1.0 + abs(numSelfCooperator - numOtherCooperator))
+            1.0 / (1.0 + abs(numSelfCooperator - numOtherCooperator).toDouble().pow(homophilyPower))
         }.first()
     }
 }

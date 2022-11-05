@@ -30,6 +30,7 @@ fun main() {
                     maxInitialCapability = 30,
                     innovationHypothesisSize = 3,
                     preferentialPower = 1.0,
+                    homophilyPower = 1.0,
                     preSelectionTransitiveNum = when (preSelectionStrategy) {
                         PreSelectionStrategy.TRANSITIVE -> 100
                         else -> 0
