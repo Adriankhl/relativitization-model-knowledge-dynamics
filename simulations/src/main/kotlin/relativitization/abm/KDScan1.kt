@@ -29,7 +29,7 @@ fun main() {
                     sameLocation = 0,
                     maxInitialCapability = 30,
                     innovationHypothesisSize = 3,
-                    preferentialPower = 1.0,
+                    preferentialPower = 2.0,
                     homophilyPower = 1.0,
                     preSelectionTransitiveNum = when (preSelectionStrategy) {
                         PreSelectionStrategy.TRANSITIVE -> 100

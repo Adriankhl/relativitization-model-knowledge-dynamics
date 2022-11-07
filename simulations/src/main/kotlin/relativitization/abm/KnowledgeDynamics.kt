@@ -147,6 +147,7 @@ internal fun knowledgeDynamicsSingleRun(
                 "speedOfLight" to speedOfLight,
                 "preferentialPower" to preferentialPower,
                 "homophilyPower" to homophilyPower,
+                "cooperationLength" to cooperationLength,
                 "playerId" to currentPlayerData.playerId,
                 "preSelectionStrategy" to currentKnowledgeDynamicsData.preSelectionStrategy,
                 "selectionStrategy" to currentKnowledgeDynamicsData.selectionStrategy,
