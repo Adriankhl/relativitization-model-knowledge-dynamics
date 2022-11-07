@@ -14,10 +14,8 @@ fun main() {
 
     val cooperationLengthList: List<Int> = listOf(
         1,
-        2,
         5,
         10,
-        20,
     )
 
     val preferentialPowerList: List<Double> = listOf(
