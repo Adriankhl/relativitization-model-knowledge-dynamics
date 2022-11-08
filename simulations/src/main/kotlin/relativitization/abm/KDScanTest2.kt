@@ -39,6 +39,8 @@ fun main() {
 
     val selectionStrategyList: List<SelectionStrategy> = SelectionStrategy.values().toList()
 
+    val numPreSelectedFirm = 30
+
     for (cooperationLength in cooperationLengthList) {
         for (preSelectionStrategy in preSelectionStrategyList) {
             for (selectionStrategy in selectionStrategyList) {
@@ -65,7 +67,7 @@ fun main() {
                                 selectionPreferentialNum = 0,
                                 selectionHomophilyNum = 0,
                                 cooperationLength = cooperationLength,
-                                numPreSelectedFirm = 30,
+                                numPreSelectedFirm = numPreSelectedFirm,
                                 radicalThreshold = 6,
                                 incrementalThreshold = 8,
                                 maxCapability = 100,
@@ -104,7 +106,7 @@ fun main() {
                                     selectionPreferentialNum = 100,
                                     selectionHomophilyNum = 0,
                                     cooperationLength = cooperationLength,
-                                    numPreSelectedFirm = 30,
+                                    numPreSelectedFirm = numPreSelectedFirm,
                                     radicalThreshold = 6,
                                     incrementalThreshold = 8,
                                     maxCapability = 100,
@@ -144,7 +146,7 @@ fun main() {
                                     selectionPreferentialNum = 0,
                                     selectionHomophilyNum = 100,
                                     cooperationLength = cooperationLength,
-                                    numPreSelectedFirm = 30,
+                                    numPreSelectedFirm = numPreSelectedFirm,
                                     radicalThreshold = 6,
                                     incrementalThreshold = 8,
                                     maxCapability = 100,

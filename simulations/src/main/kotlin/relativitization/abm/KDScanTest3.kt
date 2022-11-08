@@ -39,7 +39,7 @@ fun main() {
 
     val selectionStrategyList: List<SelectionStrategy> = SelectionStrategy.values().toList()
 
-    val numPreSelectedFirm = 99
+    val numPreSelectedFirm = 5
 
     for (cooperationLength in cooperationLengthList) {
         for (preSelectionStrategy in preSelectionStrategyList) {
@@ -171,5 +171,5 @@ fun main() {
     val df = dfList.concat()
 
     File("data").mkdirs()
-    df.writeCSV("./data/KDScanTest1.csv", CSVFormat.DEFAULT.withDelimiter('|'))
+    df.writeCSV("./data/KDScanTest3.csv", CSVFormat.DEFAULT.withDelimiter('|'))
 }
