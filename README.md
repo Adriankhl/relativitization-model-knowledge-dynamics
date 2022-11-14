@@ -33,11 +33,11 @@ Now you can open this project with your favourite IDE that supports gradle, or y
 the simulation on the command line:
 
 ```
-./gradlew :simulations:run -PmainClass=relativitization.abm.KDScanTestKt
+./gradlew :simulations:run -PmainClass=relativitization.abm.KDScan1TestKt
 ```
 
 You can use `-PprocessorCount` and `-PramPercentage` to limit cpu usage and ram usage respectively:
 
 ```
-./gradlew :simulations:run -PmainClass=relativitization.abm.KDScanTestKt -PprocessorCount=2 -PramPercentage=25
+./gradlew :simulations:run -PmainClass=relativitization.abm.KDScan1Kt -PprocessorCount=2 -PramPercentage=25
 ```
