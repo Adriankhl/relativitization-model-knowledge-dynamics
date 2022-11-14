@@ -33,6 +33,7 @@ fun main() {
         preSelectionTransitiveNum = 0,
         selectionPreferentialNum = 100,
         selectionHomophilyNum = 0,
+        sequentialRun = 0,
         cooperationLength = 1,
         numPreSelectedFirm = 99,
         radicalThreshold = 6,
@@ -69,6 +70,7 @@ internal fun knowledgeDynamicsSingleRun(
     preSelectionTransitiveNum: Int,
     selectionPreferentialNum: Int,
     selectionHomophilyNum: Int,
+    sequentialRun: Int,
     cooperationLength: Int,
     numPreSelectedFirm: Int,
     radicalThreshold: Int,
@@ -111,6 +113,7 @@ internal fun knowledgeDynamicsSingleRun(
             zDim = 10,
             randomSeed = randomSeed,
             otherIntMap = mutableMapOf(
+                "sequentialRun" to sequentialRun,
                 "cooperationLength" to cooperationLength,
                 "numPreSelectedFirm" to numPreSelectedFirm,
                 "radicalThreshold" to radicalThreshold,

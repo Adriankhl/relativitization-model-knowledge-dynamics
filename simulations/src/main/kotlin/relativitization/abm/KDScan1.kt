@@ -43,6 +43,7 @@ fun main() {
                         SelectionStrategy.HOMOPHILY -> 100
                         else -> 0
                     },
+                    sequentialRun = 0,
                     cooperationLength = 5,
                     numPreSelectedFirm = 5,
                     radicalThreshold = 6,

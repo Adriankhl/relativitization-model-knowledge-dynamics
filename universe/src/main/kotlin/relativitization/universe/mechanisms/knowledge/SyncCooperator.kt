@@ -21,6 +21,13 @@ object SyncCooperator : Mechanism() {
         universeGlobalData: UniverseGlobalData,
         random: Random
     ): List<Command> {
+        val sequentialRun: Int = universeSettings.otherIntMap.getOrElse(
+            "sequentialRun"
+        ) {
+            logger.error("Missing sequentialRun")
+            0
+        }
+
         val cooperationLength: Int = universeSettings.otherIntMap.getOrElse(
             "cooperationLength"
         ) {
@@ -28,47 +35,58 @@ object SyncCooperator : Mechanism() {
             5
         }
 
-        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().cooperationOutMap
-            .values.forEach {
-                it.time += 1
-            }
+        val isSequential: Boolean = sequentialRun == 1
 
-        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().cooperationInMap
-            .values.forEach {
-                it.time += 1
-            }
+        val shouldRun: Boolean = if (isSequential) {
+            mutablePlayerData.playerId % universeData3DAtPlayer.playerDataMap.size == 0
+        } else {
+            true
+        }
 
-        val confirmedCooperator: Map<Int, MutableCooperation> = mutablePlayerData.playerInternalData
-            .abmKnowledgeDynamicsData().cooperationOutWaitMap.filterKeys {
-                universeData3DAtPlayer.get(it).playerInternalData.abmKnowledgeDynamicsData()
-                    .cooperationInMap.containsKey(mutablePlayerData.playerId)
-            }
+        if (shouldRun) {
+            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().cooperationOutMap
+                .values.forEach {
+                    it.time += 1
+                }
 
-        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-            .cooperationOutWaitMap -= confirmedCooperator.keys
+            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().cooperationInMap
+                .values.forEach {
+                    it.time += 1
+                }
 
-        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-            .cooperationOutMap += confirmedCooperator
+            val confirmedCooperator: Map<Int, MutableCooperation> =
+                mutablePlayerData.playerInternalData
+                    .abmKnowledgeDynamicsData().cooperationOutWaitMap.filterKeys {
+                        universeData3DAtPlayer.get(it).playerInternalData.abmKnowledgeDynamicsData()
+                            .cooperationInMap.containsKey(mutablePlayerData.playerId)
+                    }
 
-        val endCooperator: Map<Int, MutableCooperation> = mutablePlayerData.playerInternalData
-            .abmKnowledgeDynamicsData().cooperationOutMap.filterValues {
-                it.time >= cooperationLength
-            } + mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().cooperationOutMap
-            .filterKeys {
-                !universeData3DAtPlayer.get(it).playerInternalData.abmKnowledgeDynamicsData()
-                    .cooperationInMap.containsKey(mutablePlayerData.playerId)
-            }
+            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                .cooperationOutWaitMap -= confirmedCooperator.keys
 
-        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-            .cooperationOutMap -= endCooperator.keys
+            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                .cooperationOutMap += confirmedCooperator
 
-        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-            .cooperationLearnMap += endCooperator
+            val endCooperator: Map<Int, MutableCooperation> = mutablePlayerData.playerInternalData
+                .abmKnowledgeDynamicsData().cooperationOutMap.filterValues {
+                    it.time >= cooperationLength
+                } + mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().cooperationOutMap
+                .filterKeys {
+                    !universeData3DAtPlayer.get(it).playerInternalData.abmKnowledgeDynamicsData()
+                        .cooperationInMap.containsKey(mutablePlayerData.playerId)
+                }
 
-        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().cooperationInMap
-            .values.removeAll {
-                it.time >= cooperationLength
-            }
+            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                .cooperationOutMap -= endCooperator.keys
+
+            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                .cooperationLearnMap += endCooperator
+
+            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().cooperationInMap
+                .values.removeAll {
+                    it.time >= cooperationLength
+                }
+        }
 
         return listOf()
     }

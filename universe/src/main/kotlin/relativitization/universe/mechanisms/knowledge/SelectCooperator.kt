@@ -27,6 +27,13 @@ object SelectCooperator : Mechanism() {
         universeGlobalData: UniverseGlobalData,
         random: Random
     ): List<Command> {
+        val sequentialRun: Int = universeSettings.otherIntMap.getOrElse(
+            "sequentialRun"
+        ) {
+            logger.error("Missing sequentialRun")
+            0
+        }
+
         val numPreSelectedFirm: Int = universeSettings.otherIntMap.getOrElse(
             "numPreSelectedFirm"
         ) {
@@ -58,7 +65,15 @@ object SelectCooperator : Mechanism() {
         val latestReward: Int = mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
             .latestReward
 
-        return if (latestReward > incrementalThreshold) {
+        val isSequential: Boolean = sequentialRun == 1
+
+        val shouldRun: Boolean = if (isSequential) {
+            mutablePlayerData.playerId % universeData3DAtPlayer.playerDataMap.size == 0
+        } else {
+            true
+        }
+
+        return if (latestReward > incrementalThreshold || !shouldRun) {
             listOf()
         } else {
             val preSelectionStrategy: PreSelectionStrategy = mutablePlayerData.playerInternalData
