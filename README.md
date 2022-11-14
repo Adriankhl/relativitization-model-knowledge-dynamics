@@ -1,4 +1,4 @@
-# Flocking model example
+# Knowledge dynamics model example
 
 ## Run the simulation
 
@@ -22,7 +22,7 @@ cd relativitization
 Copy all essential files from Relativitization:
 
 ```
-cd ../relativitization-model-flocking
+cd ../relativitization-model-knowledge-dynamics
 cp -rT ../relativitization/relativitization-model-base/ .
 ```
 
