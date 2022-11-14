@@ -140,31 +140,39 @@ internal fun knowledgeDynamicsSingleRun(
     for (turn in 1..numStep) {
         val currentPlayerDataList: List<PlayerData> = universe.getCurrentPlayerDataList()
 
-        currentPlayerDataList.forEach { currentPlayerData ->
-            val currentKnowledgeDynamicsData: ABMKnowledgeDynamicsData = currentPlayerData
-                .playerInternalData.abmKnowledgeDynamicsData()
+        val shouldRecord: Boolean = if (sequentialRun == 1) {
+            turn % numPlayer == 1
+        } else {
+            true
+        }
 
-            val outputDataMap = mapOf(
-                "randomSeed" to randomSeed,
-                "turn" to turn,
-                "speedOfLight" to speedOfLight,
-                "preferentialPower" to preferentialPower,
-                "homophilyPower" to homophilyPower,
-                "cooperationLength" to cooperationLength,
-                "playerId" to currentPlayerData.playerId,
-                "preSelectionStrategy" to currentKnowledgeDynamicsData.preSelectionStrategy,
-                "selectionStrategy" to currentKnowledgeDynamicsData.selectionStrategy,
-                "productId" to currentKnowledgeDynamicsData.productId,
-                "productQuality" to currentKnowledgeDynamicsData.productQuality,
-                "latestReward" to currentKnowledgeDynamicsData.latestReward,
-                "cooperationIn" to currentKnowledgeDynamicsData.cooperationInMap.keys,
-                "cooperationOut" to currentKnowledgeDynamicsData.cooperationOutMap.keys,
-            )
+        if (shouldRecord) {
+            currentPlayerDataList.forEach { currentPlayerData ->
+                val currentKnowledgeDynamicsData: ABMKnowledgeDynamicsData = currentPlayerData
+                    .playerInternalData.abmKnowledgeDynamicsData()
 
-            outputDataMap.forEach {
-                dfMap.getOrPut(it.key) {
-                    mutableListOf()
-                }.add(it.value)
+                val outputDataMap = mapOf(
+                    "randomSeed" to randomSeed,
+                    "turn" to turn,
+                    "speedOfLight" to speedOfLight,
+                    "preferentialPower" to preferentialPower,
+                    "homophilyPower" to homophilyPower,
+                    "cooperationLength" to cooperationLength,
+                    "playerId" to currentPlayerData.playerId,
+                    "preSelectionStrategy" to currentKnowledgeDynamicsData.preSelectionStrategy,
+                    "selectionStrategy" to currentKnowledgeDynamicsData.selectionStrategy,
+                    "productId" to currentKnowledgeDynamicsData.productId,
+                    "productQuality" to currentKnowledgeDynamicsData.productQuality,
+                    "latestReward" to currentKnowledgeDynamicsData.latestReward,
+                    "cooperationIn" to currentKnowledgeDynamicsData.cooperationInMap.keys,
+                    "cooperationOut" to currentKnowledgeDynamicsData.cooperationOutMap.keys,
+                )
+
+                outputDataMap.forEach {
+                    dfMap.getOrPut(it.key) {
+                        mutableListOf()
+                    }.add(it.value)
+                }
             }
         }
 
