@@ -38,7 +38,8 @@ object SyncCooperator : Mechanism() {
         val isSequential: Boolean = sequentialRun == 1
 
         val shouldRun: Boolean = if (isSequential) {
-            mutablePlayerData.playerId % universeData3DAtPlayer.playerDataMap.size == 0
+            mutablePlayerData.playerId % universeData3DAtPlayer.playerDataMap.size ==
+                    mutablePlayerData.int4D.t % universeData3DAtPlayer.playerDataMap.size
         } else {
             true
         }
