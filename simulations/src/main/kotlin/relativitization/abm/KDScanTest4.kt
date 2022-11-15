@@ -13,7 +13,7 @@ fun main() {
     val dfList: MutableList<DataFrame<*>> = mutableListOf()
 
     val cooperationLengthList: List<Int> = listOf(
-        1,
+        2,
         5,
         10,
     )
