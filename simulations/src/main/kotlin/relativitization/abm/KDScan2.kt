@@ -4,8 +4,6 @@ import org.apache.commons.csv.CSVFormat
 import org.jetbrains.kotlinx.dataframe.DataFrame
 import org.jetbrains.kotlinx.dataframe.api.concat
 import org.jetbrains.kotlinx.dataframe.io.writeCSV
-import relativitization.universe.data.components.PreSelectionStrategy
-import relativitization.universe.data.components.SelectionStrategy
 import java.io.File
 
 fun main() {
@@ -17,22 +15,25 @@ fun main() {
         println("Random seed: $randomSeed")
         dfList.add(
             knowledgeDynamicsSingleRun(
-                printStep = false,
+                printStep = true,
                 numStep = 1000,
                 randomSeed = randomSeed,
                 xDim = 10,
                 yDim = 10,
                 zDim = 10,
-                numPlayer = 102,
+                numPlayer = 120,
                 speedOfLight = 200.0,
                 sameLocation = 0,
                 maxInitialCapability = 30,
                 innovationHypothesisSize = 3,
                 preferentialPower = 2.0,
                 homophilyPower = 1.0,
-                preSelectionTransitiveNum = 51,
-                selectionPreferentialNum = 34,
-                selectionHomophilyNum = 34,
+                randomRandomNum = 20,
+                randomPreferentialNum = 20,
+                randomHomophilyNum = 20,
+                transitiveRandomNum = 20,
+                transitivePreferentialNum = 20,
+                transitiveHomophilyNum = 20,
                 sequentialRun = 0,
                 cooperationLength = 5,
                 numPreSelectedFirm = 5,

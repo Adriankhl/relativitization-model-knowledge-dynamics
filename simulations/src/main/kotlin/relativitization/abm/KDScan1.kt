@@ -34,17 +34,35 @@ fun main() {
                     innovationHypothesisSize = 3,
                     preferentialPower = 2.0,
                     homophilyPower = 1.0,
-                    preSelectionTransitiveNum = when (preSelectionStrategy) {
-                        PreSelectionStrategy.TRANSITIVE -> 100
-                        else -> 0
+                    randomRandomNum = if (preSelectionStrategy == PreSelectionStrategy.RANDOM && selectionStrategy == SelectionStrategy.RANDOM) {
+                        100
+                    } else {
+                        0
                     },
-                    selectionPreferentialNum = when (selectionStrategy) {
-                        SelectionStrategy.PREFERENTIAL -> 100
-                        else -> 0
+                    randomPreferentialNum = if (preSelectionStrategy == PreSelectionStrategy.RANDOM && selectionStrategy == SelectionStrategy.PREFERENTIAL) {
+                        100
+                    } else {
+                        0
                     },
-                    selectionHomophilyNum = when (selectionStrategy) {
-                        SelectionStrategy.HOMOPHILY -> 100
-                        else -> 0
+                    randomHomophilyNum = if (preSelectionStrategy == PreSelectionStrategy.RANDOM && selectionStrategy == SelectionStrategy.HOMOPHILY) {
+                        100
+                    } else {
+                        0
+                    },
+                    transitiveRandomNum = if (preSelectionStrategy == PreSelectionStrategy.TRANSITIVE && selectionStrategy == SelectionStrategy.RANDOM) {
+                        100
+                    } else {
+                        0
+                    },
+                    transitivePreferentialNum = if (preSelectionStrategy == PreSelectionStrategy.TRANSITIVE && selectionStrategy == SelectionStrategy.PREFERENTIAL) {
+                        100
+                    } else {
+                        0
+                    },
+                    transitiveHomophilyNum = if (preSelectionStrategy == PreSelectionStrategy.TRANSITIVE && selectionStrategy == SelectionStrategy.HOMOPHILY) {
+                        100
+                    } else {
+                        0
                     },
                     sequentialRun = 0,
                     cooperationLength = 5,

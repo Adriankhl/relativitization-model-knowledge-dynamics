@@ -14,7 +14,6 @@ import relativitization.universe.data.global.UniverseGlobalData
 import relativitization.universe.data.serializer.DataSerializer
 import relativitization.universe.generate.GenerateSettings
 import relativitization.universe.maths.grid.Grids.create4DGrid
-import relativitization.universe.maths.physics.MutableInt4D
 import relativitization.universe.utils.RelativitizationLogManager
 import kotlin.math.floor
 import kotlin.random.Random
@@ -60,35 +59,6 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
             3
         }
 
-        val preSelectionTransitiveNum: Int = settings.otherIntMap.getOrElse(
-            "preSelectionTransitiveNum"
-        ) {
-            logger.error("Missing preSelectionTransitiveNum")
-            0
-        }
-
-        if (preSelectionTransitiveNum > settings.numPlayer) {
-            logger.error("Wrong preSelection num")
-        }
-
-        val selectionPreferentialNum: Int = settings.otherIntMap.getOrElse(
-            "selectionPreferentialNum"
-        ) {
-            logger.error("Missing selectionPreferentialNum")
-            0
-        }
-
-        val selectionHomophilyNum: Int = settings.otherIntMap.getOrElse(
-            "selectionHomophilyNum"
-        ) {
-            logger.error("Missing selectionHomophilyNum")
-            0
-        }
-
-        if (selectionPreferentialNum + selectionHomophilyNum > settings.numPlayer) {
-            logger.error("Wrong selection num")
-        }
-
         val maxAbility: Int = universeSettings.otherIntMap.getOrElse(
             "maxAbility"
         ) {
@@ -96,20 +66,80 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
             10
         }
 
-        val preSelectionStrategyList: List<PreSelectionStrategy> = (1..settings.numPlayer).map {
-            when {
-                it <= preSelectionTransitiveNum -> PreSelectionStrategy.TRANSITIVE
-                else -> PreSelectionStrategy.RANDOM
-            }
-        }.shuffled(random)
+        val randomRandomNum: Int = settings.otherIntMap.getOrElse(
+            "randomRandomNum"
+        ) {
+            logger.error("Missing randomRandomNum")
+            0
+        }
 
-        val selectionStrategyList: List<SelectionStrategy> = (1..settings.numPlayer).map {
-            when {
-                it <= selectionPreferentialNum -> SelectionStrategy.PREFERENTIAL
-                it in (selectionPreferentialNum + 1)..selectionPreferentialNum + selectionHomophilyNum -> SelectionStrategy.HOMOPHILY
-                else -> SelectionStrategy.RANDOM
-            }
-        }.shuffled(random)
+        val randomPreferentialNum: Int = settings.otherIntMap.getOrElse(
+            "randomPreferentialNum"
+        ) {
+            logger.error("Missing randomPreferentialNum")
+            0
+        }
+
+        val randomHomophilyNum: Int = settings.otherIntMap.getOrElse(
+            "randomHomophilyNum"
+        ) {
+            logger.error("Missing randomHomophilyNum")
+            0
+        }
+
+        val transitiveRandomNum: Int = settings.otherIntMap.getOrElse(
+            "transitiveRandomNum"
+        ) {
+            logger.error("Missing transitiveRandomNum")
+            0
+        }
+
+
+        val transitivePreferentialNum: Int = settings.otherIntMap.getOrElse(
+            "transitivePreferentialNum"
+        ) {
+            logger.error("Missing transitivePreferentialNum")
+            0
+        }
+
+        val transitiveHomophilyNum: Int = settings.otherIntMap.getOrElse(
+            "randomHomophilyNum"
+        ) {
+            logger.error("Missing transitiveHomophilyNum")
+            0
+        }
+
+        val totalStrategyNum: Int = randomRandomNum + randomPreferentialNum + randomHomophilyNum +
+                transitiveRandomNum + transitiveHomophilyNum + transitivePreferentialNum
+
+        if (totalStrategyNum != settings.numPlayer) {
+            logger.error("Wrong strategy num")
+        }
+
+        val strategyPairList: List<Pair<PreSelectionStrategy, SelectionStrategy>> =
+            (1..settings.numPlayer).map {
+                when (it) {
+                    in 0..randomRandomNum ->
+                        Pair(PreSelectionStrategy.RANDOM, SelectionStrategy.RANDOM)
+
+                    in (randomRandomNum + 1)..(randomRandomNum + randomPreferentialNum) ->
+                        Pair(PreSelectionStrategy.RANDOM, SelectionStrategy.PREFERENTIAL)
+
+                    in (randomRandomNum + randomPreferentialNum + 1)..(randomRandomNum + randomPreferentialNum + randomHomophilyNum) ->
+                        Pair(PreSelectionStrategy.RANDOM, SelectionStrategy.HOMOPHILY)
+
+                    in (randomRandomNum + randomPreferentialNum + randomHomophilyNum + 1)..(randomRandomNum + randomPreferentialNum + randomHomophilyNum + transitiveRandomNum) ->
+                        Pair(PreSelectionStrategy.TRANSITIVE, SelectionStrategy.RANDOM)
+
+                    in (randomRandomNum + randomPreferentialNum + randomHomophilyNum + transitiveRandomNum + 1)..(randomRandomNum + randomPreferentialNum + randomHomophilyNum + transitiveRandomNum + transitivePreferentialNum) ->
+                        Pair(PreSelectionStrategy.TRANSITIVE, SelectionStrategy.PREFERENTIAL)
+
+                    in (randomRandomNum + randomPreferentialNum + randomHomophilyNum + transitiveRandomNum + transitivePreferentialNum + 1)..(randomRandomNum + randomPreferentialNum + randomHomophilyNum + transitiveRandomNum + transitivePreferentialNum + transitiveHomophilyNum) ->
+                        Pair(PreSelectionStrategy.TRANSITIVE, SelectionStrategy.HOMOPHILY)
+
+                    else -> Pair(PreSelectionStrategy.RANDOM, SelectionStrategy.RANDOM)
+                }
+            }.shuffled(random)
 
         for (i in 1..settings.numPlayer) {
             val playerId: Int = universeState.getNewPlayerId()
@@ -148,10 +178,10 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
             }
 
             mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().preSelectionStrategy =
-                preSelectionStrategyList[i - 1]
+                strategyPairList[i - 1].first
 
             mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().selectionStrategy =
-                selectionStrategyList[i - 1]
+                strategyPairList[i - 1].second
 
             repeat(innovationHypothesisSize) {
                 mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()

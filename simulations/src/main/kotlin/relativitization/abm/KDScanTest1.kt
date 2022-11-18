@@ -63,12 +63,20 @@ fun main() {
                                 innovationHypothesisSize = 3,
                                 preferentialPower = 1.0,
                                 homophilyPower = 1.0,
-                                preSelectionTransitiveNum = when (preSelectionStrategy) {
-                                    PreSelectionStrategy.TRANSITIVE -> 100
-                                    else -> 0
+                                randomRandomNum = if (preSelectionStrategy == PreSelectionStrategy.RANDOM) {
+                                    100
+                                } else {
+                                    0
                                 },
-                                selectionPreferentialNum = 0,
-                                selectionHomophilyNum = 0,
+                                randomPreferentialNum = 0,
+                                randomHomophilyNum = 0,
+                                transitiveRandomNum = if (preSelectionStrategy == PreSelectionStrategy.TRANSITIVE) {
+                                    100
+                                } else {
+                                    0
+                                },
+                                transitivePreferentialNum = 0,
+                                transitiveHomophilyNum = 0,
                                 sequentialRun = 0,
                                 cooperationLength = cooperationLength,
                                 numPreSelectedFirm = numPreSelectedFirm,
@@ -106,12 +114,20 @@ fun main() {
                                     innovationHypothesisSize = 3,
                                     preferentialPower = preferentialPower,
                                     homophilyPower = 1.0,
-                                    preSelectionTransitiveNum = when (preSelectionStrategy) {
-                                        PreSelectionStrategy.TRANSITIVE -> 100
-                                        else -> 0
+                                    randomRandomNum = 0,
+                                    randomPreferentialNum = if (preSelectionStrategy == PreSelectionStrategy.RANDOM) {
+                                        100
+                                    } else {
+                                        0
                                     },
-                                    selectionPreferentialNum = 100,
-                                    selectionHomophilyNum = 0,
+                                    randomHomophilyNum = 0,
+                                    transitiveRandomNum = 0,
+                                    transitivePreferentialNum = if (preSelectionStrategy == PreSelectionStrategy.TRANSITIVE) {
+                                        100
+                                    } else {
+                                        0
+                                    },
+                                    transitiveHomophilyNum = 0,
                                     sequentialRun = 0,
                                     cooperationLength = cooperationLength,
                                     numPreSelectedFirm = numPreSelectedFirm,
@@ -150,12 +166,20 @@ fun main() {
                                     innovationHypothesisSize = 3,
                                     preferentialPower = 1.0,
                                     homophilyPower = homophilyPower,
-                                    preSelectionTransitiveNum = when (preSelectionStrategy) {
-                                        PreSelectionStrategy.TRANSITIVE -> 100
-                                        else -> 0
+                                    randomRandomNum = 0,
+                                    randomPreferentialNum = 0,
+                                    randomHomophilyNum = if (preSelectionStrategy == PreSelectionStrategy.RANDOM) {
+                                        100
+                                    } else {
+                                        0
                                     },
-                                    selectionPreferentialNum = 0,
-                                    selectionHomophilyNum = 100,
+                                    transitiveRandomNum = 0,
+                                    transitivePreferentialNum = 0,
+                                    transitiveHomophilyNum = if (preSelectionStrategy == PreSelectionStrategy.TRANSITIVE) {
+                                        100
+                                    } else {
+                                        0
+                                    },
                                     sequentialRun = 0,
                                     cooperationLength = cooperationLength,
                                     numPreSelectedFirm = numPreSelectedFirm,
