@@ -103,14 +103,14 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
         }
 
         val transitiveHomophilyNum: Int = settings.otherIntMap.getOrElse(
-            "randomHomophilyNum"
+            "transitiveHomophilyNum"
         ) {
             logger.error("Missing transitiveHomophilyNum")
             0
         }
 
         val totalStrategyNum: Int = randomRandomNum + randomPreferentialNum + randomHomophilyNum +
-                transitiveRandomNum + transitiveHomophilyNum + transitivePreferentialNum
+                transitiveRandomNum + transitivePreferentialNum + transitiveHomophilyNum
 
         if (totalStrategyNum != settings.numPlayer) {
             logger.error("Wrong strategy num")
