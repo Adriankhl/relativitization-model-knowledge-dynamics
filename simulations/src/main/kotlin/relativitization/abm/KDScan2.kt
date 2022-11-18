@@ -15,7 +15,7 @@ fun main() {
         println("Random seed: $randomSeed")
         dfList.add(
             knowledgeDynamicsSingleRun(
-                printStep = true,
+                printStep = false,
                 numStep = 1000,
                 randomSeed = randomSeed,
                 xDim = 10,
