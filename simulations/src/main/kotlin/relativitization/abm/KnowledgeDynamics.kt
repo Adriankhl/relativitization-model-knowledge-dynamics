@@ -181,6 +181,7 @@ internal fun knowledgeDynamicsSingleRun(
                     "speedOfLight" to speedOfLight,
                     "preferentialPower" to preferentialPower,
                     "homophilyPower" to homophilyPower,
+                    "distancePower" to distancePower,
                     "cooperationLength" to cooperationLength,
                     "playerId" to currentPlayerData.playerId,
                     "x" to currentPlayerData.double4D.x,
