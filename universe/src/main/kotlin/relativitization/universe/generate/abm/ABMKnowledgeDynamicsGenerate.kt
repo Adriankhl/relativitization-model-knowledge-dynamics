@@ -88,9 +88,9 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
         }
 
         val randomDistanceNum: Int = settings.otherIntMap.getOrElse(
-            "randomDistance"
+            "randomDistanceNum"
         ) {
-            logger.error("Missing randomDistance")
+            logger.error("Missing randomDistanceNum")
             0
         }
 
@@ -116,9 +116,9 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
         }
 
         val transitiveDistanceNum: Int = settings.otherIntMap.getOrElse(
-            "transitiveDistance"
+            "transitiveDistanceNum"
         ) {
-            logger.error("Missing transitiveDistance")
+            logger.error("Missing transitiveDistanceNum")
             0
         }
 
