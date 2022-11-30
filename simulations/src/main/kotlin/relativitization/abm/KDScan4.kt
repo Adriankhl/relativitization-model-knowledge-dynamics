@@ -13,11 +13,11 @@ fun main() {
 
     val distancePowerList: List<Double> = listOf(
         0.01,
-        0.02,
-        0.08,
-        0.32,
-        0.64,
+        0.03,
         1.0,
+        5.0,
+        10.0,
+        200.0,
     )
 
     for (randomSeed in randomSeedList) {
