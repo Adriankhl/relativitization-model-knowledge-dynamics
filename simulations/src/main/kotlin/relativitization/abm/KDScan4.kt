@@ -12,12 +12,12 @@ fun main() {
     val randomSeedList: List<Long> = (100L..110L).toList()
 
     val distancePowerList: List<Double> = listOf(
+        0.01,
+        0.02,
+        0.08,
+        0.32,
+        0.64,
         1.0,
-        2.0,
-        4.0,
-        8.0,
-        16.0,
-        32.0
     )
 
     for (randomSeed in randomSeedList) {
