@@ -87,13 +87,19 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
             0
         }
 
+        val randomDistanceNum: Int = settings.otherIntMap.getOrElse(
+            "randomDistance"
+        ) {
+            logger.error("Missing randomDistance")
+            0
+        }
+
         val transitiveRandomNum: Int = settings.otherIntMap.getOrElse(
             "transitiveRandomNum"
         ) {
             logger.error("Missing transitiveRandomNum")
             0
         }
-
 
         val transitivePreferentialNum: Int = settings.otherIntMap.getOrElse(
             "transitivePreferentialNum"
@@ -109,8 +115,16 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
             0
         }
 
+        val transitiveDistanceNum: Int = settings.otherIntMap.getOrElse(
+            "transitiveDistance"
+        ) {
+            logger.error("Missing transitiveDistance")
+            0
+        }
+
         val totalStrategyNum: Int = randomRandomNum + randomPreferentialNum + randomHomophilyNum +
-                transitiveRandomNum + transitivePreferentialNum + transitiveHomophilyNum
+                randomDistanceNum + transitiveRandomNum + transitivePreferentialNum +
+                transitiveHomophilyNum + transitiveDistanceNum
 
         if (totalStrategyNum != settings.numPlayer) {
             logger.error("Wrong strategy num")
@@ -119,7 +133,7 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
         val strategyPairList: List<Pair<PreSelectionStrategy, SelectionStrategy>> =
             (1..settings.numPlayer).map {
                 when (it) {
-                    in 0..randomRandomNum ->
+                    in 1..randomRandomNum ->
                         Pair(PreSelectionStrategy.RANDOM, SelectionStrategy.RANDOM)
 
                     in (randomRandomNum + 1)..(randomRandomNum + randomPreferentialNum) ->
@@ -128,14 +142,20 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
                     in (randomRandomNum + randomPreferentialNum + 1)..(randomRandomNum + randomPreferentialNum + randomHomophilyNum) ->
                         Pair(PreSelectionStrategy.RANDOM, SelectionStrategy.HOMOPHILY)
 
-                    in (randomRandomNum + randomPreferentialNum + randomHomophilyNum + 1)..(randomRandomNum + randomPreferentialNum + randomHomophilyNum + transitiveRandomNum) ->
+                    in (randomRandomNum + randomPreferentialNum + randomHomophilyNum + 1)..(randomRandomNum + randomPreferentialNum + randomHomophilyNum + randomDistanceNum) ->
+                        Pair(PreSelectionStrategy.RANDOM, SelectionStrategy.DISTANCE)
+
+                    in (randomRandomNum + randomPreferentialNum + randomHomophilyNum + randomDistanceNum + 1)..(randomRandomNum + randomPreferentialNum + randomHomophilyNum + randomDistanceNum + transitiveRandomNum) ->
                         Pair(PreSelectionStrategy.TRANSITIVE, SelectionStrategy.RANDOM)
 
-                    in (randomRandomNum + randomPreferentialNum + randomHomophilyNum + transitiveRandomNum + 1)..(randomRandomNum + randomPreferentialNum + randomHomophilyNum + transitiveRandomNum + transitivePreferentialNum) ->
+                    in (randomRandomNum + randomPreferentialNum + randomHomophilyNum + randomDistanceNum + transitiveRandomNum + 1)..(randomRandomNum + randomPreferentialNum + randomHomophilyNum + randomDistanceNum + transitiveRandomNum + transitivePreferentialNum) ->
                         Pair(PreSelectionStrategy.TRANSITIVE, SelectionStrategy.PREFERENTIAL)
 
-                    in (randomRandomNum + randomPreferentialNum + randomHomophilyNum + transitiveRandomNum + transitivePreferentialNum + 1)..(randomRandomNum + randomPreferentialNum + randomHomophilyNum + transitiveRandomNum + transitivePreferentialNum + transitiveHomophilyNum) ->
+                    in (randomRandomNum + randomPreferentialNum + randomHomophilyNum + randomDistanceNum + transitiveRandomNum + transitivePreferentialNum + 1)..(randomRandomNum + randomPreferentialNum + randomHomophilyNum + randomDistanceNum + transitiveRandomNum + transitivePreferentialNum + transitiveHomophilyNum) ->
                         Pair(PreSelectionStrategy.TRANSITIVE, SelectionStrategy.HOMOPHILY)
+
+                    in (randomRandomNum + randomPreferentialNum + randomHomophilyNum + randomDistanceNum + transitiveRandomNum + transitivePreferentialNum + 1)..(randomRandomNum + randomPreferentialNum + randomHomophilyNum + randomDistanceNum + transitiveRandomNum + transitivePreferentialNum + transitiveHomophilyNum + transitiveDistanceNum) ->
+                        Pair(PreSelectionStrategy.TRANSITIVE, SelectionStrategy.DISTANCE)
 
                     else -> Pair(PreSelectionStrategy.RANDOM, SelectionStrategy.RANDOM)
                 }

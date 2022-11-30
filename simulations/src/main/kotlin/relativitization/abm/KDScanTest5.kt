@@ -63,6 +63,7 @@ fun main() {
                                 innovationHypothesisSize = 3,
                                 preferentialPower = 1.0,
                                 homophilyPower = 1.0,
+                                distancePower = 1.0,
                                 randomRandomNum = if (preSelectionStrategy == PreSelectionStrategy.RANDOM) {
                                     100
                                 } else {
@@ -70,6 +71,7 @@ fun main() {
                                 },
                                 randomPreferentialNum = 0,
                                 randomHomophilyNum = 0,
+                                randomDistanceNum = 0,
                                 transitiveRandomNum = if (preSelectionStrategy == PreSelectionStrategy.TRANSITIVE) {
                                     100
                                 } else {
@@ -77,6 +79,7 @@ fun main() {
                                 },
                                 transitivePreferentialNum = 0,
                                 transitiveHomophilyNum = 0,
+                                transitiveDistanceNum = 0,
                                 sequentialRun = 1,
                                 cooperationLength = cooperationLength,
                                 numPreSelectedFirm = numPreSelectedFirm,
@@ -114,6 +117,7 @@ fun main() {
                                     innovationHypothesisSize = 3,
                                     preferentialPower = preferentialPower,
                                     homophilyPower = 1.0,
+                                    distancePower = 1.0,
                                     randomRandomNum = 0,
                                     randomPreferentialNum = if (preSelectionStrategy == PreSelectionStrategy.RANDOM) {
                                         100
@@ -121,6 +125,7 @@ fun main() {
                                         0
                                     },
                                     randomHomophilyNum = 0,
+                                    randomDistanceNum = 0,
                                     transitiveRandomNum = 0,
                                     transitivePreferentialNum = if (preSelectionStrategy == PreSelectionStrategy.TRANSITIVE) {
                                         100
@@ -128,6 +133,7 @@ fun main() {
                                         0
                                     },
                                     transitiveHomophilyNum = 0,
+                                    transitiveDistanceNum = 0,
                                     sequentialRun = 1,
                                     cooperationLength = cooperationLength,
                                     numPreSelectedFirm = numPreSelectedFirm,
@@ -166,6 +172,7 @@ fun main() {
                                     innovationHypothesisSize = 3,
                                     preferentialPower = 1.0,
                                     homophilyPower = homophilyPower,
+                                    distancePower = 1.0,
                                     randomRandomNum = 0,
                                     randomPreferentialNum = 0,
                                     randomHomophilyNum = if (preSelectionStrategy == PreSelectionStrategy.RANDOM) {
@@ -173,6 +180,7 @@ fun main() {
                                     } else {
                                         0
                                     },
+                                    randomDistanceNum = 0,
                                     transitiveRandomNum = 0,
                                     transitivePreferentialNum = 0,
                                     transitiveHomophilyNum = if (preSelectionStrategy == PreSelectionStrategy.TRANSITIVE) {
@@ -180,6 +188,7 @@ fun main() {
                                     } else {
                                         0
                                     },
+                                    transitiveDistanceNum = 0,
                                     sequentialRun = 1,
                                     cooperationLength = cooperationLength,
                                     numPreSelectedFirm = numPreSelectedFirm,
@@ -198,6 +207,8 @@ fun main() {
                             )
                         }
                     }
+
+                    SelectionStrategy.DISTANCE -> {}
                 }
             }
         }

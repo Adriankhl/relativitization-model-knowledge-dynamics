@@ -10,6 +10,9 @@ import relativitization.universe.data.components.PreSelectionStrategy
 import relativitization.universe.data.components.SelectionStrategy
 import relativitization.universe.data.components.abmKnowledgeDynamicsData
 import relativitization.universe.data.global.UniverseGlobalData
+import relativitization.universe.maths.physics.Int4D
+import relativitization.universe.maths.physics.Intervals
+import relativitization.universe.maths.physics.MutableInt4D
 import relativitization.universe.maths.sampling.WeightedSample
 import relativitization.universe.mechanisms.Mechanism
 import relativitization.universe.utils.RelativitizationLogManager
@@ -59,6 +62,13 @@ object SelectCooperator : Mechanism() {
             "homophilyPower"
         ) {
             logger.error("Missing homophilyPower")
+            1.0
+        }
+
+        val distancePower: Double = universeSettings.otherDoubleMap.getOrElse(
+            "distancePower"
+        ) {
+            logger.error("Missing distancePower")
             1.0
         }
 
@@ -126,6 +136,14 @@ object SelectCooperator : Mechanism() {
                         universeData3DAtPlayer = universeData3DAtPlayer,
                         homophilyPower = homophilyPower,
                         random = random,
+                    )
+
+                    SelectionStrategy.DISTANCE -> selectionDistance(
+                        currentInt4D = mutablePlayerData.int4D,
+                        preSelectedSet = preSelectedSet,
+                        universeData3DAtPlayer = universeData3DAtPlayer,
+                        distancePower = distancePower,
+                        random = random
                     )
                 }
 
@@ -229,6 +247,24 @@ object SelectCooperator : Mechanism() {
             val numOtherCooperator: Int = universeData3DAtPlayer.get(it).playerInternalData
                 .abmKnowledgeDynamicsData().numCooperation()
             1.0 / (1.0 + abs(numSelfCooperator - numOtherCooperator).toDouble().pow(homophilyPower))
+        }.first()
+    }
+
+    private fun selectionDistance(
+        currentInt4D: MutableInt4D,
+        preSelectedSet: Set<Int>,
+        universeData3DAtPlayer: UniverseData3DAtPlayer,
+        distancePower: Double,
+        random: Random,
+    ): Int {
+        return WeightedSample.sample(
+            numItem = 1,
+            itemList = preSelectedSet.toList(),
+            random = random,
+        ) {
+            val otherInt4D: Int4D = universeData3DAtPlayer.get(it).int4D
+            val distance: Int = Intervals.intDistance(currentInt4D, otherInt4D)
+            1.0 / (1.0 + distance.toDouble().pow(distancePower))
         }.first()
     }
 }

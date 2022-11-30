@@ -34,6 +34,7 @@ fun main() {
                     innovationHypothesisSize = 3,
                     preferentialPower = 2.0,
                     homophilyPower = 1.0,
+                    distancePower = 1.0,
                     randomRandomNum = if (preSelectionStrategy == PreSelectionStrategy.RANDOM && selectionStrategy == SelectionStrategy.RANDOM) {
                         100
                     } else {
@@ -49,6 +50,7 @@ fun main() {
                     } else {
                         0
                     },
+                    randomDistanceNum = 0,
                     transitiveRandomNum = if (preSelectionStrategy == PreSelectionStrategy.TRANSITIVE && selectionStrategy == SelectionStrategy.RANDOM) {
                         100
                     } else {
@@ -64,6 +66,7 @@ fun main() {
                     } else {
                         0
                     },
+                    transitiveDistanceNum = 0,
                     sequentialRun = 0,
                     cooperationLength = 5,
                     numPreSelectedFirm = 5,

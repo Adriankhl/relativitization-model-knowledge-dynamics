@@ -113,4 +113,5 @@ enum class SelectionStrategy {
     RANDOM,
     PREFERENTIAL,
     HOMOPHILY,
+    DISTANCE,
 }
