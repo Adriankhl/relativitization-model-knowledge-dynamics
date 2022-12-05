@@ -38,89 +38,65 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
             maxPlayerId = 0,
         )
 
-        val sameLocation: Int = settings.otherIntMap.getOrElse(
-            "sameLocation"
-        ) {
-            logger.error("Missing sameLocation")
+        val sameLocation: Int = settings.getOtherIntOrDefault(
+            "sameLocation",
             0
-        }
+        )
 
-        val maxInitialCapability: Int = settings.otherIntMap.getOrElse(
-            "maxInitialCapability"
-        ) {
-            logger.error("Missing maxCapability")
+        val maxInitialCapability: Int = settings.getOtherIntOrDefault(
+            "maxInitialCapability",
             30
-        }
+        )
 
-        val innovationHypothesisSize: Int = settings.otherIntMap.getOrElse(
-            "innovationHypothesisSize"
-        ) {
-            logger.error("Missing innovationHypothesisSize")
+        val innovationHypothesisSize: Int = settings.getOtherIntOrDefault(
+            "innovationHypothesisSize",
             3
-        }
+        )
 
-        val maxAbility: Int = universeSettings.otherIntMap.getOrElse(
-            "maxAbility"
-        ) {
-            logger.error("Missing maxAbility")
+        val maxAbility: Int = universeSettings.getOtherIntOrDefault(
+            "maxAbility",
             10
-        }
+        )
 
-        val randomRandomNum: Int = settings.otherIntMap.getOrElse(
-            "randomRandomNum"
-        ) {
-            logger.error("Missing randomRandomNum")
+        val randomRandomNum: Int = settings.getOtherIntOrDefault(
+            "randomRandomNum",
             0
-        }
+        )
 
-        val randomPreferentialNum: Int = settings.otherIntMap.getOrElse(
-            "randomPreferentialNum"
-        ) {
-            logger.error("Missing randomPreferentialNum")
+        val randomPreferentialNum: Int = settings.getOtherIntOrDefault(
+            "randomPreferentialNum",
             0
-        }
+        )
 
-        val randomHomophilyNum: Int = settings.otherIntMap.getOrElse(
-            "randomHomophilyNum"
-        ) {
-            logger.error("Missing randomHomophilyNum")
+        val randomHomophilyNum: Int = settings.getOtherIntOrDefault(
+            "randomHomophilyNum",
             0
-        }
+        )
 
-        val randomDistanceNum: Int = settings.otherIntMap.getOrElse(
-            "randomDistanceNum"
-        ) {
-            logger.error("Missing randomDistanceNum")
+        val randomDistanceNum: Int = settings.getOtherIntOrDefault(
+            "randomDistanceNum",
             0
-        }
+        )
 
-        val transitiveRandomNum: Int = settings.otherIntMap.getOrElse(
-            "transitiveRandomNum"
-        ) {
-            logger.error("Missing transitiveRandomNum")
+        val transitiveRandomNum: Int = settings.getOtherIntOrDefault(
+            "transitiveRandomNum",
             0
-        }
+        )
 
-        val transitivePreferentialNum: Int = settings.otherIntMap.getOrElse(
-            "transitivePreferentialNum"
-        ) {
-            logger.error("Missing transitivePreferentialNum")
+        val transitivePreferentialNum: Int = settings.getOtherIntOrDefault(
+            "transitivePreferentialNum",
             0
-        }
+        )
 
-        val transitiveHomophilyNum: Int = settings.otherIntMap.getOrElse(
-            "transitiveHomophilyNum"
-        ) {
-            logger.error("Missing transitiveHomophilyNum")
+        val transitiveHomophilyNum: Int = settings.getOtherIntOrDefault(
+            "transitiveHomophilyNum",
             0
-        }
+        )
 
-        val transitiveDistanceNum: Int = settings.otherIntMap.getOrElse(
-            "transitiveDistanceNum"
-        ) {
-            logger.error("Missing transitiveDistanceNum")
+        val transitiveDistanceNum: Int = settings.getOtherIntOrDefault(
+            "transitiveDistanceNum",
             0
-        }
+        )
 
         val totalStrategyNum: Int = randomRandomNum + randomPreferentialNum + randomHomophilyNum +
                 randomDistanceNum + transitiveRandomNum + transitivePreferentialNum +

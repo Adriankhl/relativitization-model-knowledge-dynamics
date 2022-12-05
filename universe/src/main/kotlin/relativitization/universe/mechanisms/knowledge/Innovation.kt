@@ -23,61 +23,45 @@ object Innovation : Mechanism() {
         universeGlobalData: UniverseGlobalData,
         random: Random
     ): List<Command> {
-        val radicalThreshold: Int = universeSettings.otherIntMap.getOrElse(
-            "radicalThreshold"
-        ) {
-            logger.error("Missing radicalThreshold")
+        val radicalThreshold: Int = universeSettings.getOtherIntOrDefault(
+            "radicalThreshold",
             6
-        }
+        )
 
-        val incrementalThreshold: Int = universeSettings.otherIntMap.getOrElse(
-            "incrementalThreshold"
-        ) {
-            logger.error("Missing incrementalThreshold")
+        val incrementalThreshold: Int = universeSettings.getOtherIntOrDefault(
+            "incrementalThreshold",
             8
-        }
+        )
 
-        val maxCapability: Int = universeSettings.otherIntMap.getOrElse(
-            "maxCapability"
-        ) {
-            logger.error("Missing maxCapability")
+        val maxCapability: Int = universeSettings.getOtherIntOrDefault(
+            "maxCapability",
             100
-        }
+        )
 
-        val maxAbility: Int = universeSettings.otherIntMap.getOrElse(
-            "maxAbility"
-        ) {
-            logger.error("Missing maxAbility")
+        val maxAbility: Int = universeSettings.getOtherIntOrDefault(
+            "maxAbility",
             10
-        }
+        )
 
-        val maxExpertise: Int = universeSettings.otherIntMap.getOrElse(
-            "maxExpertise"
-        ) {
-            logger.error("Missing maxExpertise")
+        val maxExpertise: Int = universeSettings.getOtherIntOrDefault(
+            "maxExpertise",
             20
-        }
+        )
 
-        val forgetProbability: Double = universeSettings.otherDoubleMap.getOrElse(
-            "forgetProbability"
-        ) {
-            logger.error("Missing forgetProbability")
+        val forgetProbability: Double = universeSettings.getOtherDoubleOrDefault(
+            "forgetProbability",
             0.05
-        }
+        )
 
-        val radicalInnovationProbability: Double = universeSettings.otherDoubleMap.getOrElse(
-            "radicalInnovationProbability"
-        ) {
-            logger.error("Missing radicalInnovationProbability")
+        val radicalInnovationProbability: Double = universeSettings.getOtherDoubleOrDefault(
+            "radicalInnovationProbability",
             0.4
-        }
+        )
 
-        val incrementalInnovationProbability: Double = universeSettings.otherDoubleMap.getOrElse(
-            "incrementalInnovationProbability"
-        ) {
-            logger.error("Missing incrementalInnovationProbability")
+        val incrementalInnovationProbability: Double = universeSettings.getOtherDoubleOrDefault(
+            "incrementalInnovationProbability",
             0.4
-        }
+        )
 
         // Learning by doing
         mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().innovationHypothesis

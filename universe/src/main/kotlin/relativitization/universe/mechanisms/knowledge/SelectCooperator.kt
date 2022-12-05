@@ -30,47 +30,35 @@ object SelectCooperator : Mechanism() {
         universeGlobalData: UniverseGlobalData,
         random: Random
     ): List<Command> {
-        val sequentialRun: Int = universeSettings.otherIntMap.getOrElse(
-            "sequentialRun"
-        ) {
-            logger.error("Missing sequentialRun")
+        val sequentialRun: Int = universeSettings.getOtherIntOrDefault(
+            "sequentialRun",
             0
-        }
+        )
 
-        val numPreSelectedFirm: Int = universeSettings.otherIntMap.getOrElse(
-            "numPreSelectedFirm"
-        ) {
-            logger.error("Missing numPreSelectedFirm")
+        val numPreSelectedFirm: Int = universeSettings.getOtherIntOrDefault(
+            "numPreSelectedFirm",
             5
-        }
+        )
 
-        val incrementalThreshold: Int = universeSettings.otherIntMap.getOrElse(
-            "incrementalThreshold"
-        ) {
-            logger.error("Missing incrementalThreshold")
+        val incrementalThreshold: Int = universeSettings.getOtherIntOrDefault(
+            "incrementalThreshold",
             8
-        }
+        )
 
-        val preferentialPower: Double = universeSettings.otherDoubleMap.getOrElse(
-            "preferentialPower"
-        ) {
-            logger.error("Missing preferentialPower")
+        val preferentialPower: Double = universeSettings.getOtherDoubleOrDefault(
+            "preferentialPower",
             1.0
-        }
+        )
 
-        val homophilyPower: Double = universeSettings.otherDoubleMap.getOrElse(
-            "homophilyPower"
-        ) {
-            logger.error("Missing homophilyPower")
+        val homophilyPower: Double = universeSettings.getOtherDoubleOrDefault(
+            "homophilyPower",
             1.0
-        }
+        )
 
-        val distancePower: Double = universeSettings.otherDoubleMap.getOrElse(
-            "distancePower"
-        ) {
-            logger.error("Missing distancePower")
+        val distancePower: Double = universeSettings.getOtherDoubleOrDefault(
+            "distancePower",
             1.0
-        }
+        )
 
         val latestReward: Int = mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
             .latestReward

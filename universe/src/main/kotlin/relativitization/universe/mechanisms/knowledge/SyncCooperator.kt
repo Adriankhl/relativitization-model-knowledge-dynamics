@@ -21,19 +21,15 @@ object SyncCooperator : Mechanism() {
         universeGlobalData: UniverseGlobalData,
         random: Random
     ): List<Command> {
-        val sequentialRun: Int = universeSettings.otherIntMap.getOrElse(
-            "sequentialRun"
-        ) {
-            logger.error("Missing sequentialRun")
+        val sequentialRun: Int = universeSettings.getOtherIntOrDefault(
+            "sequentialRun",
             0
-        }
+        )
 
-        val cooperationLength: Int = universeSettings.otherIntMap.getOrElse(
-            "cooperationLength"
-        ) {
-            logger.error("Missing numPreSelectedFirm")
+        val cooperationLength: Int = universeSettings.getOtherIntOrDefault(
+            "cooperationLength",
             5
-        }
+        )
 
         val isSequential: Boolean = sequentialRun == 1
 

@@ -21,47 +21,35 @@ object Production : Mechanism() {
         universeGlobalData: UniverseGlobalData,
         random: Random
     ): List<Command> {
-        val numProduct: Int = universeSettings.otherIntMap.getOrElse(
-            "numProduct"
-        ) {
-            logger.error("Missing numProduct")
+        val numProduct: Int = universeSettings.getOtherIntOrDefault(
+            "numProduct",
             20
-        }
+        )
 
-        val maxCapability: Int = universeSettings.otherIntMap.getOrElse(
-            "maxCapability"
-        ) {
-            logger.error("Missing maxCapability")
+        val maxCapability: Int = universeSettings.getOtherIntOrDefault(
+            "maxCapability",
             100
-        }
+        )
 
-        val maxAbility: Int = universeSettings.otherIntMap.getOrElse(
-            "maxAbility"
-        ) {
-            logger.error("Missing maxAbility")
+        val maxAbility: Int = universeSettings.getOtherIntOrDefault(
+            "maxAbility",
             10
-        }
+        )
 
-        val maxExpertise: Int = universeSettings.otherIntMap.getOrElse(
-            "maxExpertise"
-        ) {
-            logger.error("Missing maxExpertise")
+        val maxExpertise: Int = universeSettings.getOtherIntOrDefault(
+            "maxExpertise",
             20
-        }
+        )
 
-        val maxProductQuality: Int = universeSettings.otherIntMap.getOrElse(
-            "maxProductQuality"
-        ) {
-            logger.error("Missing maxProductQuality")
+        val maxProductQuality: Int = universeSettings.getOtherIntOrDefault(
+            "maxProductQuality",
             50
-        }
+        )
 
-        val maxReward: Int = universeSettings.otherIntMap.getOrElse(
-            "maxReward"
-        ) {
-            logger.error("Missing maxReward")
+        val maxReward: Int = universeSettings.getOtherIntOrDefault(
+            "maxReward",
             10
-        }
+        )
 
         val innovationHypothesis: List<MutableKnowledgeGene> = mutablePlayerData.playerInternalData
             .abmKnowledgeDynamicsData().innovationHypothesis
