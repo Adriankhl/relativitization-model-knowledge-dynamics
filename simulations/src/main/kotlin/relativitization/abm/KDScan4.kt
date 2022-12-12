@@ -30,6 +30,7 @@ fun main() {
                     numPlayer = 120,
                     speedOfLight = 0.1,
                     maxInitialCapability = 30,
+                    maxOutCooperator = 5,
                     distancePower = distancePower,
                     randomDistanceNum = 120,
                     numPreSelectedFirm = 30,
