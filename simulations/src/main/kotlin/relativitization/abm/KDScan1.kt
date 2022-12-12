@@ -22,19 +22,9 @@ fun main() {
             dfList.add(
                 knowledgeDynamicsSingleRun(
                     printStep = false,
-                    numStep = 1000,
-                    randomSeed = 100L,
-                    xDim = 10,
-                    yDim = 10,
-                    zDim = 10,
                     numPlayer = 100,
                     speedOfLight = 200.0,
-                    sameLocation = 0,
-                    maxInitialCapability = 30,
-                    innovationHypothesisSize = 3,
                     preferentialPower = 2.0,
-                    homophilyPower = 1.0,
-                    distancePower = 1.0,
                     randomRandomNum = if (preSelectionStrategy == PreSelectionStrategy.RANDOM && selectionStrategy == SelectionStrategy.RANDOM) {
                         100
                     } else {
@@ -66,20 +56,6 @@ fun main() {
                     } else {
                         0
                     },
-                    transitiveDistanceNum = 0,
-                    sequentialRun = 0,
-                    cooperationLength = 5,
-                    numPreSelectedFirm = 5,
-                    radicalThreshold = 6,
-                    incrementalThreshold = 8,
-                    maxCapability = 100,
-                    maxAbility = 10,
-                    maxExpertise = 20,
-                    numProduct = 20,
-                    maxProductQuality = 50,
-                    maxReward = 10,
-                    forgetProbability = 0.05,
-                    radicalInnovationProbability = 0.4,
                     incrementalInnovationProbability = 0.1,
                 )
 
