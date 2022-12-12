@@ -35,6 +35,11 @@ object SelectCooperator : Mechanism() {
             0
         )
 
+        val numOutCooperatorLimit: Int = universeSettings.getOtherIntOrDefault(
+            "numOutCooperatorLimit",
+            Int.MAX_VALUE,
+        )
+
         val numPreSelectedFirm: Int = universeSettings.getOtherIntOrDefault(
             "numPreSelectedFirm",
             5
@@ -72,7 +77,10 @@ object SelectCooperator : Mechanism() {
             true
         }
 
-        return if (latestReward > incrementalThreshold || !shouldRun) {
+        val hasTooMuchOutCooperator: Boolean = mutablePlayerData.playerInternalData
+            .abmKnowledgeDynamicsData().outCooperator().size >= numOutCooperatorLimit
+
+        return if (latestReward > incrementalThreshold || !shouldRun || hasTooMuchOutCooperator) {
             listOf()
         } else {
             val preSelectionStrategy: PreSelectionStrategy = mutablePlayerData.playerInternalData
