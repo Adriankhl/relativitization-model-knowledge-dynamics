@@ -60,7 +60,7 @@ internal fun knowledgeDynamicsSingleRun(
     transitiveHomophilyNum: Int = 0,
     transitiveDistanceNum: Int = 0,
     sequentialRun: Int = 0,
-    numOutCooperatorLimit: Int = Int.MAX_VALUE,
+    maxOutCooperator: Int = Int.MAX_VALUE,
     cooperationLength: Int = 5,
     numPreSelectedFirm: Int = 5,
     radicalThreshold: Int = 6,
@@ -110,7 +110,7 @@ internal fun knowledgeDynamicsSingleRun(
             otherIntMap = mutableMapOf(
                 "sequentialRun" to sequentialRun,
                 "cooperationLength" to cooperationLength,
-                "numOutCooperatorLimit" to numOutCooperatorLimit,
+                "maxOutCooperator" to maxOutCooperator,
                 "numPreSelectedFirm" to numPreSelectedFirm,
                 "radicalThreshold" to radicalThreshold,
                 "incrementalThreshold" to incrementalThreshold,

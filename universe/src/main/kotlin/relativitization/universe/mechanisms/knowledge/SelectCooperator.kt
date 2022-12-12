@@ -35,8 +35,8 @@ object SelectCooperator : Mechanism() {
             0
         )
 
-        val numOutCooperatorLimit: Int = universeSettings.getOtherIntOrDefault(
-            "numOutCooperatorLimit",
+        val maxOutCooperator: Int = universeSettings.getOtherIntOrDefault(
+            "maxOutCooperator",
             Int.MAX_VALUE,
         )
 
@@ -78,7 +78,7 @@ object SelectCooperator : Mechanism() {
         }
 
         val hasTooMuchOutCooperator: Boolean = mutablePlayerData.playerInternalData
-            .abmKnowledgeDynamicsData().outCooperator().size >= numOutCooperatorLimit
+            .abmKnowledgeDynamicsData().outCooperator().size >= maxOutCooperator
 
         return if (latestReward > incrementalThreshold || !shouldRun || hasTooMuchOutCooperator) {
             listOf()
