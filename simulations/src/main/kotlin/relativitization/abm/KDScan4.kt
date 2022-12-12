@@ -28,7 +28,7 @@ fun main() {
                     printStep = false,
                     randomSeed = randomSeed,
                     numPlayer = 120,
-                    speedOfLight = 0.1,
+                    speedOfLight = 1.0,
                     maxInitialCapability = 30,
                     maxOutCooperator = 5,
                     distancePower = distancePower,
