@@ -14,7 +14,7 @@ fun main() {
     val preSelectionStrategyList: List<PreSelectionStrategy> =
         PreSelectionStrategy.values().toList()
 
-    val selectionStrategyList: List<SelectionStrategy> = SelectionStrategy.values().toList()
+    val selectionStrategyList: List<SelectionStrategy> = SelectionStrategy.values().toList() - SelectionStrategy.DISTANCE
 
     for (preSelectionStrategy in preSelectionStrategyList) {
         for (selectionStrategy in selectionStrategyList) {
