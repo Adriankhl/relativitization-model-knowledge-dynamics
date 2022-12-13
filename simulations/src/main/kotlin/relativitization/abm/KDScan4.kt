@@ -32,6 +32,8 @@ fun main() {
                     distancePower = distancePower,
                     randomDistanceNum = 120,
                     numPreSelectedFirm = 30,
+                    radicalInnovationProbability = 0.2,
+                    incrementalInnovationProbability = 0.05,
                 )
             )
         }
