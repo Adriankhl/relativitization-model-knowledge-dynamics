@@ -4,6 +4,7 @@ import relativitization.universe.data.MutablePlayerData
 import relativitization.universe.data.UniverseData3DAtPlayer
 import relativitization.universe.data.UniverseSettings
 import relativitization.universe.data.commands.Command
+import relativitization.universe.data.commands.EndCooperationCommand
 import relativitization.universe.data.components.MutableCooperation
 import relativitization.universe.data.components.abmKnowledgeDynamicsData
 import relativitization.universe.data.global.UniverseGlobalData
@@ -40,7 +41,7 @@ object SyncCooperator : Mechanism() {
             true
         }
 
-        if (shouldRun) {
+        val endCooperatorSet: Set<Int> = if (shouldRun) {
             mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().cooperationOutMap
                 .values.forEach {
                     it.time += 1
@@ -64,27 +65,24 @@ object SyncCooperator : Mechanism() {
             mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
                 .cooperationOutMap += confirmedCooperator
 
-            val endCooperator: Map<Int, MutableCooperation> = mutablePlayerData.playerInternalData
+            val endCooperators: Map<Int, MutableCooperation> = mutablePlayerData.playerInternalData
                 .abmKnowledgeDynamicsData().cooperationOutMap.filterValues {
                     it.time >= cooperationLength
-                } + mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().cooperationOutMap
-                .filterKeys {
-                    !universeData3DAtPlayer.get(it).playerInternalData.abmKnowledgeDynamicsData()
-                        .cooperationInMap.containsKey(mutablePlayerData.playerId)
                 }
 
             mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-                .cooperationOutMap -= endCooperator.keys
+                .cooperationOutMap -= endCooperators.keys
 
             mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-                .cooperationLearnMap += endCooperator
+                .cooperationLearnMap += endCooperators
 
-            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().cooperationInMap
-                .values.removeAll {
-                    it.time >= cooperationLength
-                }
+            endCooperators.keys
+        } else {
+            setOf()
         }
 
-        return listOf()
+        return endCooperatorSet.map {
+            EndCooperationCommand(it)
+        }
     }
 }

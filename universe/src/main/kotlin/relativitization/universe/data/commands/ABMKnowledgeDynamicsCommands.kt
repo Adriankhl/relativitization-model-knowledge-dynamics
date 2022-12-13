@@ -21,3 +21,16 @@ data class AskCooperationCommand(
             )
     }
 }
+
+data class EndCooperationCommand(
+    override val toId: Int
+) : Command() {
+    override fun execute(
+        playerData: MutablePlayerData,
+        fromId: Int,
+        fromInt4D: Int4D,
+        universeSettings: UniverseSettings
+    ) {
+        playerData.playerInternalData.abmKnowledgeDynamicsData().cooperationInMap.remove(fromId)
+    }
+}
