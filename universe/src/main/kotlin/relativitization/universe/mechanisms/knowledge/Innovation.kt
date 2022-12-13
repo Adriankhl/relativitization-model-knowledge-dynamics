@@ -102,13 +102,11 @@ object Innovation : Mechanism() {
                     )
                 }
 
-                if (random.nextDouble() < radicalInnovationProbability) {
-                    radicalCooperationInnovation(
-                        mutablePlayerData = mutablePlayerData,
-                        universeData3DAtPlayer = universeData3DAtPlayer,
-                        random = random
-                    )
-                }
+                radicalCooperationInnovation(
+                    mutablePlayerData = mutablePlayerData,
+                    universeData3DAtPlayer = universeData3DAtPlayer,
+                    random = random
+                )
 
                 // Change innovation hypothesis
                 if (mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().knowledgeGeneList.isNotEmpty()) {
@@ -143,13 +141,11 @@ object Innovation : Mechanism() {
                     )
                 }
 
-                if (random.nextDouble() < incrementalInnovationProbability) {
-                    incrementalCooperationInnovation(
-                        mutablePlayerData = mutablePlayerData,
-                        universeData3DAtPlayer = universeData3DAtPlayer,
-                        random = random
-                    )
-                }
+                incrementalCooperationInnovation(
+                    mutablePlayerData = mutablePlayerData,
+                    universeData3DAtPlayer = universeData3DAtPlayer,
+                    random = random
+                )
             }
 
             else -> {}
@@ -214,28 +210,34 @@ object Innovation : Mechanism() {
         universeData3DAtPlayer: UniverseData3DAtPlayer,
         random: Random,
     ) {
+
         val geneList: List<KnowledgeGene> = mutablePlayerData.playerInternalData
-            .abmKnowledgeDynamicsData().cooperationLearnMap.keys.flatMap {
-                universeData3DAtPlayer.get(it).playerInternalData.abmKnowledgeDynamicsData()
-                    .innovationHypothesis
+            .abmKnowledgeDynamicsData().cooperationLearnMap.keys.flatMap { otherId ->
+                val potentialGene: List<KnowledgeGene> = universeData3DAtPlayer.get(otherId)
+                    .playerInternalData.abmKnowledgeDynamicsData().innovationHypothesis
+                    .filter { otherGene ->
+                        mutablePlayerData.playerInternalData
+                            .abmKnowledgeDynamicsData().innovationHypothesis.any {
+                                it.capability == otherGene.capability
+                            }
+                    }
+
+                if (potentialGene.isEmpty()) {
+                    listOf()
+                } else {
+                    listOf(potentialGene.asSequence().shuffled(random).first())
+                }
             }
 
         val geneMap: Map<Int, List<KnowledgeGene>> = geneList.groupBy { it.capability }
-            .filterKeys { geneCapability ->
-                mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-                    .innovationHypothesis.any {
-                        it.capability == geneCapability
-                    }
-            }
 
         mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
             .innovationHypothesis.filter {
                 geneMap.containsKey(it.capability)
             }.forEach {
+                mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().numCooperationIncrementalInnovation += 1
                 it.ability = geneMap.getValue(it.capability).asSequence().shuffled(random).first()
                     .ability
             }
-
-        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().numCooperationIncrementalInnovation += geneMap.size
     }
 }
