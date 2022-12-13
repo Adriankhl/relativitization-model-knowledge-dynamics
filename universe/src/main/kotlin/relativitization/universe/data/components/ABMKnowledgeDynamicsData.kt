@@ -37,6 +37,10 @@ data class ABMKnowledgeDynamicsData(
     val cooperationOutWaitMap: Map<Int, Cooperation> = mapOf(),
     val cooperationInMap: Map<Int, Cooperation> = mapOf(),
     val cooperationLearnMap: Map<Int, Cooperation> = mapOf(),
+    val numSelfRadicalInnovation: Int = 0,
+    val numSelfIncrementalInnovation: Int = 0,
+    val numCooperationRadicalInnovation: Int = 0,
+    val numCooperationIncrementalInnovation: Int = 0,
 ) : PlayerDataComponent() {
     fun allCooperator(): Set<Int> = cooperationOutMap.keys + cooperationInMap.keys
 
@@ -63,6 +67,10 @@ data class MutableABMKnowledgeDynamicsData(
     val cooperationOutWaitMap: MutableMap<Int, MutableCooperation> = mutableMapOf(),
     val cooperationInMap: MutableMap<Int, MutableCooperation> = mutableMapOf(),
     val cooperationLearnMap: MutableMap<Int, MutableCooperation> = mutableMapOf(),
+    var numSelfRadicalInnovation: Int = 0,
+    var numSelfIncrementalInnovation: Int = 0,
+    var numCooperationRadicalInnovation: Int = 0,
+    var numCooperationIncrementalInnovation: Int = 0,
 ) : MutablePlayerDataComponent() {
     fun allCooperator(): Set<Int> = cooperationOutMap.keys + cooperationInMap.keys
 

@@ -167,6 +167,10 @@ internal fun knowledgeDynamicsSingleRun(
                     "latestReward" to currentKnowledgeDynamicsData.latestReward,
                     "cooperationIn" to currentKnowledgeDynamicsData.cooperationInMap.keys,
                     "cooperationOut" to currentKnowledgeDynamicsData.cooperationOutMap.keys,
+                    "numSelfRadicalInnovation" to currentKnowledgeDynamicsData.numSelfRadicalInnovation,
+                    "numCooperationRadicalInnovation" to currentKnowledgeDynamicsData.numCooperationRadicalInnovation,
+                    "numSelfIncrementalInnovation" to currentKnowledgeDynamicsData.numSelfIncrementalInnovation,
+                    "numCooperationIncrementalInnovation" to currentKnowledgeDynamicsData.numCooperationIncrementalInnovation,
                 )
 
                 outputDataMap.forEach {

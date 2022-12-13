@@ -134,7 +134,7 @@ object Innovation : Mechanism() {
                 }
             }
 
-            latestReward in (radicalThreshold + 1) .. incrementalThreshold -> {
+            latestReward in (radicalThreshold + 1)..incrementalThreshold -> {
                 if (random.nextDouble() < incrementalInnovationProbability) {
                     incrementalSelfInnovation(
                         mutablePlayerData = mutablePlayerData,
@@ -174,6 +174,7 @@ object Innovation : Mechanism() {
                     expertise = 0
                 )
             )
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().numSelfRadicalInnovation += 1
     }
 
     private fun radicalCooperationInnovation(
@@ -192,6 +193,8 @@ object Innovation : Mechanism() {
         mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().knowledgeGeneList.addAll(
             DataSerializer.copy(geneList)
         )
+
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().numCooperationRadicalInnovation += 1
     }
 
     private fun incrementalSelfInnovation(
@@ -201,6 +204,9 @@ object Innovation : Mechanism() {
     ) {
         mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().innovationHypothesis
             .asSequence().shuffled(random).first().ability = random.nextInt(0, maxAbility + 1)
+
+
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().numSelfIncrementalInnovation += 1
     }
 
     private fun incrementalCooperationInnovation(
@@ -229,5 +235,7 @@ object Innovation : Mechanism() {
                 it.ability = geneMap.getValue(it.capability).asSequence().shuffled(random).first()
                     .ability
             }
+
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().numCooperationIncrementalInnovation += 1
     }
 }
