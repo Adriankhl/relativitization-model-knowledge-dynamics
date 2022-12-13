@@ -13,7 +13,7 @@ fun main() {
 
     val distancePowerList: List<Double> = listOf(
         0.0,
-        1.0,
+        5.0,
         200.0,
     )
 
