@@ -194,7 +194,7 @@ object Innovation : Mechanism() {
             DataSerializer.copy(geneList)
         )
 
-        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().numCooperationRadicalInnovation += 1
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().numCooperationRadicalInnovation += geneList.size
     }
 
     private fun incrementalSelfInnovation(
@@ -236,6 +236,6 @@ object Innovation : Mechanism() {
                     .ability
             }
 
-        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().numCooperationIncrementalInnovation += 1
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().numCooperationIncrementalInnovation += geneMap.size
     }
 }
