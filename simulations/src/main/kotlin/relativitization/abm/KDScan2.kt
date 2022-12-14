@@ -9,7 +9,7 @@ import java.io.File
 fun main() {
     val dfList: MutableList<DataFrame<*>> = mutableListOf()
 
-    val randomSeedList: List<Long> = (100L..200L).toList()
+    val randomSeedList: List<Long> = (100L..150L).toList()
 
     for (randomSeed in randomSeedList) {
         println("Random seed: $randomSeed")
