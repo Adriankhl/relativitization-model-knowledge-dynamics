@@ -86,7 +86,6 @@ fun main() {
                             dfList.add(
                                 knowledgeDynamicsSingleRun(
                                     mechanismCollectionName = ABMKnowledgeDynamicsTestMechanismLists.name(),
-                                    printStep = false,
                                     numStep = 10000,
                                     xDim = 1,
                                     yDim = 1,

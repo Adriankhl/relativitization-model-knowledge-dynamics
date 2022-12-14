@@ -20,7 +20,6 @@ import java.io.File
 
 fun main() {
     val df = knowledgeDynamicsSingleRun(
-        printStep = false,
         numPlayer = 120,
         speedOfLight = 200.0,
         sameLocation = 1,

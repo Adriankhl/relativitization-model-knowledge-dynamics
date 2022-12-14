@@ -23,7 +23,6 @@ fun main() {
             println("Random seed: $randomSeed. Speed of light: $speedOfLight")
             dfList.add(
                 knowledgeDynamicsSingleRun(
-                    printStep = false,
                     randomSeed = randomSeed,
                     numPlayer = 120,
                     speedOfLight = speedOfLight,

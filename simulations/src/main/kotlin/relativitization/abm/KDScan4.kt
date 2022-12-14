@@ -22,11 +22,9 @@ fun main() {
             println("Random seed: $randomSeed. Distance power: $distancePower")
             dfList.add(
                 knowledgeDynamicsSingleRun(
-                    printStep = false,
                     randomSeed = randomSeed,
                     numPlayer = 120,
                     speedOfLight = 1.0,
-                    maxInitialCapability = 30,
                     maxOutCooperator = 1,
                     cooperationLength = 1,
                     distancePowerMin = distancePower,

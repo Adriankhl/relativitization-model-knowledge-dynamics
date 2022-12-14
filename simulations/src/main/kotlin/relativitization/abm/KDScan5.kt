@@ -15,17 +15,18 @@ fun main() {
         println("Random seed: $randomSeed")
         dfList.add(
             knowledgeDynamicsSingleRun(
-                numStep = 1000,
                 randomSeed = randomSeed,
                 numPlayer = 120,
-                speedOfLight = 200.0,
-                preferentialPower = 2.0,
-                randomRandomNum = 20,
-                randomPreferentialNum = 20,
-                randomHomophilyNum = 20,
-                transitiveRandomNum = 20,
-                transitivePreferentialNum = 20,
-                transitiveHomophilyNum = 20,
+                speedOfLight = 1.0,
+                maxOutCooperator = 1,
+                cooperationLength = 1,
+                distancePowerMin = -10.0,
+                distancePowerMax = 10.0,
+                distancePowerGroup = 5,
+                randomDistanceNum = 120,
+                numPreSelectedFirm = 30,
+                radicalInnovationProbability = 0.2,
+                incrementalInnovationProbability = 0.05,
             )
         )
     }
@@ -34,5 +35,5 @@ fun main() {
     val df = dfList.concat()
 
     File("data").mkdirs()
-    df.writeCSV("./data/KDScan2.csv", CSVFormat.DEFAULT.withDelimiter('|'))
+    df.writeCSV("./data/KDScan5.csv", CSVFormat.DEFAULT.withDelimiter('|'))
 }

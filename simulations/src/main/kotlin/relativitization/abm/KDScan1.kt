@@ -27,7 +27,6 @@ fun main() {
             println("PreSelection: $preSelectionStrategy. Selection: $selectionStrategy")
             dfList.add(
                 knowledgeDynamicsSingleRun(
-                    printStep = false,
                     numPlayer = 100,
                     speedOfLight = 200.0,
                     preferentialPower = 2.0,
