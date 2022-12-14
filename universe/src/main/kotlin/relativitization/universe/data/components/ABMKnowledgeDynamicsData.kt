@@ -11,6 +11,8 @@ import relativitization.universe.data.PlayerInternalData
  * @property preSelectionStrategy strategy to select potential cooperation candidates
  * @property selectionStrategy strategy to select cooperator from the potential candidates
  * @property knowledgeGeneList the set of knowledge genes of this agent
+ * @property distancePower how strongly the cooperator selection is affected by distance,
+ * only active when selectionStrategy is DISTANCE
  * @property innovationHypothesis the collection of knowledge genes used in production
  * @property productId the id of the produced good
  * @property productQuality the quality of the produced good
@@ -27,6 +29,7 @@ import relativitization.universe.data.PlayerInternalData
 data class ABMKnowledgeDynamicsData(
     val preSelectionStrategy: PreSelectionStrategy = PreSelectionStrategy.RANDOM,
     val selectionStrategy: SelectionStrategy = SelectionStrategy.RANDOM,
+    val distancePower: Double = 0.0,
     val knowledgeGeneList: List<KnowledgeGene> = listOf(),
     val innovationHypothesis: List<KnowledgeGene> = listOf(),
     val productId: Int = -1,
@@ -57,6 +60,7 @@ data class ABMKnowledgeDynamicsData(
 data class MutableABMKnowledgeDynamicsData(
     var preSelectionStrategy: PreSelectionStrategy = PreSelectionStrategy.RANDOM,
     var selectionStrategy: SelectionStrategy = SelectionStrategy.RANDOM,
+    var distancePower: Double = 0.0,
     val knowledgeGeneList: MutableList<MutableKnowledgeGene> = mutableListOf(),
     val innovationHypothesis: MutableList<MutableKnowledgeGene> = mutableListOf(),
     var productId: Int = -1,

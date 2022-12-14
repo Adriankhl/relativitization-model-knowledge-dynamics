@@ -60,10 +60,6 @@ object SelectCooperator : Mechanism() {
             1.0
         )
 
-        val distancePower: Double = universeSettings.getOtherDoubleOrDefault(
-            "distancePower",
-            1.0
-        )
 
         val latestReward: Int = mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
             .latestReward
@@ -83,6 +79,9 @@ object SelectCooperator : Mechanism() {
         return if (latestReward > incrementalThreshold || !shouldRun || hasTooMuchOutCooperator) {
             listOf()
         } else {
+            val distancePower: Double = mutablePlayerData.playerInternalData
+                .abmKnowledgeDynamicsData().distancePower
+
             val preSelectionStrategy: PreSelectionStrategy = mutablePlayerData.playerInternalData
                 .abmKnowledgeDynamicsData().preSelectionStrategy
 

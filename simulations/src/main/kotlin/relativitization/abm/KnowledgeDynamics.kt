@@ -20,7 +20,7 @@ import java.io.File
 
 fun main() {
     val df = knowledgeDynamicsSingleRun(
-        printStep = true,
+        printStep = false,
         numPlayer = 120,
         speedOfLight = 200.0,
         sameLocation = 1,
@@ -50,7 +50,9 @@ internal fun knowledgeDynamicsSingleRun(
     innovationHypothesisSize: Int = 3,
     preferentialPower: Double = 1.0,
     homophilyPower: Double = 1.0,
-    distancePower: Double = 1.0,
+    distancePowerMin: Double = 1.0,
+    distancePowerMax: Double = 1.0,
+    distancePowerGroup: Int = 1,
     randomRandomNum: Int = 0,
     randomPreferentialNum: Int = 0,
     randomHomophilyNum: Int = 0,
@@ -84,6 +86,7 @@ internal fun knowledgeDynamicsSingleRun(
         numHumanPlayer = 0,
         otherIntMap = mutableMapOf(
             "sameLocation" to sameLocation,
+            "distancePowerGroup" to distancePowerGroup,
             "maxInitialCapability" to maxInitialCapability,
             "innovationHypothesisSize" to innovationHypothesisSize,
             "randomRandomNum" to randomRandomNum,
@@ -95,7 +98,10 @@ internal fun knowledgeDynamicsSingleRun(
             "transitiveHomophilyNum" to transitiveHomophilyNum,
             "transitiveDistanceNum" to transitiveDistanceNum,
         ),
-        otherDoubleMap = mutableMapOf(),
+        otherDoubleMap = mutableMapOf(
+            "distancePowerMin" to distancePowerMin,
+            "distancePowerMax" to distancePowerMax,
+        ),
         otherStringMap = mutableMapOf(),
         universeSettings = MutableUniverseSettings(
             universeName = "Knowledge Dynamics",
@@ -124,7 +130,6 @@ internal fun knowledgeDynamicsSingleRun(
             otherDoubleMap = mutableMapOf(
                 "preferentialPower" to preferentialPower,
                 "homophilyPower" to homophilyPower,
-                "distancePower" to distancePower,
                 "forgetProbability" to forgetProbability,
                 "radicalInnovationProbability" to radicalInnovationProbability,
                 "incrementalInnovationProbability" to incrementalInnovationProbability,
@@ -154,7 +159,7 @@ internal fun knowledgeDynamicsSingleRun(
                     "speedOfLight" to speedOfLight,
                     "preferentialPower" to preferentialPower,
                     "homophilyPower" to homophilyPower,
-                    "distancePower" to distancePower,
+                    "distancePower" to currentKnowledgeDynamicsData.distancePower,
                     "cooperationLength" to cooperationLength,
                     "playerId" to currentPlayerData.playerId,
                     "x" to currentPlayerData.double4D.x,

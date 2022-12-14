@@ -29,7 +29,7 @@ fun main() {
                     maxInitialCapability = 30,
                     maxOutCooperator = 1,
                     cooperationLength = 1,
-                    distancePower = distancePower,
+                    distancePowerMin = distancePower,
                     randomDistanceNum = 120,
                     numPreSelectedFirm = 30,
                     radicalInnovationProbability = 0.2,

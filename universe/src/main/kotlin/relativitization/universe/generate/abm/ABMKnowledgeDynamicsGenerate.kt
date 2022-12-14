@@ -137,6 +137,33 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
                 }
             }.shuffled(random)
 
+        val distancePowerMin: Double = settings.getOtherDoubleOrDefault(
+            "distancePowerMin",
+            0.0
+        )
+
+        val distancePowerMax: Double = settings.getOtherDoubleOrDefault(
+            "distancePowerMax",
+            0.0
+        )
+
+        val distancePowerGroup: Int = settings.getOtherIntOrDefault(
+            "distancePowerGroup",
+            1
+        )
+
+        val distancePowerNumPerGroup: Int = (settings.numPlayer - 1) / distancePowerGroup + 1
+
+        val distancePowerGroupDiff: Double = if (distancePowerGroup > 1) {
+            (distancePowerMax - distancePowerMin) / (distancePowerNumPerGroup - 1)
+        } else {
+            0.0
+        }
+
+        val distancePowerList: List<Double> = (0 until settings.numPlayer).map {
+            distancePowerMin + distancePowerGroupDiff * (it / distancePowerNumPerGroup)
+        }.shuffled(random)
+
         for (i in 1..settings.numPlayer) {
             val playerId: Int = universeState.getNewPlayerId()
 
@@ -178,6 +205,9 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
 
             mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().selectionStrategy =
                 strategyPairList[i - 1].second
+
+            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().distancePower =
+                distancePowerList[i - 1]
 
             repeat(innovationHypothesisSize) {
                 mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
