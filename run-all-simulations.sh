@@ -4,5 +4,5 @@ fileList=$(find ./simulations/src/main/kotlin/relativitization/abm ! -name "*Tes
 
 for fileName in $fileList; do
   className=${fileName::-3}
-  ./gradlew :simulations:run -PmainClass=relativitization.abm."$className"Kt -PprocessorCount=10 -PramPercentage=40
+  ./gradlew :simulations:run -PmainClass=relativitization.abm."$className"Kt -PprocessorCount=10 -PramPercentage=50
 done

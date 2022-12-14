@@ -12,10 +12,8 @@ fun main() {
     val randomSeedList: List<Long> = (100L..110L).toList()
 
     val speedOfLightList: List<Double> = listOf(
-        0.01,
-        0.5,
+        0.1,
         1.0,
-        5.0,
         10.0,
         200.0
     )
