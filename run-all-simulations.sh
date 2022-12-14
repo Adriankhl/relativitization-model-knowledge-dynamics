@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fileList=$(ls simulations/src/main/kotlin/relativitization/abm/)
+fileList=$(find ./simulations/src/main/kotlin/relativitization/abm ! -name "*Test*.kt" -type f | sed 's|^.*/||')
 
 for fileName in $fileList; do
   className=${fileName::-3}
