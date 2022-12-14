@@ -11,10 +11,16 @@ import java.io.File
 fun main() {
     val dfList: MutableList<DataFrame<*>> = mutableListOf()
 
-    val preSelectionStrategyList: List<PreSelectionStrategy> =
-        PreSelectionStrategy.values().toList()
+    val preSelectionStrategyList: List<PreSelectionStrategy> = listOf(
+        PreSelectionStrategy.RANDOM,
+        PreSelectionStrategy.TRANSITIVE,
+    )
 
-    val selectionStrategyList: List<SelectionStrategy> = SelectionStrategy.values().toList() - SelectionStrategy.DISTANCE
+    val selectionStrategyList: List<SelectionStrategy> = listOf(
+        SelectionStrategy.RANDOM,
+        SelectionStrategy.PREFERENTIAL,
+        SelectionStrategy.HOMOPHILY,
+    )
 
     for (preSelectionStrategy in preSelectionStrategyList) {
         for (selectionStrategy in selectionStrategyList) {

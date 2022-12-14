@@ -34,10 +34,16 @@ fun main() {
         5.0,
     )
 
-    val preSelectionStrategyList: List<PreSelectionStrategy> =
-        PreSelectionStrategy.values().toList()
+    val preSelectionStrategyList: List<PreSelectionStrategy> = listOf(
+        PreSelectionStrategy.RANDOM,
+        PreSelectionStrategy.TRANSITIVE,
+    )
 
-    val selectionStrategyList: List<SelectionStrategy> = SelectionStrategy.values().toList()
+    val selectionStrategyList: List<SelectionStrategy> = listOf(
+        SelectionStrategy.RANDOM,
+        SelectionStrategy.PREFERENTIAL,
+        SelectionStrategy.HOMOPHILY,
+    )
 
     val numPreSelectedFirm = 30
 
@@ -123,7 +129,7 @@ fun main() {
                         }
                     }
 
-                    SelectionStrategy.DISTANCE -> {}
+                    else -> {}
                 }
             }
         }
