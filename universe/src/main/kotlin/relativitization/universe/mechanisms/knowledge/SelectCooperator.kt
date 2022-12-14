@@ -260,7 +260,11 @@ object SelectCooperator : Mechanism() {
         ) {
             val otherInt4D: Int4D = universeData3DAtPlayer.get(it).int4D
             val distance: Int = Intervals.intDistance(currentInt4D, otherInt4D)
-            1.0 / (1.0 + distance.toDouble().pow(distancePower))
+            if (distancePower >= 0.0) {
+                1.0 / (1.0 + distance.toDouble().pow(distancePower))
+            } else {
+                1.0 + distance.toDouble().pow(-distancePower)
+            }
         }.first()
     }
 }
