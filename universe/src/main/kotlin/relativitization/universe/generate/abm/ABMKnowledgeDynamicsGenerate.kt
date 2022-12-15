@@ -155,7 +155,7 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
         val distancePowerNumPerGroup: Int = (settings.numPlayer - 1) / distancePowerGroup + 1
 
         val distancePowerGroupDiff: Double = if (distancePowerGroup > 1) {
-            (distancePowerMax - distancePowerMin) / (distancePowerNumPerGroup - 1)
+            (distancePowerMax - distancePowerMin) / (distancePowerGroup - 1)
         } else {
             0.0
         }
