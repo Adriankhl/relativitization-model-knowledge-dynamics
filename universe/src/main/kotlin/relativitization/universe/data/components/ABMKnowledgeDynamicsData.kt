@@ -15,6 +15,9 @@ import relativitization.universe.data.PlayerInternalData
  * only active when selectionStrategy is DISTANCE
  * @property innovationHypothesis the collection of knowledge genes used in production
  * @property productId the id of the produced good
+ * @property capabilityFactor the effect of capability on product quality
+ * @property abilityFactor the effect of ability on product quality
+ * @property expertiseFactor the effect of expertise on product quality
  * @property productQuality the quality of the produced good
  * @property totalReward the reward stored by the agent
  * @property latestReward the reward received by ths agent in the latest turn
@@ -33,6 +36,9 @@ data class ABMKnowledgeDynamicsData(
     val knowledgeGeneList: List<KnowledgeGene> = listOf(),
     val innovationHypothesis: List<KnowledgeGene> = listOf(),
     val productId: Int = -1,
+    val capabilityFactor: Double = -1.0,
+    val abilityFactor: Double = -1.0,
+    val expertiseFactor: Double = -1.0,
     val productQuality: Double = 0.0,
     val totalReward: Int = 0,
     val latestReward: Int = 0,
@@ -64,6 +70,9 @@ data class MutableABMKnowledgeDynamicsData(
     val knowledgeGeneList: MutableList<MutableKnowledgeGene> = mutableListOf(),
     val innovationHypothesis: MutableList<MutableKnowledgeGene> = mutableListOf(),
     var productId: Int = -1,
+    var capabilityFactor: Double = -1.0,
+    var abilityFactor: Double = -1.0,
+    var expertiseFactor: Double = -1.0,
     var productQuality: Double = 0.0,
     var totalReward: Int = 0,
     var latestReward: Int = 0,

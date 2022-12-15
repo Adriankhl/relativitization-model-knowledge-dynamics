@@ -72,6 +72,12 @@ object Production : Mechanism() {
                 abilityFactor * expertiseFactor
 
         mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().productId = productId
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().capabilityFactor =
+            capabilityFactor
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().abilityFactor =
+            abilityFactor
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().expertiseFactor =
+            expertiseFactor
         mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().productQuality =
             productQuality
 
