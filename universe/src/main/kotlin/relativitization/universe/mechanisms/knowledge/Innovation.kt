@@ -107,29 +107,6 @@ object Innovation : Mechanism() {
                     universeData3DAtPlayer = universeData3DAtPlayer,
                     random = random
                 )
-
-                // Change innovation hypothesis
-                if (mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().knowledgeGeneList.isNotEmpty()) {
-                    val g1: MutableKnowledgeGene = mutablePlayerData.playerInternalData
-                        .abmKnowledgeDynamicsData().innovationHypothesis.asSequence()
-                        .shuffled(random).first()
-
-                    val g2: MutableKnowledgeGene = mutablePlayerData.playerInternalData
-                        .abmKnowledgeDynamicsData().knowledgeGeneList.asSequence()
-                        .shuffled(random).first()
-
-                    mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-                        .innovationHypothesis.remove(g1)
-
-                    mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-                        .innovationHypothesis.add(g2)
-
-                    mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-                        .knowledgeGeneList.remove(g2)
-
-                    mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-                        .knowledgeGeneList.add(g1)
-                }
             }
 
             latestReward in (radicalThreshold + 1)..incrementalThreshold -> {
@@ -156,21 +133,49 @@ object Innovation : Mechanism() {
         return listOf()
     }
 
+    private fun radicalInnovationHypothesisChange(
+        mutablePlayerData: MutablePlayerData,
+        newKnowledgeGene: MutableKnowledgeGene,
+        random: Random,
+    ) {
+
+        // Change innovation hypothesis
+        if (mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().knowledgeGeneList.isNotEmpty()) {
+            val oldKnowledgeGene: MutableKnowledgeGene = mutablePlayerData.playerInternalData
+                .abmKnowledgeDynamicsData().innovationHypothesis.asSequence()
+                .shuffled(random).first()
+
+            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                .innovationHypothesis.remove(oldKnowledgeGene)
+
+            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                .innovationHypothesis.add(newKnowledgeGene)
+
+            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                .knowledgeGeneList.add(oldKnowledgeGene)
+        }
+    }
+
     private fun radicalSelfInnovation(
         mutablePlayerData: MutablePlayerData,
         maxCapability: Int,
         maxAbility: Int,
         random: Random,
     ) {
-        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().knowledgeGeneList
-            .add(
-                MutableKnowledgeGene(
-                    capability = random.nextInt(0, maxCapability + 1),
-                    ability = random.nextInt(0, maxAbility + 1),
-                    expertise = 0
-                )
-            )
-        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().numSelfRadicalInnovation += 1
+        val newKnowledgeGene = MutableKnowledgeGene(
+            capability = random.nextInt(0, maxCapability + 1),
+            ability = random.nextInt(0, maxAbility + 1),
+            expertise = 0
+        )
+
+        radicalInnovationHypothesisChange(
+            mutablePlayerData,
+            newKnowledgeGene,
+            random,
+        )
+
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+            .numSelfRadicalInnovation += 1
     }
 
     private fun radicalCooperationInnovation(
@@ -186,11 +191,18 @@ object Innovation : Mechanism() {
                         expertise = 0
                     )
             }
-        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().knowledgeGeneList.addAll(
-            DataSerializer.copy(geneList)
-        )
+        geneList.forEach {
+            val newKnowledgeGene: MutableKnowledgeGene = DataSerializer.copy(it)
 
-        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().numCooperationRadicalInnovation += geneList.size
+            radicalInnovationHypothesisChange(
+                mutablePlayerData,
+                newKnowledgeGene,
+                random,
+            )
+
+            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                .numCooperationRadicalInnovation += 1
+        }
     }
 
     private fun incrementalSelfInnovation(
@@ -202,7 +214,8 @@ object Innovation : Mechanism() {
             .asSequence().shuffled(random).first().ability = random.nextInt(0, maxAbility + 1)
 
 
-        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().numSelfIncrementalInnovation += 1
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+            .numSelfIncrementalInnovation += 1
     }
 
     private fun incrementalCooperationInnovation(
@@ -235,9 +248,11 @@ object Innovation : Mechanism() {
             .innovationHypothesis.filter {
                 geneMap.containsKey(it.capability)
             }.forEach {
-                mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().numCooperationIncrementalInnovation += 1
                 it.ability = geneMap.getValue(it.capability).asSequence().shuffled(random).first()
                     .ability
+
+                mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                    .numCooperationIncrementalInnovation += 1
             }
     }
 }
