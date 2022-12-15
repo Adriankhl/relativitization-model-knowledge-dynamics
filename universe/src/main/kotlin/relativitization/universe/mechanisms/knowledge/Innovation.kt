@@ -108,9 +108,7 @@ object Innovation : Mechanism() {
                     random = random
                 )
 
-                if (random.nextDouble() < radicalInnovationProbability) {
-                    radicalInnovationHypothesisChange(mutablePlayerData, random)
-                }
+                radicalInnovationHypothesisChange(mutablePlayerData, random)
             }
 
             latestReward in (radicalThreshold + 1)..incrementalThreshold -> {
