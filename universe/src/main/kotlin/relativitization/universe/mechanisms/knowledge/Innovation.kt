@@ -107,6 +107,10 @@ object Innovation : Mechanism() {
                     universeData3DAtPlayer = universeData3DAtPlayer,
                     random = random
                 )
+
+                if (random.nextDouble() < radicalInnovationProbability) {
+                    radicalInnovationHypothesisChange(mutablePlayerData, random)
+                }
             }
 
             latestReward in (radicalThreshold + 1)..incrementalThreshold -> {
@@ -133,26 +137,55 @@ object Innovation : Mechanism() {
         return listOf()
     }
 
-    private fun radicalInnovationHypothesisChange(
+    private fun radicalAddNewKnowledgeGene(
         mutablePlayerData: MutablePlayerData,
         newKnowledgeGene: MutableKnowledgeGene,
+    ) {
+        // Change innovation hypothesis
+//        if (mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().knowledgeGeneList.isNotEmpty()) {
+//            val oldKnowledgeGene: MutableKnowledgeGene = mutablePlayerData.playerInternalData
+//                .abmKnowledgeDynamicsData().innovationHypothesis.asSequence()
+//                .shuffled(random).first()
+//
+//            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+//                .innovationHypothesis.remove(oldKnowledgeGene)
+//
+//            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+//                .innovationHypothesis.add(newKnowledgeGene)
+//
+//            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+//                .knowledgeGeneList.add(oldKnowledgeGene)
+//        }
+
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().knowledgeGeneList.add(
+            newKnowledgeGene
+        )
+    }
+
+    private fun radicalInnovationHypothesisChange(
+        mutablePlayerData: MutablePlayerData,
         random: Random,
     ) {
-
-        // Change innovation hypothesis
         if (mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().knowledgeGeneList.isNotEmpty()) {
-            val oldKnowledgeGene: MutableKnowledgeGene = mutablePlayerData.playerInternalData
+            val g1: MutableKnowledgeGene = mutablePlayerData.playerInternalData
                 .abmKnowledgeDynamicsData().innovationHypothesis.asSequence()
                 .shuffled(random).first()
 
-            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-                .innovationHypothesis.remove(oldKnowledgeGene)
+            val g2: MutableKnowledgeGene = mutablePlayerData.playerInternalData
+                .abmKnowledgeDynamicsData().knowledgeGeneList.asSequence()
+                .shuffled(random).first()
 
             mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-                .innovationHypothesis.add(newKnowledgeGene)
+                .innovationHypothesis.remove(g1)
 
             mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
-                .knowledgeGeneList.add(oldKnowledgeGene)
+                .innovationHypothesis.add(g2)
+
+            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                .knowledgeGeneList.remove(g2)
+
+            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                .knowledgeGeneList.add(g1)
         }
     }
 
@@ -168,10 +201,9 @@ object Innovation : Mechanism() {
             expertise = 0
         )
 
-        radicalInnovationHypothesisChange(
+        radicalAddNewKnowledgeGene(
             mutablePlayerData,
             newKnowledgeGene,
-            random,
         )
 
         mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
@@ -191,13 +223,13 @@ object Innovation : Mechanism() {
                         expertise = 0
                     )
             }
+
         geneList.forEach {
             val newKnowledgeGene: MutableKnowledgeGene = DataSerializer.copy(it)
 
-            radicalInnovationHypothesisChange(
+            radicalAddNewKnowledgeGene(
                 mutablePlayerData,
                 newKnowledgeGene,
-                random,
             )
 
             mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()

@@ -72,7 +72,7 @@ internal fun knowledgeDynamicsSingleRun(
     numProduct: Int = 20,
     maxProductQuality: Int = 50,
     maxReward: Int = 10,
-    forgetProbability: Double = 1.0,
+    forgetProbability: Double = 0.05,
     radicalInnovationProbability: Double = 0.4,
     incrementalInnovationProbability: Double = 0.1,
 ): DataFrame<*> {
