@@ -17,16 +17,17 @@ fun main() {
             knowledgeDynamicsSingleRun(
                 randomSeed = randomSeed,
                 numPlayer = 120,
-                speedOfLight = 1.0,
+                speedOfLight = 0.5,
                 maxOutCooperator = 1,
                 cooperationLength = 1,
                 distancePowerMin = -10.0,
                 distancePowerMax = 10.0,
                 distancePowerGroup = 5,
                 randomDistanceNum = 120,
-                numPreSelectedFirm = 30,
-                radicalInnovationProbability = 0.2,
-                incrementalInnovationProbability = 0.05,
+                numPreSelectedFirm = 119,
+                radicalInnovationProbability = 0.1,
+                incrementalInnovationProbability = 0.02,
+                forgetProbability = 0.5,
             )
         )
     }

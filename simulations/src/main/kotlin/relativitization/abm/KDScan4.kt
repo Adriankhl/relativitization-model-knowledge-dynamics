@@ -12,9 +12,9 @@ fun main() {
     val randomSeedList: List<Long> = (100L..110L).toList()
 
     val distancePowerList: List<Double> = listOf(
+        -10.0,
         0.0,
-        5.0,
-        200.0,
+        10.0,
     )
 
     for (randomSeed in randomSeedList) {
@@ -24,14 +24,15 @@ fun main() {
                 knowledgeDynamicsSingleRun(
                     randomSeed = randomSeed,
                     numPlayer = 120,
-                    speedOfLight = 1.0,
+                    speedOfLight = 0.5,
                     maxOutCooperator = 1,
                     cooperationLength = 1,
                     distancePowerMin = distancePower,
                     randomDistanceNum = 120,
-                    numPreSelectedFirm = 30,
-                    radicalInnovationProbability = 0.2,
-                    incrementalInnovationProbability = 0.05,
+                    numPreSelectedFirm = 119,
+                    radicalInnovationProbability = 0.1,
+                    incrementalInnovationProbability = 0.02,
+                    forgetProbability = 0.5,
                 )
             )
         }
