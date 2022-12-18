@@ -17,15 +17,15 @@ fun main() {
             knowledgeDynamicsSingleRun(
                 numStep = 1000,
                 randomSeed = randomSeed,
-                numPlayer = 120,
+                numPlayer = 100,
                 speedOfLight = 200.0,
                 preferentialPower = 2.0,
-                randomRandomNum = 20,
-                randomPreferentialNum = 20,
-                randomHomophilyNum = 20,
-                transitiveRandomNum = 20,
-                transitivePreferentialNum = 20,
-                transitiveHomophilyNum = 20,
+                randomRandomNum = 17,
+                randomPreferentialNum = 17,
+                randomHomophilyNum = 17,
+                transitiveRandomNum = 17,
+                transitivePreferentialNum = 16,
+                transitiveHomophilyNum = 16,
             )
         )
     }

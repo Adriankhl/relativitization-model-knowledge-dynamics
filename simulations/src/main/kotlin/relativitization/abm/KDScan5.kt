@@ -9,22 +9,23 @@ import java.io.File
 fun main() {
     val dfList: MutableList<DataFrame<*>> = mutableListOf()
 
-    val randomSeedList: List<Long> = (100L..150L).toList()
+    val randomSeedList: List<Long> = (200L..250L).toList()
 
     for (randomSeed in randomSeedList) {
         println("Random seed: $randomSeed")
         dfList.add(
             knowledgeDynamicsSingleRun(
                 randomSeed = randomSeed,
-                numPlayer = 120,
+                numStep = 2000,
+                numPlayer = 100,
                 speedOfLight = 0.5,
                 maxOutCooperator = 1,
                 cooperationLength = 1,
                 distancePowerMin = -10.0,
                 distancePowerMax = 10.0,
                 distancePowerGroup = 5,
-                randomDistanceNum = 120,
-                numPreSelectedFirm = 119,
+                randomDistanceNum = 100,
+                numPreSelectedFirm = 99,
                 radicalInnovationProbability = 0.1,
                 incrementalInnovationProbability = 0.02,
                 forgetProbability = 0.5,

@@ -20,10 +20,10 @@ import java.io.File
 
 fun main() {
     val df = knowledgeDynamicsSingleRun(
-        numPlayer = 120,
+        numPlayer = 100,
         speedOfLight = 200.0,
         sameLocation = 1,
-        randomPreferentialNum = 120,
+        randomPreferentialNum = 100,
         cooperationLength = 1,
         numPreSelectedFirm = 99,
     )

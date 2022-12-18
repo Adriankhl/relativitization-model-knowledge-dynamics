@@ -9,7 +9,7 @@ import java.io.File
 fun main() {
     val dfList: MutableList<DataFrame<*>> = mutableListOf()
 
-    val randomSeedList: List<Long> = (100L..110L).toList()
+    val randomSeedList: List<Long> = (200L..210L).toList()
 
     val distancePowerList: List<Double> = listOf(
         -10.0,
@@ -23,13 +23,14 @@ fun main() {
             dfList.add(
                 knowledgeDynamicsSingleRun(
                     randomSeed = randomSeed,
-                    numPlayer = 120,
+                    numStep = 2000,
+                    numPlayer = 100,
                     speedOfLight = 0.5,
                     maxOutCooperator = 1,
                     cooperationLength = 1,
                     distancePowerMin = distancePower,
-                    randomDistanceNum = 120,
-                    numPreSelectedFirm = 119,
+                    randomDistanceNum = 100,
+                    numPreSelectedFirm = 99,
                     radicalInnovationProbability = 0.1,
                     incrementalInnovationProbability = 0.02,
                     forgetProbability = 0.5,

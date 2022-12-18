@@ -24,10 +24,10 @@ fun main() {
             dfList.add(
                 knowledgeDynamicsSingleRun(
                     randomSeed = randomSeed,
-                    numPlayer = 120,
+                    numPlayer = 100,
                     speedOfLight = speedOfLight,
                     preferentialPower = 2.0,
-                    randomRandomNum = 120,
+                    randomRandomNum = 100,
                 )
             )
         }
