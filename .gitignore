@@ -340,6 +340,8 @@ universe/src/main/kotlin/relativitization/universe/generate/random/science/Gener
 universe/src/main/kotlin/relativitization/universe/generate/random/RandomOneStarPerPlayerGenerate.kt
 universe/src/main/kotlin/relativitization/universe/generate/testing/TestingGenerateUniverseMethod.kt
 universe/src/main/kotlin/relativitization/universe/generate/testing/TestingFixedMinimal.kt
+universe/src/main/kotlin/relativitization/universe/spacetime/Spacetime.kt
+universe/src/main/kotlin/relativitization/universe/spacetime/MinkowskiSpacetime.kt
 universe/src/test/kotlin/playground/CollectionTest.kt
 universe/src/test/kotlin/playground/QualifiedNameTest.kt
 universe/src/test/kotlin/playground/ReflectionTest.kt
