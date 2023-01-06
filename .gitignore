@@ -400,8 +400,10 @@ universe/src/test/kotlin/relativitization/universe/ai/DefaultAITest.kt
 universe/src/test/kotlin/relativitization/universe/ai/AITest.kt
 universe/src/test/kotlin/relativitization/universe/UniverseTest.kt
 universe/build.gradle.kts
-simulations/src/main/kotlin/relativitization/game/SmallerTypicalGame.kt
 simulations/src/main/kotlin/relativitization/game/TypicalGame.kt
+simulations/src/main/kotlin/relativitization/game/GameSimulation.kt
+simulations/src/main/kotlin/relativitization/game/SmallTypicalGame.kt
+simulations/src/test/kotlin/relativitization/game/GameSimulationKtTest.kt
 simulations/build.gradle.kts
 gradle.properties
 gradlew
