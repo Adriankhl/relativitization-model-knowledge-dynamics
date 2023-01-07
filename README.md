@@ -31,10 +31,10 @@ hidden file, run `cp -r ../relativitization/relativitization-model-base/* .` ins
 
 Now you can open this project with your favourite IDE, or you can run simulations directly on
 your terminal. This command run the main function in 
-`./simulations/src/main/kotlin/relativitization/abm/KDScan1,kt`:
+`./simulations/src/main/kotlin/relativitization/abm/KnowledgeDynamics.kt`:
 
 ```
-./gradlew :simulations:run -PmainClass=relativitization.abm.KDScan1Kt
+./gradlew :simulations:run -PmainClass=relativitization.abm.KnowledgeDynamicsKt
 ```
 
 You can use `-PprocessorCount` and `-PramPercentage` to limit cpu usage and ram usage respectively:
