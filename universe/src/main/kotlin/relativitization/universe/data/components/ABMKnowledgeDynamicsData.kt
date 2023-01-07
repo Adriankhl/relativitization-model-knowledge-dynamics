@@ -33,6 +33,7 @@ import relativitization.universe.data.PlayerInternalData
  *  cooperation
  * @property numCooperationIncrementalInnovation store the number of incremental innovation done by
  *  cooperation
+ * @property maxSpeed the maximum movement speed of this player
  */
 @Serializable
 @SerialName("ABMKnowledgeDynamicsData")
@@ -57,6 +58,7 @@ data class ABMKnowledgeDynamicsData(
     val numSelfIncrementalInnovation: Int = 0,
     val numCooperationRadicalInnovation: Int = 0,
     val numCooperationIncrementalInnovation: Int = 0,
+    val maxSpeed: Double = 0.0,
 ) : PlayerDataComponent() {
     fun allCooperator(): Set<Int> = cooperationOutMap.keys + cooperationInMap.keys
 
@@ -91,6 +93,7 @@ data class MutableABMKnowledgeDynamicsData(
     var numSelfIncrementalInnovation: Int = 0,
     var numCooperationRadicalInnovation: Int = 0,
     var numCooperationIncrementalInnovation: Int = 0,
+    var maxSpeed: Double = 0.0,
 ) : MutablePlayerDataComponent() {
     fun allCooperator(): Set<Int> = cooperationOutMap.keys + cooperationInMap.keys
 
