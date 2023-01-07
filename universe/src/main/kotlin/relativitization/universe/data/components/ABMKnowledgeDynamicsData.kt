@@ -12,7 +12,7 @@ import relativitization.universe.data.PlayerInternalData
  * @property selectionStrategy strategy to select cooperator from the potential candidates
  * @property knowledgeGeneList the set of knowledge genes of this agent
  * @property distancePower how strongly the cooperator selection is affected by distance,
- * only active when selectionStrategy is DISTANCE
+ *  only active when selectionStrategy is DISTANCE
  * @property innovationHypothesis the collection of knowledge genes used in production
  * @property productId the id of the produced good
  * @property capabilityFactor the effect of capability on product quality
@@ -23,9 +23,16 @@ import relativitization.universe.data.PlayerInternalData
  * @property latestReward the reward received by ths agent in the latest turn
  * @property cooperationOutMap cooperation between the key and this agent, proposed by this agent
  * @property cooperationOutWaitMap to-be-confirmed cooperation between the key and this agent,
- * proposed by this agent
+ *  proposed by this agent
  * @property cooperationInMap cooperation between the key and this agent, proposed by other agent
  * @property cooperationLearnMap learn from this cooperator
+ * @property numSelfRadicalInnovation store the number of radical innovation done by this player
+ * @property numSelfIncrementalInnovation store the number of incremental innovation done by
+ *  this player
+ * @property numCooperationRadicalInnovation store the number of radical innovation done by
+ *  cooperation
+ * @property numCooperationIncrementalInnovation store the number of incremental innovation done by
+ *  cooperation
  */
 @Serializable
 @SerialName("ABMKnowledgeDynamicsData")
