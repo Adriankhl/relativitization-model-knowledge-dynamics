@@ -21,8 +21,13 @@ import kotlin.random.Random
 object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
     private val logger = RelativitizationLogManager.getLogger()
 
-    override fun generate(settings: GenerateSettings, random: Random): UniverseData {
-        val universeSettings: UniverseSettings = DataSerializer.copy(settings.universeSettings)
+    override fun generate(
+        generateSettings: GenerateSettings,
+        random: Random
+    ): UniverseData {
+        val universeSettings: UniverseSettings = DataSerializer.copy(
+            generateSettings.universeSettings
+        )
 
         val data = MutableUniverseData4D(
             create4DGrid(
@@ -38,17 +43,17 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
             maxPlayerId = 0,
         )
 
-        val sameLocation: Int = settings.getOtherIntOrDefault(
+        val sameLocation: Int = generateSettings.getOtherIntOrDefault(
             "sameLocation",
             0
         )
 
-        val maxInitialCapability: Int = settings.getOtherIntOrDefault(
+        val maxInitialCapability: Int = generateSettings.getOtherIntOrDefault(
             "maxInitialCapability",
             30
         )
 
-        val innovationHypothesisSize: Int = settings.getOtherIntOrDefault(
+        val innovationHypothesisSize: Int = generateSettings.getOtherIntOrDefault(
             "innovationHypothesisSize",
             3
         )
@@ -58,42 +63,42 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
             10
         )
 
-        val randomRandomNum: Int = settings.getOtherIntOrDefault(
+        val randomRandomNum: Int = generateSettings.getOtherIntOrDefault(
             "randomRandomNum",
             0
         )
 
-        val randomPreferentialNum: Int = settings.getOtherIntOrDefault(
+        val randomPreferentialNum: Int = generateSettings.getOtherIntOrDefault(
             "randomPreferentialNum",
             0
         )
 
-        val randomHomophilyNum: Int = settings.getOtherIntOrDefault(
+        val randomHomophilyNum: Int = generateSettings.getOtherIntOrDefault(
             "randomHomophilyNum",
             0
         )
 
-        val randomDistanceNum: Int = settings.getOtherIntOrDefault(
+        val randomDistanceNum: Int = generateSettings.getOtherIntOrDefault(
             "randomDistanceNum",
             0
         )
 
-        val transitiveRandomNum: Int = settings.getOtherIntOrDefault(
+        val transitiveRandomNum: Int = generateSettings.getOtherIntOrDefault(
             "transitiveRandomNum",
             0
         )
 
-        val transitivePreferentialNum: Int = settings.getOtherIntOrDefault(
+        val transitivePreferentialNum: Int = generateSettings.getOtherIntOrDefault(
             "transitivePreferentialNum",
             0
         )
 
-        val transitiveHomophilyNum: Int = settings.getOtherIntOrDefault(
+        val transitiveHomophilyNum: Int = generateSettings.getOtherIntOrDefault(
             "transitiveHomophilyNum",
             0
         )
 
-        val transitiveDistanceNum: Int = settings.getOtherIntOrDefault(
+        val transitiveDistanceNum: Int = generateSettings.getOtherIntOrDefault(
             "transitiveDistanceNum",
             0
         )
@@ -102,12 +107,12 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
                 randomDistanceNum + transitiveRandomNum + transitivePreferentialNum +
                 transitiveHomophilyNum + transitiveDistanceNum
 
-        if (totalStrategyNum != settings.numPlayer) {
+        if (totalStrategyNum != generateSettings.numPlayer) {
             logger.error("Wrong strategy num")
         }
 
         val strategyPairList: List<Pair<PreSelectionStrategy, SelectionStrategy>> =
-            (1..settings.numPlayer).map {
+            (1..generateSettings.numPlayer).map {
                 when (it) {
                     in 1..randomRandomNum ->
                         Pair(PreSelectionStrategy.RANDOM, SelectionStrategy.RANDOM)
@@ -137,22 +142,22 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
                 }
             }.shuffled(random)
 
-        val distancePowerMin: Double = settings.getOtherDoubleOrDefault(
+        val distancePowerMin: Double = generateSettings.getOtherDoubleOrDefault(
             "distancePowerMin",
             0.0
         )
 
-        val distancePowerMax: Double = settings.getOtherDoubleOrDefault(
+        val distancePowerMax: Double = generateSettings.getOtherDoubleOrDefault(
             "distancePowerMax",
             0.0
         )
 
-        val distancePowerGroup: Int = settings.getOtherIntOrDefault(
+        val distancePowerGroup: Int = generateSettings.getOtherIntOrDefault(
             "distancePowerGroup",
             1
         )
 
-        val distancePowerNumPerGroup: Int = (settings.numPlayer - 1) / distancePowerGroup + 1
+        val distancePowerNumPerGroup: Int = (generateSettings.numPlayer - 1) / distancePowerGroup + 1
 
         val distancePowerGroupDiff: Double = if (distancePowerGroup > 1) {
             (distancePowerMax - distancePowerMin) / (distancePowerGroup - 1)
@@ -160,11 +165,11 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
             0.0
         }
 
-        val distancePowerList: List<Double> = (0 until settings.numPlayer).map {
+        val distancePowerList: List<Double> = (0 until generateSettings.numPlayer).map {
             distancePowerMin + distancePowerGroupDiff * (it / distancePowerNumPerGroup)
         }.shuffled(random)
 
-        for (i in 1..settings.numPlayer) {
+        for (i in 1..generateSettings.numPlayer) {
             val playerId: Int = universeState.getNewPlayerId()
 
             val mutablePlayerData = MutablePlayerData(playerId)
