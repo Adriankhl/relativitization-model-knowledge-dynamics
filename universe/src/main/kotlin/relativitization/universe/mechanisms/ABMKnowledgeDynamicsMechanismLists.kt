@@ -1,6 +1,7 @@
 package relativitization.universe.mechanisms
 
 import relativitization.universe.mechanisms.knowledge.Innovation
+import relativitization.universe.mechanisms.knowledge.MoveLocation
 import relativitization.universe.mechanisms.knowledge.Production
 import relativitization.universe.mechanisms.knowledge.ResetRestMass
 import relativitization.universe.mechanisms.knowledge.ResetReward
@@ -12,6 +13,7 @@ object ABMKnowledgeDynamicsMechanismLists : MechanismLists() {
         SyncCooperator,
         ResetReward,
         ResetRestMass,
+        MoveLocation,
     )
 
     override val dilatedMechanismList: List<Mechanism> = listOf(
