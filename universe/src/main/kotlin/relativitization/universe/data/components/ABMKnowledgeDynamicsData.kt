@@ -60,7 +60,7 @@ data class ABMKnowledgeDynamicsData(
     val numCooperationRadicalInnovation: Int = 0,
     val numCooperationIncrementalInnovation: Int = 0,
     val speedLimit: Double = 0.0,
-    val restMassFraction: Double = 1.0,
+    val restMass: Double = 1.0,
 ) : PlayerDataComponent() {
     fun allCooperator(): Set<Int> = cooperationOutMap.keys + cooperationInMap.keys
 
