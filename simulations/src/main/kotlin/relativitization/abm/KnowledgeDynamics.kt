@@ -55,6 +55,7 @@ internal fun knowledgeDynamicsSingleRun(
     speedLimitMin: Double = 1.0,
     speedLimitMax: Double = 1.0,
     speedLimitGroup: Int = 1,
+    switchLocationCoolDown: Int = Int.MAX_VALUE,
     randomRandomNum: Int = 0,
     randomPreferentialNum: Int = 0,
     randomHomophilyNum: Int = 0,
@@ -131,6 +132,7 @@ internal fun knowledgeDynamicsSingleRun(
                 "numProduct" to numProduct,
                 "maxProductQuality" to maxProductQuality,
                 "maxReward" to maxReward,
+                "switchLocationCoolDown" to switchLocationCoolDown,
             ),
             otherDoubleMap = mutableMapOf(
                 "preferentialPower" to preferentialPower,

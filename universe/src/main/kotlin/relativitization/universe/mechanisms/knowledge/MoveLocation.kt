@@ -21,15 +21,23 @@ object MoveLocation : Mechanism() {
         universeGlobalData: UniverseGlobalData,
         random: Random
     ): List<Command> {
+        val switchLocationCoolDown: Int = universeSettings.getOtherIntOrDefault(
+            "switchLocationCoolDown",
+            Int.MAX_VALUE
+        )
+
         val speedLimit: Double = mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
             .speedLimit
 
         if (speedLimit > 0.0) {
-            val targetInt3D: Int3D = Int3D(
-                (universeSettings.xDim - 1) / 2,
-                (universeSettings.yDim - 1) / 2,
-                (universeSettings.zDim - 1) / 2,
-            )
+            // Switch location per switchLocationCoolDown turn
+            val location: Int = (mutablePlayerData.int4D.t / switchLocationCoolDown) % 2
+
+            val targetInt3D: Int3D = if (location == 0) {
+                Int3D(0, 0, 0)
+            } else {
+                Int3D(universeSettings.xDim, universeSettings.yDim, universeSettings.zDim)
+            }
 
             if (mutablePlayerData.int4D.toInt3D() != targetInt3D) {
                 val velocity: Velocity = Movement.displacementToVelocity(
