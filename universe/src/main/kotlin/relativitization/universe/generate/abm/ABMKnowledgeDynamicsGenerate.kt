@@ -157,7 +157,8 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
             1
         )
 
-        val distancePowerNumPerGroup: Int = (generateSettings.numPlayer - 1) / distancePowerGroup + 1
+        val distancePowerNumPerGroup: Int =
+            (generateSettings.numPlayer - 1) / distancePowerGroup + 1
 
         val distancePowerGroupDiff: Double = if (distancePowerGroup > 1) {
             (distancePowerMax - distancePowerMin) / (distancePowerGroup - 1)
@@ -167,6 +168,33 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
 
         val distancePowerList: List<Double> = (0 until generateSettings.numPlayer).map {
             distancePowerMin + distancePowerGroupDiff * (it / distancePowerNumPerGroup)
+        }.shuffled(random)
+
+        val speedLimitMin: Double = generateSettings.getOtherDoubleOrDefault(
+            "speedLimitMin",
+            0.0
+        )
+
+        val speedLimitMax: Double = generateSettings.getOtherDoubleOrDefault(
+            "speedLimitMax",
+            0.0
+        )
+
+        val speedLimitGroup: Int = generateSettings.getOtherIntOrDefault(
+            "speedLimitGroup",
+            1
+        )
+
+        val speedLimitNumPerGroup: Int = (generateSettings.numPlayer - 1) / speedLimitGroup + 1
+
+        val speedLimitGroupDiff: Double = if (speedLimitGroup > 1) {
+            (speedLimitMax - speedLimitMin) / (speedLimitGroup - 1)
+        } else {
+            0.0
+        }
+
+        val speedLimitList: List<Double> = (0 until generateSettings.numPlayer).map {
+            speedLimitMin + speedLimitGroupDiff * (it / speedLimitNumPerGroup)
         }.shuffled(random)
 
         for (i in 1..generateSettings.numPlayer) {
@@ -213,6 +241,9 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
 
             mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().distancePower =
                 distancePowerList[i - 1]
+
+            mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().speedLimit =
+                speedLimitList[i - 1]
 
             repeat(innovationHypothesisSize) {
                 mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()

@@ -52,6 +52,9 @@ internal fun knowledgeDynamicsSingleRun(
     distancePowerMin: Double = 1.0,
     distancePowerMax: Double = 1.0,
     distancePowerGroup: Int = 1,
+    speedLimitMin: Double = 1.0,
+    speedLimitMax: Double = 1.0,
+    speedLimitGroup: Int = 1,
     randomRandomNum: Int = 0,
     randomPreferentialNum: Int = 0,
     randomHomophilyNum: Int = 0,
@@ -86,6 +89,7 @@ internal fun knowledgeDynamicsSingleRun(
         otherIntMap = mutableMapOf(
             "sameLocation" to sameLocation,
             "distancePowerGroup" to distancePowerGroup,
+            "speedLimitGroup" to speedLimitGroup,
             "maxInitialCapability" to maxInitialCapability,
             "innovationHypothesisSize" to innovationHypothesisSize,
             "randomRandomNum" to randomRandomNum,
@@ -100,6 +104,8 @@ internal fun knowledgeDynamicsSingleRun(
         otherDoubleMap = mutableMapOf(
             "distancePowerMin" to distancePowerMin,
             "distancePowerMax" to distancePowerMax,
+            "speedLimitMin" to speedLimitMin,
+            "speedLimitMax" to speedLimitMax,
         ),
         otherStringMap = mutableMapOf(),
         universeSettings = MutableUniverseSettings(
