@@ -8,7 +8,7 @@ import relativitization.universe.data.components.abmKnowledgeDynamicsData
 import relativitization.universe.data.global.UniverseGlobalData
 import relativitization.universe.maths.physics.Int3D
 import relativitization.universe.maths.physics.Movement
-import relativitization.universe.maths.physics.MutableVelocity
+import relativitization.universe.maths.physics.Relativistic
 import relativitization.universe.maths.physics.Velocity
 import relativitization.universe.mechanisms.Mechanism
 import kotlin.random.Random
@@ -36,11 +36,32 @@ object MoveLocation : Mechanism() {
                     from = mutablePlayerData.double4D.toDouble3D(),
                     to = targetInt3D.toDouble3DCenter(),
                     speedOfLight = universeSettings.speedOfLight
+                ).scaleVelocity(
+                    mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().speedLimit
+                )
+
+                val deltaMass: Double = Relativistic.deltaMassByPhotonRocket(
+                    mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().restMass,
+                    mutablePlayerData.velocity.toVelocity(),
+                    velocity,
+                    universeSettings.speedOfLight,
                 )
 
                 mutablePlayerData.velocity = velocity.toMutableVelocity()
+                mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                    .restMass -= deltaMass
             } else {
-                mutablePlayerData.velocity = MutableVelocity(0.0, 0.0, 0.0)
+                val velocity = Velocity(0.0, 0.0, 0.0)
+
+                val deltaMass: Double = Relativistic.deltaMassByPhotonRocket(
+                    mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().restMass,
+                    mutablePlayerData.velocity.toVelocity(),
+                    velocity,
+                    universeSettings.speedOfLight,
+                )
+                mutablePlayerData.velocity = velocity.toMutableVelocity()
+                mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData()
+                    .restMass -= deltaMass
             }
         }
 

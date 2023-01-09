@@ -17,7 +17,7 @@ object ResetRestMass : Mechanism() {
         universeGlobalData: UniverseGlobalData,
         random: Random
     ): List<Command> {
-        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().restMassFraction = 1.0
+        mutablePlayerData.playerInternalData.abmKnowledgeDynamicsData().restMass = 1.0
 
         return listOf()
     }

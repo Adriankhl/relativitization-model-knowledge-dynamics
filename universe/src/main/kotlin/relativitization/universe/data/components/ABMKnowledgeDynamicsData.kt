@@ -96,7 +96,7 @@ data class MutableABMKnowledgeDynamicsData(
     var numCooperationRadicalInnovation: Int = 0,
     var numCooperationIncrementalInnovation: Int = 0,
     var speedLimit: Double = 0.0,
-    var restMassFraction: Double = 1.0,
+    var restMass: Double = 1.0,
 ) : MutablePlayerDataComponent() {
     fun allCooperator(): Set<Int> = cooperationOutMap.keys + cooperationInMap.keys
 
