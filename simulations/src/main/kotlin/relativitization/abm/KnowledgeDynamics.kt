@@ -182,6 +182,7 @@ internal fun knowledgeDynamicsSingleRun(
                     "expertiseFactor" to currentKnowledgeDynamicsData.expertiseFactor,
                     "productQuality" to currentKnowledgeDynamicsData.productQuality,
                     "latestReward" to currentKnowledgeDynamicsData.latestReward,
+                    "totalReward" to currentKnowledgeDynamicsData.totalReward,
                     "cooperationIn" to currentKnowledgeDynamicsData.cooperationInMap.keys,
                     "cooperationOut" to currentKnowledgeDynamicsData.cooperationOutMap.keys,
                     "numSelfRadicalInnovation" to currentKnowledgeDynamicsData.numSelfRadicalInnovation,

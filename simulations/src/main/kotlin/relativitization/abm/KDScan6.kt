@@ -16,11 +16,11 @@ fun main() {
         dfList.add(
             knowledgeDynamicsSingleRun(
                 randomSeed = randomSeed,
-                numStep = 100,
+                numStep = 1000,
                 numPlayer = 100,
                 speedOfLight = 1.0,
-                maxOutCooperator = 1,
-                cooperationLength = 1,
+                maxOutCooperator = 10,
+                cooperationLength = 10,
                 distancePowerMin = 10.0,
                 distancePowerGroup = 1,
                 speedLimitMin = 0.0,
