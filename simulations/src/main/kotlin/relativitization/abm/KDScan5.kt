@@ -25,7 +25,7 @@ fun main() {
             cooperationLength = 1,
             distancePowerMin = 0.0,
             distancePowerMax = 10.0,
-            distancePowerGroup = 5,
+            distancePowerGroup = 3,
             randomDistanceNum = 100,
             numPreSelectedFirm = 99,
             radicalInnovationProbability = 0.1,
