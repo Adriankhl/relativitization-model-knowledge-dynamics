@@ -23,7 +23,7 @@ fun main() {
             speedOfLight = 0.5,
             maxOutCooperator = 1,
             cooperationLength = 1,
-            distancePowerMin = -10.0,
+            distancePowerMin = 0.0,
             distancePowerMax = 10.0,
             distancePowerGroup = 5,
             randomDistanceNum = 100,
