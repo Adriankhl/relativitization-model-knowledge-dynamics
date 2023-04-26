@@ -1,8 +1,6 @@
 package relativitization.abm
 
 import org.apache.commons.csv.CSVFormat
-import org.jetbrains.kotlinx.dataframe.DataFrame
-import org.jetbrains.kotlinx.dataframe.api.concat
 import org.jetbrains.kotlinx.dataframe.io.writeCSV
 import relativitization.universe.data.components.PreSelectionStrategy
 import relativitization.universe.data.components.SelectionStrategy

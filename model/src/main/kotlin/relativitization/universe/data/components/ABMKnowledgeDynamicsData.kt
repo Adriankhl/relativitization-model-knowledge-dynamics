@@ -2,8 +2,10 @@ package relativitization.universe.data.components
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import relativitization.universe.data.MutablePlayerInternalData
-import relativitization.universe.data.PlayerInternalData
+import relativitization.universe.core.data.MutablePlayerInternalData
+import relativitization.universe.core.data.PlayerInternalData
+import relativitization.universe.core.data.components.MutablePlayerDataComponent
+import relativitization.universe.core.data.components.PlayerDataComponent
 
 /**
  * Represent an agent in a SKIN model

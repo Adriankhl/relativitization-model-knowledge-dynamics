@@ -5,16 +5,16 @@ import org.jetbrains.kotlinx.dataframe.DataFrame
 import org.jetbrains.kotlinx.dataframe.api.describe
 import org.jetbrains.kotlinx.dataframe.api.toDataFrame
 import org.jetbrains.kotlinx.dataframe.io.writeCSV
-import relativitization.universe.Universe
-import relativitization.universe.data.MutableUniverseSettings
-import relativitization.universe.data.PlayerData
-import relativitization.universe.data.commands.AllCommandAvailability
+import relativitization.universe.core.Universe
+import relativitization.universe.core.data.MutableUniverseSettings
+import relativitization.universe.core.data.PlayerData
+import relativitization.universe.core.data.commands.AllCommandAvailability
+import relativitization.universe.core.generate.GenerateSettings
+import relativitization.universe.core.generate.GenerateUniverseMethodCollection
+import relativitization.universe.core.global.EmptyGlobalMechanismList
 import relativitization.universe.data.components.ABMKnowledgeDynamicsData
 import relativitization.universe.data.components.abmKnowledgeDynamicsData
-import relativitization.universe.generate.GenerateSettings
-import relativitization.universe.generate.GenerateUniverseMethodCollection
 import relativitization.universe.generate.abm.ABMKnowledgeDynamicsGenerate
-import relativitization.universe.global.EmptyGlobalMechanismList
 import relativitization.universe.mechanisms.ABMKnowledgeDynamicsMechanismLists
 import java.io.File
 

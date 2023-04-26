@@ -1,5 +1,7 @@
 package relativitization.universe.mechanisms
 
+import relativitization.universe.core.mechanisms.Mechanism
+import relativitization.universe.core.mechanisms.MechanismLists
 import relativitization.universe.mechanisms.knowledge.Innovation
 import relativitization.universe.mechanisms.knowledge.MoveLocation
 import relativitization.universe.mechanisms.knowledge.Production

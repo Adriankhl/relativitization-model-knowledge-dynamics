@@ -1,8 +1,6 @@
 package relativitization.abm
 
 import org.apache.commons.csv.CSVFormat
-import org.jetbrains.kotlinx.dataframe.DataFrame
-import org.jetbrains.kotlinx.dataframe.api.concat
 import org.jetbrains.kotlinx.dataframe.io.writeCSV
 import java.io.File
 import java.io.FileWriter

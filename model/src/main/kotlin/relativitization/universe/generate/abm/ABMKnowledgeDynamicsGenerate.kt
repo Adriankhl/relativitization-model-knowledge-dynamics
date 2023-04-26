@@ -1,24 +1,25 @@
 package relativitization.universe.generate.abm
 
-import relativitization.universe.data.MutablePlayerData
-import relativitization.universe.data.MutableUniverseData4D
-import relativitization.universe.data.UniverseData
-import relativitization.universe.data.UniverseSettings
-import relativitization.universe.data.UniverseState
+import relativitization.universe.core.data.MutablePlayerData
+import relativitization.universe.core.data.MutableUniverseData4D
+import relativitization.universe.core.data.UniverseData
+import relativitization.universe.core.data.UniverseSettings
+import relativitization.universe.core.data.UniverseState
+import relativitization.universe.core.data.global.MutableUniverseGlobalData
+import relativitization.universe.core.data.serializer.DataSerializer
+import relativitization.universe.core.generate.GenerateSettings
+import relativitization.universe.core.generate.GenerateUniverseMethod
+import relativitization.universe.core.maths.grid.Grids.create4DGrid
+import relativitization.universe.core.utils.RelativitizationLogManager
 import relativitization.universe.data.components.MutableABMKnowledgeDynamicsData
 import relativitization.universe.data.components.MutableKnowledgeGene
 import relativitization.universe.data.components.PreSelectionStrategy
 import relativitization.universe.data.components.SelectionStrategy
 import relativitization.universe.data.components.abmKnowledgeDynamicsData
-import relativitization.universe.data.global.UniverseGlobalData
-import relativitization.universe.data.serializer.DataSerializer
-import relativitization.universe.generate.GenerateSettings
-import relativitization.universe.maths.grid.Grids.create4DGrid
-import relativitization.universe.utils.RelativitizationLogManager
 import kotlin.math.floor
 import kotlin.random.Random
 
-object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
+object ABMKnowledgeDynamicsGenerate : GenerateUniverseMethod() {
     private val logger = RelativitizationLogManager.getLogger()
 
     override fun generate(
@@ -269,7 +270,7 @@ object ABMKnowledgeDynamicsGenerate : ABMGenerateUniverseMethod() {
             universeSettings = universeSettings,
             universeState = universeState,
             commandMap = mutableMapOf(),
-            universeGlobalData = UniverseGlobalData()
+            universeGlobalData = DataSerializer.copy(MutableUniverseGlobalData())
         )
     }
 }

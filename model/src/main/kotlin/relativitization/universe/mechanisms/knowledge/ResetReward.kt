@@ -1,12 +1,12 @@
 package relativitization.universe.mechanisms.knowledge
 
-import relativitization.universe.data.MutablePlayerData
-import relativitization.universe.data.UniverseData3DAtPlayer
-import relativitization.universe.data.UniverseSettings
-import relativitization.universe.data.commands.Command
+import relativitization.universe.core.data.MutablePlayerData
+import relativitization.universe.core.data.UniverseData3DAtPlayer
+import relativitization.universe.core.data.UniverseSettings
+import relativitization.universe.core.data.commands.Command
+import relativitization.universe.core.data.global.UniverseGlobalData
+import relativitization.universe.core.mechanisms.Mechanism
 import relativitization.universe.data.components.abmKnowledgeDynamicsData
-import relativitization.universe.data.global.UniverseGlobalData
-import relativitization.universe.mechanisms.Mechanism
 import kotlin.random.Random
 
 object ResetReward : Mechanism() {
