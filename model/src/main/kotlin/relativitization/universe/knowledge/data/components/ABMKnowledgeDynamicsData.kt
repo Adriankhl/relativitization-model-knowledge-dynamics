@@ -2,6 +2,7 @@ package relativitization.universe.knowledge.data.components
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import ksergen.annotations.GenerateImmutable
 import relativitization.universe.core.data.MutablePlayerInternalData
 import relativitization.universe.core.data.PlayerInternalData
 import relativitization.universe.core.data.components.MutablePlayerDataComponent
@@ -36,45 +37,8 @@ import relativitization.universe.core.data.components.PlayerDataComponent
  * @property numCooperationIncrementalInnovation store the number of incremental innovation done by
  *  cooperation
  * @property speedLimit the maximum movement speed of this player
- * @property restMassFraction the fraction of rest mass used in this turn to change velocity
  */
-@Serializable
-@SerialName("ABMKnowledgeDynamicsData")
-data class ABMKnowledgeDynamicsData(
-    val preSelectionStrategy: PreSelectionStrategy = PreSelectionStrategy.RANDOM,
-    val selectionStrategy: SelectionStrategy = SelectionStrategy.RANDOM,
-    val distancePower: Double = 0.0,
-    val knowledgeGeneList: List<KnowledgeGene> = listOf(),
-    val innovationHypothesis: List<KnowledgeGene> = listOf(),
-    val productId: Int = -1,
-    val capabilityFactor: Double = -1.0,
-    val abilityFactor: Double = -1.0,
-    val expertiseFactor: Double = -1.0,
-    val productQuality: Double = 0.0,
-    val totalReward: Int = 0,
-    val latestReward: Int = 0,
-    val cooperationOutMap: Map<Int, Cooperation> = mapOf(),
-    val cooperationOutWaitMap: Map<Int, Cooperation> = mapOf(),
-    val cooperationInMap: Map<Int, Cooperation> = mapOf(),
-    val cooperationLearnMap: Map<Int, Cooperation> = mapOf(),
-    val numSelfRadicalInnovation: Int = 0,
-    val numSelfIncrementalInnovation: Int = 0,
-    val numCooperationRadicalInnovation: Int = 0,
-    val numCooperationIncrementalInnovation: Int = 0,
-    val speedLimit: Double = 0.0,
-    val restMass: Double = 1.0,
-) : PlayerDataComponent() {
-    fun allCooperator(): Set<Int> = cooperationOutMap.keys + cooperationInMap.keys
-
-    /**
-     * Not equal to allCooperator().size, count out and in separately
-     */
-    fun numCooperation(): Int = cooperationOutMap.size + cooperationInMap.size
-
-    fun outCooperator(): Set<Int> = cooperationOutMap.keys + cooperationOutWaitMap.keys
-}
-
-@Serializable
+@GenerateImmutable
 @SerialName("ABMKnowledgeDynamicsData")
 data class MutableABMKnowledgeDynamicsData(
     var preSelectionStrategy: PreSelectionStrategy = PreSelectionStrategy.RANDOM,
@@ -99,43 +63,32 @@ data class MutableABMKnowledgeDynamicsData(
     var numCooperationIncrementalInnovation: Int = 0,
     var speedLimit: Double = 0.0,
     var restMass: Double = 1.0,
-) : MutablePlayerDataComponent() {
-    fun allCooperator(): Set<Int> = cooperationOutMap.keys + cooperationInMap.keys
+) : MutablePlayerDataComponent()
 
-    /**
-     * Not equal to allCooperator().size, count out and in separately
-     */
-    fun numCooperation(): Int = cooperationOutMap.size + cooperationInMap.size
+fun ABMKnowledgeDynamicsData.allCooperator(): Set<Int> = cooperationOutMap.keys + cooperationInMap.keys
 
-    fun outCooperator(): Set<Int> = cooperationOutMap.keys + cooperationOutWaitMap.keys
-}
+fun MutableABMKnowledgeDynamicsData.allCooperator(): Set<Int> = cooperationOutMap.keys + cooperationInMap.keys
 
-fun PlayerInternalData.abmKnowledgeDynamicsData(): ABMKnowledgeDynamicsData =
-    playerDataComponentMap.get()
 
-fun MutablePlayerInternalData.abmKnowledgeDynamicsData(): MutableABMKnowledgeDynamicsData =
-    playerDataComponentMap.get()
+/**
+ * Not equal to allCooperator().size, count out and in separately
+ */
+fun ABMKnowledgeDynamicsData.numCooperation(): Int = cooperationOutMap.size + cooperationInMap.size
 
-@Serializable
-data class KnowledgeGene(
-    val capability: Int,
-    val ability: Int,
-    val expertise: Int,
-)
+fun MutableABMKnowledgeDynamicsData.numCooperation(): Int = cooperationOutMap.size + cooperationInMap.size
 
-@Serializable
+fun ABMKnowledgeDynamicsData.outCooperator(): Set<Int> = cooperationOutMap.keys + cooperationOutWaitMap.keys
+
+fun MutableABMKnowledgeDynamicsData.outCooperator(): Set<Int> = cooperationOutMap.keys + cooperationOutWaitMap.keys
+
+@GenerateImmutable
 data class MutableKnowledgeGene(
     var capability: Int,
     var ability: Int,
     var expertise: Int,
 )
 
-@Serializable
-data class Cooperation(
-    val time: Int,
-)
-
-@Serializable
+@GenerateImmutable
 data class MutableCooperation(
     var time: Int,
 )
@@ -151,3 +104,9 @@ enum class SelectionStrategy {
     HOMOPHILY,
     DISTANCE,
 }
+
+fun PlayerInternalData.abmKnowledgeDynamicsData(): ABMKnowledgeDynamicsData =
+    playerDataComponentMap.get()
+
+fun MutablePlayerInternalData.abmKnowledgeDynamicsData(): MutableABMKnowledgeDynamicsData =
+    playerDataComponentMap.get()

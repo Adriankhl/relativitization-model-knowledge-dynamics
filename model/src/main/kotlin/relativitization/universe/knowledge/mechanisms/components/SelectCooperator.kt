@@ -16,6 +16,9 @@ import relativitization.universe.knowledge.data.components.MutableCooperation
 import relativitization.universe.knowledge.data.components.PreSelectionStrategy
 import relativitization.universe.knowledge.data.components.SelectionStrategy
 import relativitization.universe.knowledge.data.components.abmKnowledgeDynamicsData
+import relativitization.universe.knowledge.data.components.allCooperator
+import relativitization.universe.knowledge.data.components.numCooperation
+import relativitization.universe.knowledge.data.components.outCooperator
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.random.Random
