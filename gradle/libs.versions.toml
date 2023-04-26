@@ -1,0 +1,45 @@
+[versions]
+# JDK
+jdkVersion = "17"
+jvmTargetVersion = "11"
+
+# Dependency
+
+# Kotlin
+kotlinVersion = "1.8.21"
+
+# Gradle plugin
+gradleVersionPluginVersion = "0.46.0"
+
+# Documentation
+dokkaVersion = "1.8.10"
+
+# KSP
+kspVersion = "1.8.20-1.0.11"
+ksergenVersion = "0.1"
+
+# Kotlin multiplatform
+kotlinxSerializationVersion = "1.5.0"
+
+# JVM
+relativitizationVersion = "0.2.4"
+log4jVersion = "2.20.0"
+dataframeVersion = "0.10.0"
+
+[libraries]
+dataframe = { module = "org.jetbrains.kotlinx:dataframe", version.ref = "dataframeVersion" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlinVersion" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationVersion" }
+ksergen-annotations = { module = "com.github.adriankhl.ksergen:ksergen-annotations", version.ref = "ksergenVersion" }
+ksergen-ksp = { module = "com.github.adriankhl.ksergen:ksergen-ksp", version.ref = "ksergenVersion" }
+log4j-api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "log4jVersion" }
+log4j-core = { module = "org.apache.logging.log4j:log4j-core", version.ref = "log4jVersion" }
+log4j-slf4j2-impl = { module = "org.apache.logging.log4j:log4j-slf4j2-impl", version.ref = "log4jVersion" }
+relativitization-core = { module = "com.github.adriankhl.relativitization:relativitization-core", version.ref = "relativitizationVersion" }
+
+[plugins]
+ben-manes-versions = { id = "com.github.ben-manes.versions", version.ref = "gradleVersionPluginVersion" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokkaVersion" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinVersion" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinVersion" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
