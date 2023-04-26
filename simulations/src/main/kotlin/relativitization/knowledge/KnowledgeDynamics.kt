@@ -12,6 +12,7 @@ import relativitization.universe.core.data.commands.AllCommandAvailability
 import relativitization.universe.core.generate.GenerateSettings
 import relativitization.universe.core.generate.GenerateUniverseMethodCollection
 import relativitization.universe.core.global.EmptyGlobalMechanismList
+import relativitization.universe.knowledge.KnowledgeDynamicsInitializer
 import relativitization.universe.knowledge.data.components.ABMKnowledgeDynamicsData
 import relativitization.universe.knowledge.data.components.abmKnowledgeDynamicsData
 import relativitization.universe.knowledge.generate.ABMKnowledgeDynamicsGenerate
@@ -19,6 +20,8 @@ import relativitization.universe.knowledge.mechanisms.ABMKnowledgeDynamicsMechan
 import java.io.File
 
 fun main() {
+    KnowledgeDynamicsInitializer.initialize()
+
     val df = knowledgeDynamicsSingleRun(
         numPlayer = 100,
         speedOfLight = 200.0,

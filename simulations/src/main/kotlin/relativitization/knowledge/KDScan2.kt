@@ -2,10 +2,13 @@ package relativitization.knowledge
 
 import org.apache.commons.csv.CSVFormat
 import org.jetbrains.kotlinx.dataframe.io.writeCSV
+import relativitization.universe.knowledge.KnowledgeDynamicsInitializer
 import java.io.File
 import java.io.FileWriter
 
 fun main() {
+    KnowledgeDynamicsInitializer.initialize()
+
     val randomSeedList: List<Long> = (100L..150L).toList()
 
     val fileName = "./data/KDScan2.csv"

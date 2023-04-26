@@ -4,12 +4,15 @@ import org.apache.commons.csv.CSVFormat
 import org.jetbrains.kotlinx.dataframe.DataFrame
 import org.jetbrains.kotlinx.dataframe.api.concat
 import org.jetbrains.kotlinx.dataframe.io.writeCSV
+import relativitization.universe.knowledge.KnowledgeDynamicsInitializer
 import relativitization.universe.knowledge.data.components.PreSelectionStrategy
 import relativitization.universe.knowledge.data.components.SelectionStrategy
 import relativitization.universe.knowledge.mechanisms.ABMKnowledgeDynamicsTestMechanismLists
 import java.io.File
 
 fun main() {
+    KnowledgeDynamicsInitializer.initialize()
+
     val dfList: MutableList<DataFrame<*>> = mutableListOf()
 
     val cooperationLengthList: List<Int> = listOf(
