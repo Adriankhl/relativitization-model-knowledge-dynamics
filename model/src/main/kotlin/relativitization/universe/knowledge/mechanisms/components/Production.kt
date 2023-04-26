@@ -1,4 +1,4 @@
-package relativitization.universe.mechanisms.knowledge
+package relativitization.universe.knowledge.mechanisms.components
 
 import relativitization.universe.core.data.MutablePlayerData
 import relativitization.universe.core.data.UniverseData3DAtPlayer
@@ -7,8 +7,8 @@ import relativitization.universe.core.data.commands.Command
 import relativitization.universe.core.data.global.UniverseGlobalData
 import relativitization.universe.core.mechanisms.Mechanism
 import relativitization.universe.core.utils.RelativitizationLogManager
-import relativitization.universe.data.components.MutableKnowledgeGene
-import relativitization.universe.data.components.abmKnowledgeDynamicsData
+import relativitization.universe.knowledge.data.components.MutableKnowledgeGene
+import relativitization.universe.knowledge.data.components.abmKnowledgeDynamicsData
 import kotlin.random.Random
 
 object Production : Mechanism() {

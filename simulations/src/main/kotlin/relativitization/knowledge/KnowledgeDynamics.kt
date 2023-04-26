@@ -1,4 +1,4 @@
-package relativitization.abm
+package relativitization.knowledge
 
 import org.apache.commons.csv.CSVFormat
 import org.jetbrains.kotlinx.dataframe.DataFrame
@@ -12,10 +12,10 @@ import relativitization.universe.core.data.commands.AllCommandAvailability
 import relativitization.universe.core.generate.GenerateSettings
 import relativitization.universe.core.generate.GenerateUniverseMethodCollection
 import relativitization.universe.core.global.EmptyGlobalMechanismList
-import relativitization.universe.data.components.ABMKnowledgeDynamicsData
-import relativitization.universe.data.components.abmKnowledgeDynamicsData
-import relativitization.universe.generate.abm.ABMKnowledgeDynamicsGenerate
-import relativitization.universe.mechanisms.ABMKnowledgeDynamicsMechanismLists
+import relativitization.universe.knowledge.data.components.ABMKnowledgeDynamicsData
+import relativitization.universe.knowledge.data.components.abmKnowledgeDynamicsData
+import relativitization.universe.knowledge.generate.ABMKnowledgeDynamicsGenerate
+import relativitization.universe.knowledge.mechanisms.ABMKnowledgeDynamicsMechanismLists
 import java.io.File
 
 fun main() {

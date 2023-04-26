@@ -1,4 +1,4 @@
-package relativitization.universe.mechanisms.knowledge
+package relativitization.universe.knowledge.mechanisms.components
 
 import relativitization.universe.core.data.MutablePlayerData
 import relativitization.universe.core.data.UniverseData3DAtPlayer
@@ -10,7 +10,7 @@ import relativitization.universe.core.maths.physics.Movement
 import relativitization.universe.core.maths.physics.Relativistic
 import relativitization.universe.core.maths.physics.Velocity
 import relativitization.universe.core.mechanisms.Mechanism
-import relativitization.universe.data.components.abmKnowledgeDynamicsData
+import relativitization.universe.knowledge.data.components.abmKnowledgeDynamicsData
 import kotlin.random.Random
 
 object MoveLocation : Mechanism() {

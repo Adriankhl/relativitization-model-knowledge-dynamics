@@ -1,4 +1,4 @@
-package relativitization.universe.generate.abm
+package relativitization.universe.knowledge.generate
 
 import relativitization.universe.core.data.MutablePlayerData
 import relativitization.universe.core.data.MutableUniverseData4D
@@ -11,11 +11,11 @@ import relativitization.universe.core.generate.GenerateSettings
 import relativitization.universe.core.generate.GenerateUniverseMethod
 import relativitization.universe.core.maths.grid.Grids.create4DGrid
 import relativitization.universe.core.utils.RelativitizationLogManager
-import relativitization.universe.data.components.MutableABMKnowledgeDynamicsData
-import relativitization.universe.data.components.MutableKnowledgeGene
-import relativitization.universe.data.components.PreSelectionStrategy
-import relativitization.universe.data.components.SelectionStrategy
-import relativitization.universe.data.components.abmKnowledgeDynamicsData
+import relativitization.universe.knowledge.data.components.MutableABMKnowledgeDynamicsData
+import relativitization.universe.knowledge.data.components.MutableKnowledgeGene
+import relativitization.universe.knowledge.data.components.PreSelectionStrategy
+import relativitization.universe.knowledge.data.components.SelectionStrategy
+import relativitization.universe.knowledge.data.components.abmKnowledgeDynamicsData
 import kotlin.math.floor
 import kotlin.random.Random
 

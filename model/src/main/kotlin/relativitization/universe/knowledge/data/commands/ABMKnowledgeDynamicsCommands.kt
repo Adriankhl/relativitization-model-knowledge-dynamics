@@ -1,11 +1,11 @@
-package relativitization.universe.data.commands
+package relativitization.universe.knowledge.data.commands
 
 import relativitization.universe.core.data.MutablePlayerData
 import relativitization.universe.core.data.UniverseSettings
 import relativitization.universe.core.data.commands.Command
 import relativitization.universe.core.maths.physics.Int4D
-import relativitization.universe.data.components.MutableCooperation
-import relativitization.universe.data.components.abmKnowledgeDynamicsData
+import relativitization.universe.knowledge.data.components.MutableCooperation
+import relativitization.universe.knowledge.data.components.abmKnowledgeDynamicsData
 
 data class AskCooperationCommand(
     override val toId: Int

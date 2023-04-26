@@ -1,9 +1,9 @@
-package relativitization.abm
+package relativitization.knowledge
 
 import org.apache.commons.csv.CSVFormat
 import org.jetbrains.kotlinx.dataframe.io.writeCSV
-import relativitization.universe.data.components.PreSelectionStrategy
-import relativitization.universe.data.components.SelectionStrategy
+import relativitization.universe.knowledge.data.components.PreSelectionStrategy
+import relativitization.universe.knowledge.data.components.SelectionStrategy
 import java.io.File
 import java.io.FileWriter
 

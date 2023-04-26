@@ -1,4 +1,4 @@
-package relativitization.abm
+package relativitization.knowledge
 
 import org.apache.commons.csv.CSVFormat
 import org.jetbrains.kotlinx.dataframe.io.writeCSV

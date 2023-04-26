@@ -1,19 +1,19 @@
-package relativitization.abm
+package relativitization.knowledge
 
 import org.apache.commons.csv.CSVFormat
 import org.jetbrains.kotlinx.dataframe.DataFrame
 import org.jetbrains.kotlinx.dataframe.api.concat
 import org.jetbrains.kotlinx.dataframe.io.writeCSV
-import relativitization.universe.data.components.PreSelectionStrategy
-import relativitization.universe.data.components.SelectionStrategy
-import relativitization.universe.mechanisms.ABMKnowledgeDynamicsTestMechanismLists
+import relativitization.universe.knowledge.data.components.PreSelectionStrategy
+import relativitization.universe.knowledge.data.components.SelectionStrategy
+import relativitization.universe.knowledge.mechanisms.ABMKnowledgeDynamicsTestMechanismLists
 import java.io.File
 
 fun main() {
     val dfList: MutableList<DataFrame<*>> = mutableListOf()
 
     val cooperationLengthList: List<Int> = listOf(
-        1,
+        2,
         5,
         10,
     )
@@ -45,7 +45,7 @@ fun main() {
         SelectionStrategy.HOMOPHILY,
     )
 
-    val numPreSelectedFirm = 5
+    val numPreSelectedFirm = 99
 
     for (cooperationLength in cooperationLengthList) {
         for (preSelectionStrategy in preSelectionStrategyList) {
@@ -56,6 +56,10 @@ fun main() {
                         dfList.add(
                             knowledgeDynamicsSingleRun(
                                 mechanismCollectionName = ABMKnowledgeDynamicsTestMechanismLists.name(),
+                                numStep = 10000,
+                                xDim = 1,
+                                yDim = 1,
+                                zDim = 1,
                                 numPlayer = 100,
                                 speedOfLight = 200.0,
                                 sameLocation = 1,
@@ -69,6 +73,7 @@ fun main() {
                                 } else {
                                     0
                                 },
+                                sequentialRun = 1,
                                 cooperationLength = cooperationLength,
                                 numPreSelectedFirm = numPreSelectedFirm,
                             )
@@ -81,6 +86,10 @@ fun main() {
                             dfList.add(
                                 knowledgeDynamicsSingleRun(
                                     mechanismCollectionName = ABMKnowledgeDynamicsTestMechanismLists.name(),
+                                    numStep = 10000,
+                                    xDim = 1,
+                                    yDim = 1,
+                                    zDim = 1,
                                     numPlayer = 100,
                                     speedOfLight = 200.0,
                                     sameLocation = 1,
@@ -95,6 +104,7 @@ fun main() {
                                     } else {
                                         0
                                     },
+                                    sequentialRun = 1,
                                     cooperationLength = cooperationLength,
                                     numPreSelectedFirm = numPreSelectedFirm,
                                 )
@@ -108,6 +118,10 @@ fun main() {
                             dfList.add(
                                 knowledgeDynamicsSingleRun(
                                     mechanismCollectionName = ABMKnowledgeDynamicsTestMechanismLists.name(),
+                                    numStep = 10000,
+                                    xDim = 1,
+                                    yDim = 1,
+                                    zDim = 1,
                                     numPlayer = 100,
                                     speedOfLight = 200.0,
                                     sameLocation = 1,
@@ -122,6 +136,7 @@ fun main() {
                                     } else {
                                         0
                                     },
+                                    sequentialRun = 1,
                                     cooperationLength = cooperationLength,
                                     numPreSelectedFirm = numPreSelectedFirm,
                                 )
@@ -139,5 +154,5 @@ fun main() {
     val df = dfList.concat()
 
     File("data").mkdirs()
-    df.writeCSV("./data/KDScanTest3.csv", CSVFormat.DEFAULT.withDelimiter('|'))
+    df.writeCSV("./data/KDScanTest4.csv", CSVFormat.DEFAULT.withDelimiter('|'))
 }

@@ -1,12 +1,12 @@
-package relativitization.abm
+package relativitization.knowledge
 
 import org.apache.commons.csv.CSVFormat
 import org.jetbrains.kotlinx.dataframe.DataFrame
 import org.jetbrains.kotlinx.dataframe.api.concat
 import org.jetbrains.kotlinx.dataframe.io.writeCSV
-import relativitization.universe.data.components.PreSelectionStrategy
-import relativitization.universe.data.components.SelectionStrategy
-import relativitization.universe.mechanisms.ABMKnowledgeDynamicsTestMechanismLists
+import relativitization.universe.knowledge.data.components.PreSelectionStrategy
+import relativitization.universe.knowledge.data.components.SelectionStrategy
+import relativitization.universe.knowledge.mechanisms.ABMKnowledgeDynamicsTestMechanismLists
 import java.io.File
 
 fun main() {
@@ -45,7 +45,7 @@ fun main() {
         SelectionStrategy.HOMOPHILY,
     )
 
-    val numPreSelectedFirm = 30
+    val numPreSelectedFirm = 5
 
     for (cooperationLength in cooperationLengthList) {
         for (preSelectionStrategy in preSelectionStrategyList) {
@@ -139,5 +139,5 @@ fun main() {
     val df = dfList.concat()
 
     File("data").mkdirs()
-    df.writeCSV("./data/KDScanTest2.csv", CSVFormat.DEFAULT.withDelimiter('|'))
+    df.writeCSV("./data/KDScanTest3.csv", CSVFormat.DEFAULT.withDelimiter('|'))
 }

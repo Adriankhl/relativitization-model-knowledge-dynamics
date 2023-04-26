@@ -1,4 +1,4 @@
-package relativitization.universe.mechanisms.knowledge
+package relativitization.universe.knowledge.mechanisms.components
 
 import relativitization.universe.core.data.MutablePlayerData
 import relativitization.universe.core.data.UniverseData3DAtPlayer
@@ -11,11 +11,11 @@ import relativitization.universe.core.maths.physics.MutableInt4D
 import relativitization.universe.core.maths.sampling.WeightedSample
 import relativitization.universe.core.mechanisms.Mechanism
 import relativitization.universe.core.utils.RelativitizationLogManager
-import relativitization.universe.data.commands.AskCooperationCommand
-import relativitization.universe.data.components.MutableCooperation
-import relativitization.universe.data.components.PreSelectionStrategy
-import relativitization.universe.data.components.SelectionStrategy
-import relativitization.universe.data.components.abmKnowledgeDynamicsData
+import relativitization.universe.knowledge.data.commands.AskCooperationCommand
+import relativitization.universe.knowledge.data.components.MutableCooperation
+import relativitization.universe.knowledge.data.components.PreSelectionStrategy
+import relativitization.universe.knowledge.data.components.SelectionStrategy
+import relativitization.universe.knowledge.data.components.abmKnowledgeDynamicsData
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.random.Random

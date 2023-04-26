@@ -1,4 +1,4 @@
-package relativitization.universe.data.components
+package relativitization.universe.knowledge.data.components
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
