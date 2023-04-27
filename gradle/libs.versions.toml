@@ -30,12 +30,12 @@ dataframeVersion = "0.10.0"
 dataframe = { module = "org.jetbrains.kotlinx:dataframe", version.ref = "dataframeVersion" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlinVersion" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationVersion" }
-ksergen-annotations = { module = "com.github.adriankhl.ksergen:ksergen-annotations", version.ref = "ksergenVersion" }
-ksergen-ksp = { module = "com.github.adriankhl.ksergen:ksergen-ksp", version.ref = "ksergenVersion" }
+ksergen-annotations = { module = "io.github.adriankhl:ksergen-annotations", version.ref = "ksergenVersion" }
+ksergen-ksp = { module = "io.github.adriankhl:ksergen-ksp", version.ref = "ksergenVersion" }
 log4j-api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "log4jVersion" }
 log4j-core = { module = "org.apache.logging.log4j:log4j-core", version.ref = "log4jVersion" }
 log4j-slf4j2-impl = { module = "org.apache.logging.log4j:log4j-slf4j2-impl", version.ref = "log4jVersion" }
-relativitization-core = { module = "com.github.adriankhl.relativitization:relativitization-core", version.ref = "relativitizationVersion" }
+relativitization-core = { module = "io.github.adriankhl:relativitization-core", version.ref = "relativitizationVersion" }
 
 [plugins]
 ben-manes-versions = { id = "com.github.ben-manes.versions", version.ref = "gradleVersionPluginVersion" }
