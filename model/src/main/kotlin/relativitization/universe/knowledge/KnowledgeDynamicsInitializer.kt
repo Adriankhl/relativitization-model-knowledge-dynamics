@@ -1,6 +1,6 @@
 package relativitization.universe.knowledge
 
-import ksergen.serializers.module.GeneratedModule
+import ksergen.GeneratedModule
 import relativitization.universe.core.RelativitizationInitializer
 import relativitization.universe.knowledge.generate.ABMKnowledgeDynamicsGenerate
 import relativitization.universe.knowledge.mechanisms.ABMKnowledgeDynamicsMechanismLists
