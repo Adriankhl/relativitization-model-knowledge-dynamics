@@ -20,8 +20,6 @@ dependencies {
     implementation(project(":model"))
 
     implementation(libs.relativitization.core)
-    implementation(libs.kotlin.reflect)
-    implementation(libs.log4j.core)
     implementation(libs.dataframe)
 }
 

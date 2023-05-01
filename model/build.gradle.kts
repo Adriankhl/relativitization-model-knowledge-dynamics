@@ -12,10 +12,7 @@ dependencies {
 
     implementation(libs.relativitization.core)
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.kotlin.reflect)
     implementation(libs.ksergen.annotations)
-    implementation(libs.log4j.api)
-    implementation(libs.log4j.core)
 }
 
 kotlin {
